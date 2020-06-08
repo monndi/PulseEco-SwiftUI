@@ -5,13 +5,104 @@
 //  Created by Monika Dimitrova on 5/28/20.
 //  Copyright © 2020 Monika Dimitrova. All rights reserved.
 //
-
+import MapKit
 import SwiftUI
 
+let UIWidthScreen = UIScreen.main.bounds.width
+
 struct ContentView: View {
+    
+    @Environment(\.managedObjectContext) var moc
+    var list = ["PM10", "PM25", "Noise", "Temperture", "Humidity", "Pressure", "NO2", "O3"]
+    @State private var index: Int = 0
+    @State private var selectedItem: String = "PM10"
+    @State private var showDisclaimerScreen = false
+    @State private var locaitonClicked = false
+    @State var cityName: String = ""
+    @State var city: City = cities1[1]
     var body: some View {
-        Text("Hello, World!")
+        ZStack(alignment: .top) {
+            NavigationView {
+                VStack {
+                    ScrollView (.horizontal, showsIndicators: false) {
+                        HStack {
+                            ForEach(list, id: \.self) { item in
+                                
+                                VStack {
+                                    HeaderTabButton(title: item, selectedItem: self.$selectedItem)
+                                    
+                                }
+                                
+                            }
+                        }
+                        
+                    }.background(Color.white.shadow(color: Color.gray, radius: 5, x: 0, y: 0))
+                    
+                    ZStack {
+                        
+                        VStack {
+                            MapView(coordinate:  city.locationCoordinate)
+                                .edgesIgnoringSafeArea(.all)
+                            
+                            
+                        }
+                        
+                        VStack(alignment: .trailing) {
+                            Spacer()
+                            HStack {
+                                Spacer()
+                                
+                                RoundedRectangle(cornerRadius: 5, style: .continuous)
+                                    .fill(Color(UIColor.lightGray))
+                                    .frame(width: 220, height: 25)
+                                    .overlay(Text("Crowdsourced sensor data")
+                                        .foregroundColor(Color.white)
+                                )
+                                    .padding(.bottom, 35)
+                                    .onTapGesture {
+                                        self.showDisclaimerScreen.toggle()
+                                }
+                                
+                            }.padding(.trailing, 15)
+                            
+                        }
+                        AverageView()
+                        VStack {
+                            if locaitonClicked == true {
+                                CityList(locationClicked: self.$locaitonClicked, cityName: self.$cityName, city: self.$city).opacity(0.9)
+                            }
+                        }
+                    }
+                }
+                .navigationBarTitle("", displayMode: .inline)
+                .navigationBarItems(leading: Button(action: {
+                    self.locaitonClicked = true
+                    
+                }) {
+                    
+                    Text(self.locaitonClicked ? "" : city.name)
+                        .bold()
+                    
+                    
+                }.accentColor(Color.black), trailing: Image(uiImage: UIImage(named: "logo-pulse")!).imageScale(.large).padding(.trailing, (UIWidthScreen)/2.6).onTapGesture {
+                    //action
+                    }
+                )
+                    .sheet(isPresented: $showDisclaimerScreen) {
+                        CrowdSourcedSensorData().environment(\.managedObjectContext, self.moc)
+                }
+                
+            }
+            ZStack {
+                if self.locaitonClicked {
+                    SearchView(cityName: self.$cityName).padding(.top, 0)
+                }
+            }
+        }
+        
+        
     }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
@@ -19,3 +110,23 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
+
+//                                            Button(action: {
+//                                          self.index = self.list.firstIndex(of: item)!
+//                                      }) {
+//                                          Text("\(item)")
+//
+//      //                                        .underline(self.index == self.list.firstIndex(of: item), color: Color.purple)
+//
+//                                      }
+//                                          .accentColor(Color.black)
+//                                          .padding([.top, .leading, .trailing], 10)
+//
+//                                         // if self.index == self.list.firstIndex(of: item) {
+//                                              Rectangle()
+//                                                .frame(height: 3.0, alignment: .bottom)
+//                                                  .foregroundColor(self.index == self.list.firstIndex(of: item) ? Color.purple : Color.white)
+//
+//                                         // }
+//

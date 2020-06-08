@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5916979A2486346A002E2C27 /* PinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591697992486346A002E2C27 /* PinView.swift */; };
+		598C08D92487D66A00CBB899 /* CityRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598C08D82487D66A00CBB899 /* CityRow.swift */; };
+		598C08DB2487E35300CBB899 /* CityList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598C08DA2487E35300CBB899 /* CityList.swift */; };
 		59A4F68F247FD2150089D523 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A4F68E247FD2150089D523 /* AppDelegate.swift */; };
 		59A4F691247FD2150089D523 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A4F690247FD2150089D523 /* SceneDelegate.swift */; };
 		59A4F693247FD2150089D523 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A4F692247FD2150089D523 /* ContentView.swift */; };
@@ -15,6 +18,12 @@
 		59A4F69B247FD2160089D523 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59A4F699247FD2160089D523 /* LaunchScreen.storyboard */; };
 		59A4F6A6247FD2160089D523 /* PulseEcoSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A4F6A5247FD2160089D523 /* PulseEcoSwiftUITests.swift */; };
 		59A4F6B1247FD2160089D523 /* PulseEcoSwiftUIUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A4F6B0247FD2160089D523 /* PulseEcoSwiftUIUITests.swift */; };
+		59D4FA972484E3950054E7D2 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D4FA962484E3950054E7D2 /* MapView.swift */; };
+		59D4FA992485268E0054E7D2 /* CrowdSourcedSensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D4FA982485268E0054E7D2 /* CrowdSourcedSensorData.swift */; };
+		59EB8E282488E4F600719EA7 /* HeaderTabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59EB8E272488E4F600719EA7 /* HeaderTabButton.swift */; };
+		59EB8E2A2488FB3900719EA7 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59EB8E292488FB3900719EA7 /* SearchView.swift */; };
+		59EB8E2E2489141800719EA7 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59EB8E2D2489141800719EA7 /* Data.swift */; };
+		59EB8E302489261100719EA7 /* AverageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59EB8E2F2489261100719EA7 /* AverageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +44,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		591697992486346A002E2C27 /* PinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinView.swift; sourceTree = "<group>"; };
+		598C08D82487D66A00CBB899 /* CityRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityRow.swift; sourceTree = "<group>"; };
+		598C08DA2487E35300CBB899 /* CityList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityList.swift; sourceTree = "<group>"; };
 		59A4F68B247FD2150089D523 /* PulseEcoSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PulseEcoSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		59A4F68E247FD2150089D523 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		59A4F690247FD2150089D523 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +61,12 @@
 		59A4F6AC247FD2160089D523 /* PulseEcoSwiftUIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PulseEcoSwiftUIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		59A4F6B0247FD2160089D523 /* PulseEcoSwiftUIUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseEcoSwiftUIUITests.swift; sourceTree = "<group>"; };
 		59A4F6B2247FD2160089D523 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		59D4FA962484E3950054E7D2 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		59D4FA982485268E0054E7D2 /* CrowdSourcedSensorData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdSourcedSensorData.swift; sourceTree = "<group>"; };
+		59EB8E272488E4F600719EA7 /* HeaderTabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTabButton.swift; sourceTree = "<group>"; };
+		59EB8E292488FB3900719EA7 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		59EB8E2D2489141800719EA7 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		59EB8E2F2489261100719EA7 /* AverageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AverageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +117,7 @@
 		59A4F68D247FD2150089D523 /* PulseEcoSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				59D4FA952484E37B0054E7D2 /* Views */,
 				59A4F68E247FD2150089D523 /* AppDelegate.swift */,
 				59A4F690247FD2150089D523 /* SceneDelegate.swift */,
 				59A4F692247FD2150089D523 /* ContentView.swift */,
@@ -106,6 +125,7 @@
 				59A4F699247FD2160089D523 /* LaunchScreen.storyboard */,
 				59A4F69C247FD2160089D523 /* Info.plist */,
 				59A4F696247FD2160089D523 /* Preview Content */,
+				59EB8E2D2489141800719EA7 /* Data.swift */,
 			);
 			path = PulseEcoSwiftUI;
 			sourceTree = "<group>";
@@ -134,6 +154,21 @@
 				59A4F6B2247FD2160089D523 /* Info.plist */,
 			);
 			path = PulseEcoSwiftUIUITests;
+			sourceTree = "<group>";
+		};
+		59D4FA952484E37B0054E7D2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				598C08D82487D66A00CBB899 /* CityRow.swift */,
+				59D4FA962484E3950054E7D2 /* MapView.swift */,
+				59D4FA982485268E0054E7D2 /* CrowdSourcedSensorData.swift */,
+				591697992486346A002E2C27 /* PinView.swift */,
+				598C08DA2487E35300CBB899 /* CityList.swift */,
+				59EB8E272488E4F600719EA7 /* HeaderTabButton.swift */,
+				59EB8E292488FB3900719EA7 /* SearchView.swift */,
+				59EB8E2F2489261100719EA7 /* AverageView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,9 +302,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59D4FA992485268E0054E7D2 /* CrowdSourcedSensorData.swift in Sources */,
 				59A4F68F247FD2150089D523 /* AppDelegate.swift in Sources */,
+				598C08D92487D66A00CBB899 /* CityRow.swift in Sources */,
+				598C08DB2487E35300CBB899 /* CityList.swift in Sources */,
+				59EB8E302489261100719EA7 /* AverageView.swift in Sources */,
+				5916979A2486346A002E2C27 /* PinView.swift in Sources */,
+				59D4FA972484E3950054E7D2 /* MapView.swift in Sources */,
+				59EB8E2E2489141800719EA7 /* Data.swift in Sources */,
 				59A4F691247FD2150089D523 /* SceneDelegate.swift in Sources */,
 				59A4F693247FD2150089D523 /* ContentView.swift in Sources */,
+				59EB8E2A2488FB3900719EA7 /* SearchView.swift in Sources */,
+				59EB8E282488E4F600719EA7 /* HeaderTabButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,13 +480,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"PulseEcoSwiftUI/Preview Content\"";
+				DEVELOPMENT_TEAM = LAA69LK8PF;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PulseEcoSwiftUI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.PulseEcoSwiftUI;
+				PRODUCT_BUNDLE_IDENTIFIER = com.netcetera.PulseEcoSwiftUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -455,13 +500,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"PulseEcoSwiftUI/Preview Content\"";
+				DEVELOPMENT_TEAM = LAA69LK8PF;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PulseEcoSwiftUI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.PulseEcoSwiftUI;
+				PRODUCT_BUNDLE_IDENTIFIER = com.netcetera.PulseEcoSwiftUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
