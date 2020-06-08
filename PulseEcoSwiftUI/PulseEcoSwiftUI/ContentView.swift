@@ -16,10 +16,11 @@ struct ContentView: View {
     var list = ["PM10", "PM25", "Noise", "Temperture", "Humidity", "Pressure", "NO2", "O3"]
     @State private var index: Int = 0
     @State private var selectedItem: String = "PM10"
-    @State private var showDisclaimerScreen = false
+    @State private var showDisclaimerView = false
     @State private var locaitonClicked = false
     @State var cityName: String = ""
     @State var city: City = cities1[1]
+    @State var showDetailedView = false
     var body: some View {
         ZStack(alignment: .top) {
             NavigationView {
@@ -41,7 +42,7 @@ struct ContentView: View {
                     ZStack {
                         
                         VStack {
-                            MapView(coordinate:  city.locationCoordinate)
+                            MapView(coordinate:  city.locationCoordinate, showDetails: self.$showDetailedView)
                                 .edgesIgnoringSafeArea(.all)
                             
                             
@@ -60,7 +61,7 @@ struct ContentView: View {
                                 )
                                     .padding(.bottom, 35)
                                     .onTapGesture {
-                                        self.showDisclaimerScreen.toggle()
+                                        self.showDisclaimerView.toggle()
                                 }
                                 
                             }.padding(.trailing, 15)
@@ -71,6 +72,9 @@ struct ContentView: View {
                             if locaitonClicked == true {
                                 CityList(locationClicked: self.$locaitonClicked, cityName: self.$cityName, city: self.$city).opacity(0.9)
                             }
+                        }
+                        if showDetailedView == true {
+                            SensorDetailedView()
                         }
                     }
                 }
@@ -88,7 +92,7 @@ struct ContentView: View {
                     //action
                     }
                 )
-                    .sheet(isPresented: $showDisclaimerScreen) {
+                    .sheet(isPresented: $showDisclaimerView) {
                         CrowdSourcedSensorData().environment(\.managedObjectContext, self.moc)
                 }
                 

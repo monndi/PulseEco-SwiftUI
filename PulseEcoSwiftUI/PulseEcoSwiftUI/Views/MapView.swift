@@ -26,8 +26,9 @@ class Pin: NSObject, MKAnnotation {
             return .purple
         }
     }
-    var coordinate: CLLocationCoordinate2D
     
+    var coordinate: CLLocationCoordinate2D
+   
     init(title: String?, value: Int?, coordinate: CLLocationCoordinate2D) {
         self.title = title
         self.value = value
@@ -46,11 +47,20 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
+        let button = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
+        button.backgroundColor = .black
+        button.setTitle("Show/Hide", for: .normal)
+        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        
+        
+        
         let annotatonView = MKAnnotationView(annotation: annotation, reuseIdentifier: "customView")
+      
         
         annotatonView.canShowCallout = true
         annotatonView.image = UIImage(named: "marker")?.withTintColor(UIColor.red)
         annotatonView.calloutOffset = CGPoint(x: -5, y: 5)
+        annotatonView.rightCalloutAccessoryView = button
         return annotatonView
 
 //        guard let annotation = annotation as? Pin else {
@@ -71,15 +81,21 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
 //
 //       }
 //         return view
+        
     }
+   @objc func buttonAction(sender: UIButton!) {
+    mapViewController.showDetails.toggle()
+   }
+   
   
 }
 
 struct MapView: UIViewRepresentable {
     
     var coordinate: CLLocationCoordinate2D
+    @Binding var showDetails: Bool
     
-    var pins = [Pin(title: "Pin1", value: 5, coordinate: CLLocationCoordinate2D(latitude: 34.011286, longitude: -116.166868)), Pin(title: "Pin2", value: 13, coordinate: CLLocationCoordinate2D(latitude: 35.013333, longitude: -116.17358))]
+    var pins = [Pin(title: "Pin1", value: 5, coordinate: CLLocationCoordinate2D(latitude: 34.011286, longitude: -116.166868)), Pin(title: "Pin2", value: 13, coordinate: CLLocationCoordinate2D(latitude: 35.013333, longitude: -116.17358)), Pin(title: "Skopje", value: 6, coordinate: CLLocationCoordinate2D(latitude: 41.998, longitude: 21.4254)), Pin(title: "Bitola", value: 13, coordinate: CLLocationCoordinate2D(latitude: 34.011286, longitude: -116.166868))]
     
     
     func makeCoordinator() -> MapViewCoordinator {
@@ -122,6 +138,6 @@ struct MapView: UIViewRepresentable {
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView(coordinate: CLLocationCoordinate2D())
+        MapView(coordinate: CLLocationCoordinate2D(), showDetails: .constant(false))
     }
 }

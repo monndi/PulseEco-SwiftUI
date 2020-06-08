@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		591547B7248E5FB10053A103 /* SensorDetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591547B6248E5FB10053A103 /* SensorDetailedView.swift */; };
 		5916979A2486346A002E2C27 /* PinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591697992486346A002E2C27 /* PinView.swift */; };
 		598C08D92487D66A00CBB899 /* CityRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598C08D82487D66A00CBB899 /* CityRow.swift */; };
 		598C08DB2487E35300CBB899 /* CityList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598C08DA2487E35300CBB899 /* CityList.swift */; };
@@ -44,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		591547B6248E5FB10053A103 /* SensorDetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorDetailedView.swift; sourceTree = "<group>"; };
 		591697992486346A002E2C27 /* PinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinView.swift; sourceTree = "<group>"; };
 		598C08D82487D66A00CBB899 /* CityRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityRow.swift; sourceTree = "<group>"; };
 		598C08DA2487E35300CBB899 /* CityList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityList.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				59EB8E272488E4F600719EA7 /* HeaderTabButton.swift */,
 				59EB8E292488FB3900719EA7 /* SearchView.swift */,
 				59EB8E2F2489261100719EA7 /* AverageView.swift */,
+				591547B6248E5FB10053A103 /* SensorDetailedView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 				59EB8E302489261100719EA7 /* AverageView.swift in Sources */,
 				5916979A2486346A002E2C27 /* PinView.swift in Sources */,
 				59D4FA972484E3950054E7D2 /* MapView.swift in Sources */,
+				591547B7248E5FB10053A103 /* SensorDetailedView.swift in Sources */,
 				59EB8E2E2489141800719EA7 /* Data.swift in Sources */,
 				59A4F691247FD2150089D523 /* SceneDelegate.swift in Sources */,
 				59A4F693247FD2150089D523 /* ContentView.swift in Sources */,
