@@ -41,15 +41,15 @@ struct Coordinates: Hashable, Codable {
 
 struct CityRow: View {
     
-    var city: City
+    var city: CityModel
     
     var body: some View {
         VStack {
             HStack {
                 VStack(alignment: .leading){
-                    Text(city.name).font(.headline)
-                    Text(city.country).padding(.top, 2)
-                    Text(city.description).padding(.top, 2)
+                    Text(city.siteName).font(.headline)
+                    Text(city.countryName).padding(.top, 2)
+                    Text(city.siteTitle).padding(.top, 2)
                 }
                 Spacer()
                 RoundedRectangle(cornerRadius: 10, style: .continuous)
@@ -62,18 +62,16 @@ struct CityRow: View {
             }
             .padding([.leading, .top, .trailing], 10)
             .frame(height: 90)
-            
-            Rectangle()
-                .frame(height: 1.0, alignment: .bottom)
-                .foregroundColor(Color(UIColor.lightGray))
+            Divider()
+
         }
         
     }
 }
 
-struct CityRow_Previews: PreviewProvider {
-    static var previews: some View {
-        CityRow(city: City(id: 1, name: "name", coordinates: Coordinates(latitude: 2.0, longitude: 2.0), country: "country", description: "desscription"))
-        
-    }
-}
+//struct CityRow_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CityRow(city: CityModel(id: 1, name: "name", coordinates: Coordinates(latitude: 2.0, longitude: 2.0), country: "country", description: "desscription"))
+//
+//    }
+//}

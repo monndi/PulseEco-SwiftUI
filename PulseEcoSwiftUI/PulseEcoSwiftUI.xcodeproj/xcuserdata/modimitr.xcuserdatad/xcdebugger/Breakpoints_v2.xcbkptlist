@@ -14,9 +14,185 @@
             filePath = "PulseEcoSwiftUI/Views/MapView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
             landmarkName = "updateUIView(_:context:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C00DD3B8-7783-4209-B897-CF529B1049A4"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PulseEcoSwiftUI/Views/MapView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
+            landmarkName = "updateUIView(_:context:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "643EF2CF-A294-4607-B99B-C84036353FC4"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PulseEcoSwiftUI/Views/MapView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
+            landmarkName = "updateUIView(_:context:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BCDDA90F-74A1-4CCD-B650-8890733D1581"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PulseEcoSwiftUI/Views/MapView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
+            landmarkName = "updateUIView(_:context:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "BCDDA90F-74A1-4CCD-B650-8890733D1581 - aa9ee10f97c90a08"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PulseEcoSwiftUI.MapView.updateUIView(_: __C.MKMapView, context: SwiftUI.UIViewRepresentableContext&lt;PulseEcoSwiftUI.MapView&gt;) -&gt; ()"
+                  moduleName = "PulseEcoSwiftUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/modimitr/workspace/PulseEcoSwiftUI/PulseEcoSwiftUI/PulseEcoSwiftUI/Views/MapView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "134"
+                  endingLineNumber = "134"
+                  offsetFromSymbolStart = "1072">
+               </Location>
+               <Location
+                  uuid = "BCDDA90F-74A1-4CCD-B650-8890733D1581 - d8805e1fe9c2fb90"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (PulseEcoSwiftUI.SensorModel) -&gt; PulseEcoSwiftUI.Pin in PulseEcoSwiftUI.MapView.updateUIView(_: __C.MKMapView, context: SwiftUI.UIViewRepresentableContext&lt;PulseEcoSwiftUI.MapView&gt;) -&gt; ()"
+                  moduleName = "PulseEcoSwiftUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/modimitr/workspace/PulseEcoSwiftUI/PulseEcoSwiftUI/PulseEcoSwiftUI/Views/MapView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "136"
+                  endingLineNumber = "136"
+                  offsetFromSymbolStart = "50">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6E2B4EC2-0367-4BFE-8C85-3EF0DBA5F190"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PulseEcoSwiftUI/Views/MapView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "196"
+            endingLineNumber = "196"
+            landmarkName = "didRecievedData(data:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "75ECD7F7-4C24-4E16-9D8B-925BDCE99AC5"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PulseEcoSwiftUI/ViewModels/MeasureModelView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "init()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "75ECD7F7-4C24-4E16-9D8B-925BDCE99AC5 - 9fb967d1f3ce210f"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PulseEcoSwiftUI.MeasureModelView.init() -&gt; PulseEcoSwiftUI.MeasureModelView"
+                  moduleName = "PulseEcoSwiftUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/modimitr/workspace/PulseEcoSwiftUI/PulseEcoSwiftUI/PulseEcoSwiftUI/ViewModels/MeasureModelView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "234">
+               </Location>
+               <Location
+                  uuid = "75ECD7F7-4C24-4E16-9D8B-925BDCE99AC5 - 3c838a46c7de8f52"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Array&lt;PulseEcoSwiftUI.Measure&gt;) -&gt; () in PulseEcoSwiftUI.MeasureModelView.init() -&gt; PulseEcoSwiftUI.MeasureModelView"
+                  moduleName = "PulseEcoSwiftUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/modimitr/workspace/PulseEcoSwiftUI/PulseEcoSwiftUI/PulseEcoSwiftUI/ViewModels/MeasureModelView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "19"
+                  endingLineNumber = "19"
+                  offsetFromSymbolStart = "42">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A83F3458-01E2-4B23-A3BF-A58FF23297D7"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PulseEcoSwiftUI/Views/ContentView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CC638A43-47AA-4CBF-87DF-B7E3B35E96D8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PulseEcoSwiftUI/ViewModels/MeasureModelView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "init()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

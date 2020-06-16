@@ -14,12 +14,14 @@ let UIHeight = UIScreen.main.bounds.height
 struct SearchView: View {
     @State var showField: Bool = false
     @Binding var cityName: String
+    @State var endEditing: Bool = true
     var body: some View {
         ZStack {
             ZStack(alignment: .leading) {
+                
                 TextField("Enter City Name", text: self.$cityName) {
                     self.searchCity()
-                }.padding(.all, 10)
+                    }.padding(.all, 10)
                     .frame(width: UIWidth - 50, height: 40)
                     .background(Color.white)
                     .cornerRadius(30)
@@ -36,11 +38,14 @@ struct SearchView: View {
                     .onTapGesture {
                         self.showField.toggle()
                         
+                }.onTapGesture {
+                    self.endEditing.toggle()
                 }
             }
         }
     }
     func searchCity(){
+        
     }
 }
 

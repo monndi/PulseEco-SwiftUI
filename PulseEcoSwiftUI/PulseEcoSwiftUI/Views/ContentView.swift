@@ -7,7 +7,7 @@
 //
 import MapKit
 import SwiftUI
-
+import Combine
 let UIWidthScreen = UIScreen.main.bounds.width
 
 struct ContentView: View {
@@ -20,29 +20,42 @@ struct ContentView: View {
     @State private var locaitonClicked = false
     @State var cityName: String = ""
     @State var city: City = cities1[1]
+    @State var cityModel = CityModel(cityName: "skopje", siteName: "Skopje", siteTitle: "Skopje @ CityPulse", siteURL: "https://skopje.pulse.eco", countryCode: "MK", countryName: "Macedonia", cityLocation: CityCoordinates(latitude: "42.0016", longitute: "21.4302"), cityBorderPoints :[], intialZoomLevel: 12)
+    
     @State var showDetailedView = false
+    @ObservedObject var networkManager = NetworkManager()
+    @State var sensorValues = [String]()
+    var cityList = CityListViewModel()
+    @ObservedObject var measures = MeasureModelView()
+
     var body: some View {
         ZStack(alignment: .top) {
             NavigationView {
                 VStack {
                     ScrollView (.horizontal, showsIndicators: false) {
                         HStack {
-                            ForEach(list, id: \.self) { item in
+                            ForEach(measures.measures, id: \.id) { item in
                                 
                                 VStack {
-                                    HeaderTabButton(title: item, selectedItem: self.$selectedItem)
+                         
+                                    HeaderTabButton(title: item.buttonTitle, selectedItem: self.$selectedItem)
+                                    
                                     
                                 }
+                                
                                 
                             }
                         }
                         
-                    }.background(Color.white.shadow(color: Color.gray, radius: 5, x: 0, y: 0))
+                        }.background(Color.white.shadow(color: Color.gray, radius: 5, x: 0, y: 0))
+                    
+                        
                     
                     ZStack {
                         
                         VStack {
-                            MapView(coordinate:  city.locationCoordinate, showDetails: self.$showDetailedView)
+                            
+                            MapView(coordinate: cityModel.cityLocation, cityModel: cityModel, showDetails: self.$showDetailedView, sensors: [SensorModel](), networkManager: self.networkManager, sensorValues: self.$sensorValues)
                                 .edgesIgnoringSafeArea(.all)
                             
                             
@@ -67,10 +80,10 @@ struct ContentView: View {
                             }.padding(.trailing, 15)
                             
                         }
-                        AverageView()
+                        AverageView(cityModel: self.$cityModel, cityOverallValues: self.$networkManager.cityOverallValues)
                         VStack {
                             if locaitonClicked == true {
-                                CityList(locationClicked: self.$locaitonClicked, cityName: self.$cityName, city: self.$city).opacity(0.9)
+                                CityList(locationClicked: self.$locaitonClicked, cityName: self.$cityName, cityModel: self.$cityModel, cityList: self.cityList.cityList).opacity(0.9)
                             }
                         }
                         if showDetailedView == true {
@@ -84,8 +97,11 @@ struct ContentView: View {
                     
                 }) {
                     
-                    Text(self.locaitonClicked ? "" : city.name)
-                        .bold()
+                    Text(self.locaitonClicked ? "" : cityModel.siteName)
+                        .bold().onAppear{
+                            self.networkManager.fetchCityOverallValues(cityName: self.cityModel.cityName)
+                            
+                    }
                     
                     
                 }.accentColor(Color.black), trailing: Image(uiImage: UIImage(named: "logo-pulse")!).imageScale(.large).padding(.trailing, (UIWidthScreen)/2.6).onTapGesture {
@@ -114,9 +130,9 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-
-
-//                                            Button(action: {
+//
+//
+////                                            Button(action: {
 //                                          self.index = self.list.firstIndex(of: item)!
 //                                      }) {
 //                                          Text("\(item)")

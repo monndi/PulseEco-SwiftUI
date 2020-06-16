@@ -12,31 +12,35 @@ struct SubView: View {
     var expanded: Bool
     @Binding var width: CGFloat
     @Binding var height: CGFloat
+    var city: CityOverallValues
+    
     var body: some View {
-     HStack{
+        HStack{
             VStack(alignment: .leading)
             {
-                RoundedRectangle(cornerRadius: 5, style: .continuous).fill(Color(UIColor.green)).frame(width: self.width, height:  20).overlay(Text("Average").font(.headline).foregroundColor(Color.black)
+                RoundedRectangle(cornerRadius: 5, style: .continuous).fill(Color(red: 0.00, green: 0.39, blue: 0.00)).frame(width: self.width, height:  25).overlay(Text("Average").font(.headline).foregroundColor(Color.white)
                 )
                 HStack {
-                    Text("45").font(.system(size: 35)).padding(.leading, 10)
+                    Text(city.values.pm10).font(.system(size: 35)).padding(.leading, 10)
                     Text("m/s").padding(.top, 10)
                     if expanded == true {
-                           Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit.")
+                        Text(city.cityName)
                     }
                 }
                 
                 Spacer()
                 if expanded == true {
+                    
                     RoundedRectangle(cornerRadius: 5, style: .continuous)
-                                  .fill(LinearGradient(
-                                    gradient: .init(colors: [ Color(red: 239.0 / 255, green: 120.0 / 255, blue: 221.0 / 255), Color(red: 239.0 / 255, green: 172.0 / 255, blue: 120.0 / 255)]),
-                                    startPoint: .init(x: 0.5, y: 0),
-                                    endPoint: .init(x: 0.5, y: 0.6)
-                                  )).frame(width: self.width, height: 9)
-                                   
-                               }
-            
+                        .fill(LinearGradient(
+                            gradient: .init(colors: [ Color(red: 239.0 / 255, green: 120.0 / 255, blue: 221.0 / 255), Color(red: 239.0 / 255, green: 172.0 / 255, blue: 120.0 / 255)]),
+                            startPoint: .init(x: 0.5, y: 0),
+                            endPoint: .init(x: 0.5, y: 0.6)
+                        )).frame(width: self.width, height: 9).overlay(Slider(value: self.$width))
+                    
+                    
+                }
+                
             }.foregroundColor(.white)
             Spacer()
         }.padding(.leading, 8)
@@ -44,31 +48,31 @@ struct SubView: View {
     }
 }
 
-struct AverageView: View {
+struct AverageView: View , NetworkManagerDelegate {
+    
     @State var expanded: Bool = false {
         didSet {
-            if expanded == false {
-                
-                width = 120
-                height = 80
-            }
-            else {
-                width = 380
-                height = 100
-            }
+            
+            width = expanded ? UIWidth - 50 : 120
+            height = expanded ? 110 : 80
         }
         
     }
+    
     @State var width: CGFloat = 120
     @State var height: CGFloat = 80
+    var networkManager = NetworkManager()
+    @Binding var cityModel: CityModel
+    @Binding var cityOverallValues: CityOverallValues
+   
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
                 
                 RoundedRectangle(cornerRadius: 10, style: .continuous)
-                    .fill(Color.green)
+                    .fill(Color(red: 0.00, green: 0.58, blue: 0.20))
                     .frame(width: self.width, height: self.height)
-                    .overlay(SubView(expanded: self.expanded, width: self.$width, height: self.$height))
+                    .overlay(SubView(expanded: self.expanded, width: self.$width, height: self.$height, city: self.cityOverallValues))
                     .padding(.top, 10)
                     .animation(.default)
                     .onTapGesture {
@@ -81,12 +85,25 @@ struct AverageView: View {
             Spacer()
             
             
+        }.onAppear{
+         //   self.networkManager.delegate = self
+            self.networkManager.fetchCityOverallValues(cityName: self.cityModel.cityName)
+
         }
     }
-}
+    
+    func didRecievedData(data: Any) {
+        DispatchQueue.main.async {
+            self.cityOverallValues = data as! CityOverallValues
+        }
 
-struct AverageView_Previews: PreviewProvider {
-    static var previews: some View {
-        AverageView(expanded: false)
     }
+    
+    
 }
+//
+//struct AverageView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AverageView(expanded: false)
+//    }
+//}

@@ -29,8 +29,8 @@ struct SensorDetailedView: View {
                 
             }.background(Color(UIColor.white))
                 .cornerRadius(40)
-                .offset(y: self.showDetails ? 300 : 50)
-                .padding(.top, 250)
+                .offset(y: self.showDetails ? UIHeight/3  : UIHeight/17)
+                .padding(.top, UIHeight/3)
                 .animation(.default)
                 .gesture(
                     DragGesture()
