@@ -10,7 +10,7 @@ import Foundation
 import Combine
 import SwiftUI
 
-final class MeasureModelView:  ObservableObject {
+final class MeasureViewModel:  ObservableObject {
     
     @Published var measures = [Measure]()
     private var cancellable: AnyCancellable?

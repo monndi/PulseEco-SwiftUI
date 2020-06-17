@@ -10,11 +10,12 @@ import Foundation
 import MapKit
 // MARK: - SensorModel
 
-struct SensorModel: Codable {
+struct SensorModel: Codable  {
     var id: String { return sensorID }
     let sensorID, position, comments, type: String
     let description, status: String
-
+  
+    
     enum CodingKeys: String, CodingKey {
         case sensorID = "sensorId"
         case position, comments, type
@@ -24,3 +25,5 @@ struct SensorModel: Codable {
 }
 
 typealias SensorsResult = [SensorModel]
+
+

@@ -2,17 +2,14 @@
 //  SensorDetailedView.swift
 //  PulseEcoSwiftUI
 //
-//  Created by Monika Dimitrova on 6/17/20.
+//  Created by Monika Dimitrova on 6/8/20.
 //  Copyright © 2020 Monika Dimitrova. All rights reserved.
 //
 
 import SwiftUI
 
-
-
 struct SensorDetailedView: View {
     @State var showDetails: Bool = true
-    //@State var sensorClicked: Pin
     var body: some View {
         VStack{
             
@@ -73,3 +70,8 @@ struct DetailTop: View {
     }
 }
 
+struct SensorDetailedView_Previews: PreviewProvider {
+    static var previews: some View {
+        SensorDetailedView()
+    }
+}

@@ -2,7 +2,7 @@
 //  AverageView.swift
 //  PulseEcoSwiftUI
 //
-//  Created by Monika Dimitrova on 6/4/20.
+//  Created by Monika Dimitrova on 6/17/20.
 //  Copyright © 2020 Monika Dimitrova. All rights reserved.
 //
 
@@ -48,7 +48,7 @@ struct SubView: View {
     }
 }
 
-struct AverageView: View , NetworkManagerDelegate {
+struct AverageView: View {
     
     @State var expanded: Bool = false {
         didSet {
@@ -61,9 +61,9 @@ struct AverageView: View , NetworkManagerDelegate {
     
     @State var width: CGFloat = 120
     @State var height: CGFloat = 80
-    var networkManager = NetworkManager()
-    @Binding var cityModel: CityModel
-    @Binding var cityOverallValues: CityOverallValues
+    @ObservedObject var averageVM: AverageVM
+    
+    
    
     var body: some View {
         VStack(alignment: .leading) {
@@ -72,7 +72,7 @@ struct AverageView: View , NetworkManagerDelegate {
                 RoundedRectangle(cornerRadius: 10, style: .continuous)
                     .fill(Color(red: 0.00, green: 0.58, blue: 0.20))
                     .frame(width: self.width, height: self.height)
-                    .overlay(SubView(expanded: self.expanded, width: self.$width, height: self.$height, city: self.cityOverallValues))
+                    .overlay(SubView(expanded: self.expanded, width: self.$width, height: self.$height, city: self.averageVM.cityOverallValues))
                     .padding(.top, 10)
                     .animation(.default)
                     .onTapGesture {
@@ -85,25 +85,10 @@ struct AverageView: View , NetworkManagerDelegate {
             Spacer()
             
             
-        }.onAppear{
-         //   self.networkManager.delegate = self
-            self.networkManager.fetchCityOverallValues(cityName: self.cityModel.cityName)
-
         }
     }
     
-    func didRecievedData(data: Any) {
-        DispatchQueue.main.async {
-            self.cityOverallValues = data as! CityOverallValues
-        }
-
-    }
+  
     
     
 }
-//
-//struct AverageView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AverageView(expanded: false)
-//    }
-//}
