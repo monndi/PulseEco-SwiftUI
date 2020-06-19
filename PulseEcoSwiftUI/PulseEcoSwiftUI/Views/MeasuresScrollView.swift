@@ -10,15 +10,15 @@ import SwiftUI
 
 struct MeasuresScrollView: View {
     
-    @ObservedObject var measures: NavigationBarVM
     
+    var measureListVM: MeasureListVM
     var body: some View {
         ScrollView (.horizontal, showsIndicators: false) {
             HStack {
-                ForEach(measures.measures, id: \.self) { item in
+                ForEach(measureListVM.measures, id: \.id) { item in
                     
                     VStack {
-                        MeasureButtonView(title: item, selectedItem: self.$measures.selectedItem)
+                        MeasureButtonView(measure: item)
                     }
                     
                     
@@ -29,30 +29,29 @@ struct MeasuresScrollView: View {
     }
 }
 
+
 struct MeasureButtonView: View {
-    var title: String
-    @Binding var selectedItem: String
+    var measure: MeasureVM
     
-    var isSelected: Bool {
-        selectedItem == title
-    }
-    
+//
     var body: some View {
-     
-            VStack {
-                
-                Button(action: { self.selectedItem = self.title }) {
-                    Text(self.title).accentColor(Color.black)
-                        .padding([.top, .leading, .trailing], 10)
-                    
-                }
-                Rectangle()
-                    .frame(height: 3.0, alignment: .bottom)
-                    .foregroundColor(self.isSelected ? Color(AppColors.purple) : Color.white)
-                
-                
+        
+        VStack {
+            
+            Button(action:  {
+                //action
+            }) {
+                    Text(measure.title).accentColor(Color.black)
+                    .padding([.top, .leading, .trailing], 10)
                 
             }
+            Rectangle()
+                .frame(height: 3.0, alignment: .bottom)
+                .foregroundColor(measure.underlineColor)
+            
+            
+            
+        }
     }
     
 }

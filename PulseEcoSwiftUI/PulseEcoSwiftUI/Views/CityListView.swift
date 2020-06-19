@@ -10,17 +10,17 @@ import SwiftUI
 import MapKit
 
 struct CityList: View {
-    @Binding var locationClicked: Bool
-    @Binding var cityModel: CityModel
-    @ObservedObject var cityList: CityListVM
+//    @Binding var locationClicked: Bool
+//    @Binding var cityModel: CityModel
+    var cityList: CityListVM
   
     var body: some View {
         
 
         List(cityList.cityList, id: \.id) { city in
             CityRow(city: city).onTapGesture {
-                                self.locationClicked = false
-                                self.cityModel = city
+//                                self.locationClicked = false
+//                                self.cityModel = city
 
                             }.opacity(1.0)
             

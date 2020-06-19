@@ -22,7 +22,7 @@ struct SubView: View {
                 )
                 HStack {
                     Text(city.values.pm10).font(.system(size: 35)).padding(.leading, 10)
-                    Text("m/s").padding(.top, 10)
+                    Text("mq/m3").padding(.top, 10)
                     if expanded == true {
                         Text(city.cityName)
                     }

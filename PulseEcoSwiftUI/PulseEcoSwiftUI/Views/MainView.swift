@@ -13,17 +13,17 @@ struct MainView: View {
     var body: some View {
         NavigationView {
             VStack {
-                MeasuresScrollView(measures: self.navigationBarVM)
+                MeasuresScrollView(measureListVM: MeasureListVM())
                 CityMapView(cityMapVM: CityMapVM(city: navigationBarVM.cityModel), navVM: self.navigationBarVM).edgesIgnoringSafeArea(.all)
                 
-            
+                
             } .navigationBarTitle("", displayMode: .inline)
                 .navigationBarItems(leading: Button(action: {
                     self.navigationBarVM.locationClicked = true
                     
                 }) {
                     
-                    Text(self.navigationBarVM.locationClicked ? "" : self.navigationBarVM.cityModel.cityName)
+                    Text(self.navigationBarVM.cityModel.cityName)
                         .bold()
                     
                     

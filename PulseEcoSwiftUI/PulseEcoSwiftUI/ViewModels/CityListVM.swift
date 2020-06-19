@@ -7,12 +7,38 @@
 //
 
 import Foundation
+import SwiftUI
 
 class CityListVM: ObservableObject {
     
-    @Published var cityList: [CityModel]
+    var cityList: [CityRowVM]
     
     init() {
-        cityList = [CityModel(cityName: "skopje", siteName: "Skopje", siteTitle: "Skopje @ CityPulse", siteURL: "https://skopje.pulse.eco", countryCode: "MK", countryName: "Macedonia", cityLocation: CityCoordinates(latitude: "42.0016", longitute: "21.4302"), cityBorderPoints :[], intialZoomLevel: 12), CityModel(cityName: "bitola", siteName: "Bitola", siteTitle: "Bitola  CityPulse", siteURL: "https://bitola.pulse.eco", countryCode: "MK", countryName: "Macedonia", cityLocation: CityCoordinates(latitude: "52.0016", longitute: "21.4302"), cityBorderPoints :[], intialZoomLevel: 12)]
+        cityList = [CityRowVM(cityName: "Skopje", countryCode: "MK", countryName: "Macedonia", message: "Good air quality", value: "3", measure: "mq/m3"), CityRowVM(cityName: "Bitola", countryCode: "MK", countryName: "Macedonia", message: "Good air quality", value: "3", measure: "mq/m3")]
+        
     }
+}
+
+class CityRowVM: ObservableObject, Identifiable {
+    var id: String { return cityName }
+    var cityName: String
+    var countryCode: String
+    var countryName: String
+    var message: String
+    var value: String
+    var color: Color { return Color(AppColors.green)}
+    var measure: String
+    
+
+    init(cityName: String, countryCode: String, countryName: String, message: String, value: String, measure: String) {
+        self.cityName = cityName
+        self.countryCode = countryCode
+        self.countryName = countryName
+        self.message = message
+        self.value = value
+        self.measure = measure
+        
+    }
+    
+    
 }

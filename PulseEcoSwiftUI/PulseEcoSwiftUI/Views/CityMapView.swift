@@ -14,11 +14,11 @@ struct CityMapView: View {
     
     var body: some View {
         ZStack {
-            MapView(mapVM: MapVM(cityModel: cityMapVM.city), showDetails: self.$cityMapVM.showDetails, sensorCliked: self.$cityMapVM.sensorClicked).edgesIgnoringSafeArea(.all)
+            MapView(mapVM: MapVM(), showSensorDetails: self.$cityMapVM.showSensorDetails, sensorCliked: self.$cityMapVM.sensorClicked).edgesIgnoringSafeArea(.all)
             AverageView(averageVM: AverageVM(cityName: cityMapVM.city.cityName))
-            if cityMapVM.showDetails == true { SensorDetailedView() }
+            if cityMapVM.showSensorDetails == true { SensorDetailedView() }
             if self.navVM.locationClicked == true {
-                CityList(locationClicked: self.$navVM.locationClicked, cityModel: self.$navVM.cityModel, cityList: CityListVM())
+                CityList(cityList: CityListVM())
             }
             
         }

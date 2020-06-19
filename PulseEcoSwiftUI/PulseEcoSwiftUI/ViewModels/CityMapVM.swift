@@ -10,12 +10,12 @@ import Foundation
 
 class CityMapVM: ObservableObject {
     @Published var city: CityModel
-    @Published var showDetails: Bool
-    @Published var sensorClicked: Pin?
+    @Published var showSensorDetails: Bool
+    @Published var sensorClicked: SensorVM?
     
     init(city: CityModel) {
         self.city = city
-        self.showDetails = false
+        self.showSensorDetails = false
         self.sensorClicked = nil
     }
 }
