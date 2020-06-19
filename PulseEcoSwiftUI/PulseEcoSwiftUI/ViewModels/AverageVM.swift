@@ -9,11 +9,13 @@
 import Foundation
 
 class AverageVM: ObservableObject {
-    @Published var city: CityModel
-    @Published var cityOverallValues: CityOverallValues
-    init(cityName: String) {
-        city = CityModel(cityName: "skopje", siteName: "Skopje", siteTitle: "Skopje @ CityPulse", siteURL: "https://skopje.pulse.eco", countryCode: "MK", countryName: "Macedonia", cityLocation: CityCoordinates(latitude: "42.0016", longitute: "21.4302"), cityBorderPoints :[], intialZoomLevel: 12)
-        cityOverallValues = CityOverallValues(cityName: "skopje", values: Values(no2: "28", pm25: "3", o3: "36", pm10: "5", temperature: "23", humidity: "64", pressure: "967", noiseDBA: "51"))
-        
+    var value: String
+    var unit: String
+    var message: String
+    
+    init() {
+        self.value = "5"
+        self.unit = "mq/m3"
+        self.message = "Good air quality. Air quality is considered satisfactory, and air pollution poses little or no risk."
     }
 }

@@ -14,7 +14,7 @@ class CityListVM: ObservableObject {
     var cityList: [CityRowVM]
     
     init() {
-        cityList = [CityRowVM(cityName: "Skopje", countryCode: "MK", countryName: "Macedonia", message: "Good air quality", value: "3", measure: "mq/m3"), CityRowVM(cityName: "Bitola", countryCode: "MK", countryName: "Macedonia", message: "Good air quality", value: "3", measure: "mq/m3")]
+        cityList = [CityRowVM(cityName: "Skopje", countryCode: "MK", countryName: "Macedonia", message: "Good air quality", value: "3", unit: "mq/m3"), CityRowVM(cityName: "Bitola", countryCode: "MK", countryName: "Macedonia", message: "Good air quality", value: "3", unit: "mq/m3")]
         
     }
 }
@@ -27,16 +27,16 @@ class CityRowVM: ObservableObject, Identifiable {
     var message: String
     var value: String
     var color: Color { return Color(AppColors.green)}
-    var measure: String
+    var unit: String
     
 
-    init(cityName: String, countryCode: String, countryName: String, message: String, value: String, measure: String) {
+    init(cityName: String, countryCode: String, countryName: String, message: String, value: String, unit: String) {
         self.cityName = cityName
         self.countryCode = countryCode
         self.countryName = countryName
         self.message = message
         self.value = value
-        self.measure = measure
+        self.unit = unit
         
     }
     

@@ -30,7 +30,7 @@ struct CityRow: View {
                     .frame(width: 80, height: 80)
                     .overlay(VStack {
                         Text(city.value).font(.system(size: 25))
-                        Text(city.measure)
+                        Text(city.unit)
                         
                     })
                     .foregroundColor(Color.white)

@@ -12,7 +12,7 @@ struct SubView: View {
     var expanded: Bool
     @Binding var width: CGFloat
     @Binding var height: CGFloat
-    var city: CityOverallValues
+    var city: AverageVM
     
     var body: some View {
         HStack{
@@ -21,10 +21,10 @@ struct SubView: View {
                 RoundedRectangle(cornerRadius: 5, style: .continuous).fill(Color(red: 0.00, green: 0.39, blue: 0.00)).frame(width: self.width, height:  25).overlay(Text("Average").font(.headline).foregroundColor(Color.white)
                 )
                 HStack {
-                    Text(city.values.pm10).font(.system(size: 35)).padding(.leading, 10)
-                    Text("mq/m3").padding(.top, 10)
+                    Text(city.value).font(.system(size: 35)).padding(.leading, 10)
+                    Text(city.unit).padding(.top, 10)
                     if expanded == true {
-                        Text(city.cityName)
+                        Text(city.message)
                     }
                 }
                 
@@ -56,14 +56,9 @@ struct AverageView: View {
             width = expanded ? UIWidth - 50 : 120
             height = expanded ? 110 : 80
         }
-        
     }
-    
     @State var width: CGFloat = 120
     @State var height: CGFloat = 80
-    @ObservedObject var averageVM: AverageVM
-    
-    
    
     var body: some View {
         VStack(alignment: .leading) {
@@ -72,7 +67,7 @@ struct AverageView: View {
                 RoundedRectangle(cornerRadius: 10, style: .continuous)
                     .fill(Color(red: 0.00, green: 0.58, blue: 0.20))
                     .frame(width: self.width, height: self.height)
-                    .overlay(SubView(expanded: self.expanded, width: self.$width, height: self.$height, city: self.averageVM.cityOverallValues))
+                    .overlay(SubView(expanded: self.expanded, width: self.$width, height: self.$height, city: AverageVM()))
                     .padding(.top, 10)
                     .animation(.default)
                     .onTapGesture {
