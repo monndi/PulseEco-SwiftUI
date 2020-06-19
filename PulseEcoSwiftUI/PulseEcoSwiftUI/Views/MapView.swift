@@ -78,7 +78,7 @@ struct MapView: UIViewRepresentable {
     
     @ObservedObject var mapVM: MapVM
     @Binding var showSensorDetails: Bool
-    @Binding var sensorCliked: SensorVM?
+   
     
     
     func makeCoordinator() -> MapViewCoordinator {

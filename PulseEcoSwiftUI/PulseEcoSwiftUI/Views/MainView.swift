@@ -14,19 +14,14 @@ struct MainView: View {
         NavigationView {
             VStack {
                 MeasuresScrollView(measureListVM: MeasureListVM())
-                CityMapView(cityMapVM: CityMapVM(city: navigationBarVM.cityModel), navVM: self.navigationBarVM).edgesIgnoringSafeArea(.all)
-                
-                
+                CityMapView(cityMapVM: CityMapVM(), locationClicked: self.$navigationBarVM.locationClicked).edgesIgnoringSafeArea(.all)
             } .navigationBarTitle("", displayMode: .inline)
                 .navigationBarItems(leading: Button(action: {
                     self.navigationBarVM.locationClicked = true
                     
                 }) {
-                    
-                    Text(self.navigationBarVM.cityModel.cityName)
+                    Text(self.navigationBarVM.cityName)
                         .bold()
-                    
-                    
                 }.accentColor(Color.black), trailing: Image(uiImage: UIImage(named: "logo-pulse")!).imageScale(.large).padding(.trailing, (UIWidth)/2.6).onTapGesture {
                     //action
                     }

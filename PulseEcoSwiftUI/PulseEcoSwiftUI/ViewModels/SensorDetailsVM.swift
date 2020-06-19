@@ -21,7 +21,7 @@ class SensorDetailsVM {
         self.sensorType = "wifi"
         self.title = "Karposh3"
         self.value = "10"
-        self.unit = "mq/m3"
+        self.unit = "µq/m3"
         self.date = "08.06.20202"
         self.time = "14:10"
         self.image = "star"

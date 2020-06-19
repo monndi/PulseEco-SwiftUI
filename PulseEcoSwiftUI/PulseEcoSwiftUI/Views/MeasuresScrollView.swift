@@ -11,17 +11,14 @@ import SwiftUI
 struct MeasuresScrollView: View {
     
     
-    var measureListVM: MeasureListVM
+    @ObservedObject var measureListVM: MeasureListVM
     var body: some View {
         ScrollView (.horizontal, showsIndicators: false) {
             HStack {
                 ForEach(measureListVM.measures, id: \.id) { item in
-                    
                     VStack {
                         MeasureButtonView(measure: item)
                     }
-                    
-                    
                 }
             }
             
@@ -31,8 +28,7 @@ struct MeasuresScrollView: View {
 
 
 struct MeasureButtonView: View {
-    var measure: MeasureVM
-    
+    @ObservedObject var measure: MeasureVM
 //
     var body: some View {
         
@@ -40,10 +36,10 @@ struct MeasureButtonView: View {
             
             Button(action:  {
                 //action
+                
             }) {
                     Text(measure.title).accentColor(Color.black)
                     .padding([.top, .leading, .trailing], 10)
-                
             }
             Rectangle()
                 .frame(height: 3.0, alignment: .bottom)

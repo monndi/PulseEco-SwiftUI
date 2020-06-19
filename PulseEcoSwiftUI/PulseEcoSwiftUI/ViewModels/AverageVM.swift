@@ -15,7 +15,7 @@ class AverageVM: ObservableObject {
     
     init() {
         self.value = "5"
-        self.unit = "mq/m3"
+        self.unit = "µq/m3"
         self.message = "Good air quality. Air quality is considered satisfactory, and air pollution poses little or no risk."
     }
 }

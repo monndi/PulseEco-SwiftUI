@@ -12,23 +12,24 @@ import SwiftUI
 
 class MeasureListVM: ObservableObject {
     
-    var measures: [MeasureVM]
+    var measures: [MeasureVM] = []
     @Published var selectedMeasure: String
     init(){
-        measures = [MeasureVM(title: "PM10", isSelected: true), MeasureVM(title: "PM25", isSelected: false), MeasureVM(title: "Noise", isSelected: false), MeasureVM(title: "Temperature", isSelected: false), MeasureVM(title: "Humidity", isSelected: false), MeasureVM(title: "Preasure", isSelected: false), MeasureVM(title: "NO2", isSelected: false), MeasureVM(title: "O3", isSelected: false)]
         selectedMeasure = "PM10"
+        self.measures = [MeasureVM(title: "PM10", selectedMeasure: selectedMeasure), MeasureVM(title: "PM25", selectedMeasure: selectedMeasure), MeasureVM(title: "Noise", selectedMeasure: selectedMeasure), MeasureVM(title: "Temperature", selectedMeasure: selectedMeasure), MeasureVM(title: "Humidity", selectedMeasure: selectedMeasure), MeasureVM(title: "Preasure", selectedMeasure: selectedMeasure), MeasureVM(title: "NO2", selectedMeasure: selectedMeasure), MeasureVM(title: "O3", selectedMeasure: selectedMeasure)]
+        
     }
 }
 
-class MeasureVM {
+class MeasureVM: ObservableObject {
     var id: String {return title}
     var title: String
-    var isSelectd: Bool
-    var underlineColor: Color { return isSelectd ? Color(AppColors.purple) : Color.white }
+    var selectedMeasure: String
+    var underlineColor: Color { return selectedMeasure == title ? Color(AppColors.purple) : Color.white }
     
-    init(title: String, isSelected: Bool) {
+    init(title: String, selectedMeasure: String) {
         self.title = title
-        self.isSelectd = isSelected
+        self.selectedMeasure = selectedMeasure
     }
     
 }

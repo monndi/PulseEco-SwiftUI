@@ -10,17 +10,18 @@ import SwiftUI
 
 struct CityMapView: View {
     @ObservedObject var cityMapVM: CityMapVM
-    @ObservedObject var navVM: NavigationBarVM
+    @Binding var locationClicked: Bool
     
     var body: some View {
         ZStack {
-            MapView(mapVM: MapVM(), showSensorDetails: self.$cityMapVM.showSensorDetails, sensorCliked: self.$cityMapVM.sensorClicked).edgesIgnoringSafeArea(.all)
+            MapView(mapVM: MapVM(), showSensorDetails: self.$cityMapVM.showSensorDetails ).edgesIgnoringSafeArea(.all)
             AverageView()
-            if cityMapVM.showSensorDetails == true { SensorDetailedView() }
-            if self.navVM.locationClicked == true {
+            if cityMapVM.showSensorDetails {
+                SensorDetailedView()
+            }
+            if self.locationClicked {
                 CityList(cityList: CityListVM())
             }
-            
         }
     }
 }

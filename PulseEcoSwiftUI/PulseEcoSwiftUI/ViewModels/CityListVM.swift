@@ -14,7 +14,7 @@ class CityListVM: ObservableObject {
     var cityList: [CityRowVM]
     
     init() {
-        cityList = [CityRowVM(cityName: "Skopje", countryCode: "MK", countryName: "Macedonia", message: "Good air quality", value: "3", unit: "mq/m3"), CityRowVM(cityName: "Bitola", countryCode: "MK", countryName: "Macedonia", message: "Good air quality", value: "3", unit: "mq/m3")]
+        cityList = [CityRowVM(cityName: "Skopje", countryCode: "MK", countryName: "Macedonia", message: "Good air quality", value: "3", unit: "µq/m3"), CityRowVM(cityName: "Bitola", countryCode: "MK", countryName: "Macedonia", message: "Good air quality", value: "3", unit: "µq/m3")]
         
     }
 }

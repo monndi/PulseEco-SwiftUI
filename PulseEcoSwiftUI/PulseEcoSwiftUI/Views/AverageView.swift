@@ -54,7 +54,7 @@ struct AverageView: View {
         didSet {
             
             width = expanded ? UIWidth - 50 : 120
-            height = expanded ? 110 : 80
+            height = expanded ? 125 : 80
         }
     }
     @State var width: CGFloat = 120

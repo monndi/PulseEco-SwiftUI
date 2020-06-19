@@ -8,15 +8,14 @@
 import Foundation
 
 class NavigationBarVM: ObservableObject {
-    @Published var cityModel: CityModel
+   
+    var cityName: String
     @Published var locationClicked: Bool
-    @Published var selectedItem: String
-    @Published var measures: [String]
     
-    init(){
-        cityModel = CityModel(cityName: "skopje", siteName: "Skopje", siteTitle: "Skopje @ CityPulse", siteURL: "https://skopje.pulse.eco", countryCode: "MK", countryName: "Macedonia", cityLocation: CityCoordinates(latitude: "42.0016", longitute: "21.4302"), cityBorderPoints :[], intialZoomLevel: 12)
+    init() {
+        cityName = "Skopje"
         locationClicked = false
-        measures = ["PM10", "PM25", "Noise", "Tempreature", "Humidity", "Pressure", "NO2", "O3"]
-        selectedItem = "PM10"
     }
+
 }
+
