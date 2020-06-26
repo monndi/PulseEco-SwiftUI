@@ -10,6 +10,7 @@ import Foundation
 import SwiftUI
 
 class SensorDetailsVM {
+    var sensorID: String
     var sensorType: String
     var title: String
     var value: String
@@ -17,13 +18,15 @@ class SensorDetailsVM {
     var time: String
     var date: String
     var image: String
-    init() {
+    
+    init(sensorID: String) {
+        self.sensorID = sensorID
         self.sensorType = "wifi"
         self.title = "Karposh3"
         self.value = "10"
         self.unit = "µq/m3"
-        self.date = "08.06.20202"
+        self.date = "08.06.2020"
         self.time = "14:10"
-        self.image = "star"
+        self.image = "wifiTypeIcon"
     }
 }

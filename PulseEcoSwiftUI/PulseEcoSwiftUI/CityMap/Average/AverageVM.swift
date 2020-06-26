@@ -7,15 +7,21 @@
 //
 
 import Foundation
+import SwiftUI
 
 class AverageVM: ObservableObject {
-    var value: String
+    var value: String?
     var unit: String
     var message: String
+    var measure: String
+    var cityName: String
+    var clickDisabled: Bool { return value == nil }
     
-    init() {
-        self.value = "5"
-        self.unit = "µq/m3"
+    init(measure: String, cityName: String) {
+        self.value = measure == "PM10" ? "5" : nil
         self.message = "Good air quality. Air quality is considered satisfactory, and air pollution poses little or no risk."
+        self.measure = measure
+        self.unit = measure == "PM10" ? "µq/m3" : "C"
+        self.cityName = cityName
     }
 }

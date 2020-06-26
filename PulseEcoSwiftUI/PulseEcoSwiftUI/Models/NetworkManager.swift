@@ -59,10 +59,7 @@ class NetworkManager: ObservableObject {
                             let results = try decoder.decode(SensorsResult.self, from: safeData)
                             DispatchQueue.main.async {
                                 completion(results)
-                                
                             }
-                            
-                            
                         } catch {
                             print(error)
                         }
@@ -70,7 +67,6 @@ class NetworkManager: ObservableObject {
                 } else {
                     print(error ?? "")
                 }
-                
             }
             task.resume()
             

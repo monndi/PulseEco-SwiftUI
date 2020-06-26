@@ -9,9 +9,8 @@
 import SwiftUI
 
 struct MeasuresScrollView: View {
-    
-    
     @ObservedObject var measureListVM: MeasureListVM
+    
     var body: some View {
         ScrollView (.horizontal, showsIndicators: false) {
             HStack {
@@ -21,33 +20,29 @@ struct MeasuresScrollView: View {
                     }
                 }
             }
-            
-        }.background(Color.white.shadow(color: Color.gray, radius: 5, x: 0, y: 0))
+        }.minimumScaleFactor(0.90)
+            .background(Color(UIColor.white).shadow(color: Color(UIColor(red: 0.87, green: 0.89, blue: 0.92, alpha: 1.00)), radius: 0.8, x: 0, y: 0))
     }
 }
-
 
 struct MeasureButtonView: View {
     @ObservedObject var measure: MeasureVM
-//
+    @EnvironmentObject var appVM: AppVM
+    
     var body: some View {
-        
         VStack {
-            
             Button(action:  {
-                //action
-                
+                self.appVM.selectedMeasure = self.measure.title
             }) {
-                    Text(measure.title).accentColor(Color.black)
-                    .padding([.top, .leading, .trailing], 10)
-            }
+                Text(self.measure.title).accentColor(measure.clickDisabled ? Color.gray : Color.black)
+                    .fixedSize(horizontal: true, vertical: false)
+                    .padding(.horizontal, 8)
+                    .scaledToFit()
+            }.disabled(measure.clickDisabled).padding(.top, 10)
             Rectangle()
-                .frame(height: 3.0, alignment: .bottom)
+                .frame(height: 3.0)
                 .foregroundColor(measure.underlineColor)
-            
-            
-            
         }
     }
-    
 }
+
