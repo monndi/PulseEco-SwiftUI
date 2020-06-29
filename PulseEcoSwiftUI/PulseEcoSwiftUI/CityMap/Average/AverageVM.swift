@@ -16,6 +16,14 @@ class AverageVM: ObservableObject {
     var measure: String
     var cityName: String
     var clickDisabled: Bool { return value == nil }
+    var color: Color {
+        switch Int(value!)! {
+        case 1...25:
+            return Color(red: 0.00, green: 0.58, blue: 0.20)
+        default:
+            return Color(AppColors.blue)
+        }
+    }
     
     init(measure: String, cityName: String) {
         self.value = measure == "PM10" ? "5" : nil
@@ -23,5 +31,8 @@ class AverageVM: ObservableObject {
         self.measure = measure
         self.unit = measure == "PM10" ? "µq/m3" : "C"
         self.cityName = cityName
+        if self.cityName == "Bitola" {
+            self.value = "56"
+        }
     }
 }

@@ -7,7 +7,6 @@ struct SensorDetailedView: View {
     @State var expandedViewSize: CGSize = .zero
     
     var body: some View {
-        
         VStack {
             ChildSizeReader(size: self.$collapsedViewSize) {
                 CollapsedView(sensorDetailsVM: SensorDetailsVM(sensorID: self.appVM.sensorSelected!.sensorID)).padding(.top, 5)
@@ -19,7 +18,8 @@ struct SensorDetailedView: View {
             }
         }.background(RoundedCorners(tl: 40, tr: 40, bl: 0, br: 0).fill(Color(UIColor.white)))
             .offset(y: self.isExpanded ? UIHeight/2 - (self.expandedViewSize.height) + self.collapsedViewSize.height/2 : UIHeight/2 - (self.collapsedViewSize.height))
-            .animation(.easeOut)
+            .animation(.easeIn)
+            .transition(.slide)
             .gesture(
                 DragGesture()
                     .onEnded { value in

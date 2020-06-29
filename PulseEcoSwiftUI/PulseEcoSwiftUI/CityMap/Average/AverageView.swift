@@ -1,131 +1,20 @@
-//
-//  AverageView.swift
-//  PulseEcoSwiftUI
-//
-//  Created by Monika Dimitrova on 6/17/20.
-//  Copyright © 2020 Monika Dimitrova. All rights reserved.
-//
-
 import SwiftUI
 
-struct SubView: View {
-    var expanded: Bool
-    @Binding var width: CGFloat
-    @Binding var height: CGFloat
-    var city: AverageVM
-    var geometry: GeometryProxy
-    
-    var body: some View {
-        HStack{
-            VStack(alignment: .leading, spacing: 3)
-            {
-                //RoundedRectangle(cornerRadius: 5, style: .continuous)
-                RoundedCorners(tl: 5, tr: 5, bl: 0, br: 0).fill(Color(red: 0.00, green: 0.39, blue: 0.00)).frame(width: self.width, height:  25).overlay( Text("Average").foregroundColor(Color.white).padding(.leading, 10), alignment: .leading
-                )
-                HStack(alignment: .center, spacing: 0) {
-                    Text(self.city.value!).font(.system(size: 35)).padding(.leading, 10)
-                    Text(self.city.unit).padding(.top, 15).padding(.leading, 3)
-                    if self.expanded == true {
-                        GeometryReader { geo in
-                            Text(self.city.message).fixedSize(horizontal: false, vertical: true).font(.system(size: geo.size.height / 4.5)).padding(.leading, 10)
-                                //.onAppear{
-//                             self.width = self.geometry.frame(in: .local).midX * 1.8
-//                                        self.height = 120//geo.frame(in: .global).midY * 0.65
-//
-//                            }
-                            //                                .frame(width: geo.frame(in: .global).midX, height: geo.frame(in: .global).midY)
-                          
-//                            .onAppear {
-//                                    self.width = self.geometry.frame(in: .local).midX * 1.8
-//                                  self.height = 120//geo.frame(in: .global).midY * 0.65
-//                            }.onDisappear{
-//                                self.width =  self.geometry.frame(in: .local).midX * 0.7
-//                                self.height = 65//self.geometry.frame(in: .local).midY * 0.25
-//                            }.animation(.default)
-                        }
-                    }
-                }
-                Spacer()
-            }.foregroundColor(.white)
-            Spacer()
-        }.padding(.leading, 8)
-    }
-}
-
 struct AverageView: View {
-    
-    @State var expanded: Bool = false
-//            {
-//            didSet {
-//
-//                width = expanded ? UIWidth - 40 : 125
-//                height = expanded ? 120 : 70
-//            }
-//        }
-    @State var width: CGFloat = 125
-    @State var height: CGFloat = 70
     var averageVM: AverageVM
-    
     var body: some View {
         GeometryReader { geo in
-            VStack(alignment: .leading, spacing: 0) {
-                HStack {
-                    if self.averageVM.clickDisabled == false  {
-                            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                            .fill(Color(red: 0.00, green: 0.58, blue: 0.20))
-                            .frame(width: self.width, height: self.height)
-                            .overlay(SubView(expanded: self.expanded, width: self.$width, height: self.$height, city: self.averageVM, geometry: geo))
-                            .padding(.top, 20)
-                            .animation(.default)
-                            .onTapGesture {
-                                if let _ = self.averageVM.value {
-                                    self.expanded.toggle()
-                                
-                                    self.width = self.expanded ? geo.frame(in: .local).midX * 1.8 : geo.frame(in: .local).midX * 0.7
-                                    self.height = self.expanded ? 120 : 65
-                                }
-                        }
-                    } else {
-                        RoundedRectangle(cornerRadius: 10, style: .continuous)
-                            .fill(Color(AppColors.blue))
-                            .frame(width: geo.frame(in: .local).midX * 0.7, height: 65)
-                            .overlay(DisabledView(width: geo.frame(in: .local).midX * 0.7, height: 65))
-                            .padding(.top, 20)
-                    }
-                    Spacer()
-                }.padding(.leading, 20)
-                Spacer()
-            }.onAppear{
-                self.width = geo.frame(in: .local).midX * 0.7
-                self.height = 65 //geo.frame(in: .local).midY * 0.25
+            VStack {
+                if self.averageVM.clickDisabled {
+                    DisabledView()
+                }
+                else {
+                    ExpandableView(averageVM: self.averageVM, geometry: geo)
+                }
             }
         }
     }
 }
-
-struct DisabledView: View {
-    var width: CGFloat
-    var height: CGFloat
-    var body: some View {
-        HStack{
-            ZStack(alignment: .center)
-            {
-                VStack {
-              //  RoundedRectangle(cornerRadius: 5, style: .continuous)
-                   RoundedCorners(tl: 5, tr: 5, bl: 0, br: 0).fill(Color(AppColors.gray)).frame(width: self.width, height:  25)
-                    Spacer()
-                }
-                VStack(alignment: .center, spacing: 0) {
-                    Image(uiImage: UIImage(named: "exclamation")!).resizable().scaledToFit()
-                    Text("No readings").padding(.bottom, 3)
-                }.padding(.top, 10)
-            //    Spacer()
-            }.foregroundColor(.white)
-            Spacer()
-        }.padding(.leading, 8)
-    }
-}
-
 
 struct RoundedCorners: Shape {
     var tl: CGFloat = 0.0
