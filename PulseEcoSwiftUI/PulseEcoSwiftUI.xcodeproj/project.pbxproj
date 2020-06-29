@@ -13,6 +13,8 @@
 		591642A92499FE9F000A4F7C /* AverageVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591642A82499FE9F000A4F7C /* AverageVM.swift */; };
 		591642D9249A032E000A4F7C /* SensorDetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591642D8249A032E000A4F7C /* SensorDetailedView.swift */; };
 		591642DB249A04F7000A4F7C /* CityMapVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591642DA249A04F7000A4F7C /* CityMapVM.swift */; };
+		592201A724AA3ED300025F1F /* CollapsedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592201A624AA3ED300025F1F /* CollapsedView.swift */; };
+		592201A924AA3F7600025F1F /* ExpandedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592201A824AA3F7600025F1F /* ExpandedView.swift */; };
 		5924C5DA249A4792007E0D78 /* MeasureListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5924C5D9249A4792007E0D78 /* MeasureListVM.swift */; };
 		593D8C9A249A170F006B88AC /* CityListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593D8C99249A170F006B88AC /* CityListView.swift */; };
 		593D8C9C249A171E006B88AC /* CityRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 593D8C9B249A171D006B88AC /* CityRowView.swift */; };
@@ -66,6 +68,8 @@
 		591642A82499FE9F000A4F7C /* AverageVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AverageVM.swift; sourceTree = "<group>"; };
 		591642D8249A032E000A4F7C /* SensorDetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorDetailedView.swift; sourceTree = "<group>"; };
 		591642DA249A04F7000A4F7C /* CityMapVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityMapVM.swift; sourceTree = "<group>"; };
+		592201A624AA3ED300025F1F /* CollapsedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsedView.swift; sourceTree = "<group>"; };
+		592201A824AA3F7600025F1F /* ExpandedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedView.swift; sourceTree = "<group>"; };
 		5924C5D9249A4792007E0D78 /* MeasureListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureListVM.swift; sourceTree = "<group>"; };
 		593D8C99249A170F006B88AC /* CityListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListView.swift; sourceTree = "<group>"; };
 		593D8C9B249A171D006B88AC /* CityRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityRowView.swift; sourceTree = "<group>"; };
@@ -170,6 +174,8 @@
 			children = (
 				591642D8249A032E000A4F7C /* SensorDetailedView.swift */,
 				59F5EFDD249CD62E0095FE71 /* SensorDetailsVM.swift */,
+				592201A624AA3ED300025F1F /* CollapsedView.swift */,
+				592201A824AA3F7600025F1F /* ExpandedView.swift */,
 			);
 			path = SensorDetails;
 			sourceTree = "<group>";
@@ -432,10 +438,12 @@
 				591642A92499FE9F000A4F7C /* AverageVM.swift in Sources */,
 				593D8C9E249A17C1006B88AC /* CityListVM.swift in Sources */,
 				591642A72499FE4C000A4F7C /* AverageView.swift in Sources */,
+				592201A724AA3ED300025F1F /* CollapsedView.swift in Sources */,
 				59F5EFDE249CD62E0095FE71 /* SensorDetailsVM.swift in Sources */,
 				59A3954E24A206F400D39D64 /* AppVM.swift in Sources */,
 				59A4F691247FD2150089D523 /* SceneDelegate.swift in Sources */,
 				59FAD1D22490C27200AC36A5 /* NetworkManager.swift in Sources */,
+				592201A924AA3F7600025F1F /* ExpandedView.swift in Sources */,
 				5966192E2492179500DACF67 /* SensorData.swift in Sources */,
 				591642DB249A04F7000A4F7C /* CityMapVM.swift in Sources */,
 				59FAD1D42490C82600AC36A5 /* CityModel.swift in Sources */,

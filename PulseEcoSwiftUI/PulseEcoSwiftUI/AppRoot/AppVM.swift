@@ -1,5 +1,5 @@
 import Foundation
-
+import SwiftUI
 class AppVM: ObservableObject {
    
     @Published var selectedMeasure: String = "PM10"
