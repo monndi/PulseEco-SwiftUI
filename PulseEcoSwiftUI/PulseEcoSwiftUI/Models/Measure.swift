@@ -7,13 +7,14 @@
 //
 
 import Foundation
+import SwiftUI
 
 // MARK: - WelcomeElement
 struct Measure: Codable, Identifiable {
     
     
     let id, buttonTitle, title, icon: String
-    let welcomeDescription: String
+    let description: String
     let showMin, showMax, legendMin, legendMax: Int
     let unit: String
     let showMessages: Bool
@@ -21,7 +22,7 @@ struct Measure: Codable, Identifiable {
 
     enum CodingKeys: String, CodingKey {
         case id, buttonTitle, title, icon
-        case welcomeDescription = "description"
+        case description
         case showMin, showMax, legendMin, legendMax, unit, showMessages, bands
     }
 }
@@ -31,6 +32,11 @@ struct Band: Codable {
     let from, to, legendPoint: Int
     let legendColor, markerColor, shortGrade, grade: String
     let suggestion: String
+    
+    static func == (lhs: Band, rhs: Band) -> Bool {
+          return lhs.legendPoint == rhs.legendPoint
+      }
 }
 
 typealias Measures = [Measure]
+

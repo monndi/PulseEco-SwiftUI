@@ -13,7 +13,7 @@ struct CityMapView: View {
     //  @ObservedObject var cityMapVM: CityMapVM
     @EnvironmentObject var appVM: AppVM
     @State private var showDisclaimerView = false
-    
+    @EnvironmentObject var dataSource: DataSource
     var body: some View {
         ZStack {
             MapView(mapVM: MapVM(measure: self.appVM.selectedMeasure, cityName: self.appVM.cityName))
@@ -29,6 +29,8 @@ struct CityMapView: View {
                             Rectangle()
                     )
             ).edgesIgnoringSafeArea(.all)
+                .overlay(self.appVM.blurBackground == true ? Color(UIColor(red: 0.34, green: 0.38, blue: 0.44, alpha: 0.8)) : Color.clear)
+                .animation(.default)
             VStack(alignment: .trailing) {
                 Spacer()
                 HStack {
@@ -46,9 +48,9 @@ struct CityMapView: View {
                     
                 }.padding(.trailing, 15)
             }
-            AverageView(averageVM: AverageVM(measure: self.appVM.selectedMeasure, cityName: self.appVM.cityName))
+            AverageView(averageVM: AverageVM(measure: self.appVM.selectedMeasure, cityName: self.appVM.cityName, measuresList: self.dataSource.measures))
             if self.appVM.showSensorDetails {
-                SensorDetailedView()
+                SensorDetailedView().edgesIgnoringSafeArea(.bottom)
             }
             if self.appVM.citySelectorClicked {
                 CityList(cityList: CityListVM(selectedMeasure: self.appVM.selectedMeasure))

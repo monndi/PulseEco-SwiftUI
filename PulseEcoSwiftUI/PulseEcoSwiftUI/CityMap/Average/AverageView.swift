@@ -9,13 +9,12 @@ struct AverageView: View {
                     DisabledView()
                 }
                 else {
-                    ExpandableView(averageVM: self.averageVM, geometry: geo)
+                    ExpandableView(averageVM: self.averageVM, value: self.averageVM.sliderValue(), geometry: geo)
                 }
             }
         }
     }
 }
-
 struct RoundedCorners: Shape {
     var tl: CGFloat = 0.0
     var tr: CGFloat = 0.0

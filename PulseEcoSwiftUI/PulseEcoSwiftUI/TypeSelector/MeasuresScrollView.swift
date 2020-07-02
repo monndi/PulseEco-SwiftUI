@@ -33,11 +33,15 @@ struct MeasureButtonView: View {
         VStack {
             Button(action:  {
                 self.appVM.selectedMeasure = self.measure.title
+                self.appVM.updateMap = false
             }) {
-                Text(self.measure.title).accentColor(measure.clickDisabled ? Color.gray : Color.black)
-                    .fixedSize(horizontal: true, vertical: false)
-                    .padding(.horizontal, 8)
-                    .scaledToFit()
+                VStack(spacing: 0) {
+                    Image(uiImage: UIImage(named: self.measure.icon) ?? UIImage(named: "icon-pm10")!).accentColor(measure.clickDisabled ? Color.gray : Color(AppColors.darkblue)).frame(width: 50, height: 40).padding(.horizontal, 8)
+                    Text(self.measure.title).accentColor(measure.clickDisabled ? Color.gray : Color.black)
+                        .fixedSize(horizontal: true, vertical: false)
+                        .padding(.horizontal, 8)
+                        .scaledToFit()
+                }.frame(height: 40)
             }.disabled(measure.clickDisabled).padding(.top, 10)
             Rectangle()
                 .frame(height: 3.0)

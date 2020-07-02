@@ -12,4 +12,5 @@ class AppVM: ObservableObject {
     @Published var showSensorDetails: Bool = false
     @Published var sensorSelected: SensorVM?
     @Published var updateMap: Bool = true
+    @Published var blurBackground: Bool = false
 }

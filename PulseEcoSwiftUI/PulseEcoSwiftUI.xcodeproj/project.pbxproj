@@ -37,6 +37,7 @@
 		59A4F69B247FD2160089D523 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59A4F699247FD2160089D523 /* LaunchScreen.storyboard */; };
 		59A4F6A6247FD2160089D523 /* PulseEcoSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A4F6A5247FD2160089D523 /* PulseEcoSwiftUITests.swift */; };
 		59A4F6B1247FD2160089D523 /* PulseEcoSwiftUIUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A4F6B0247FD2160089D523 /* PulseEcoSwiftUIUITests.swift */; };
+		59F01AD724AC7B1300AD2802 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F01AD624AC7B1300AD2802 /* DataSource.swift */; };
 		59F5EFDC249CC5A40095FE71 /* SensorVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F5EFDB249CC5A40095FE71 /* SensorVM.swift */; };
 		59F5EFDE249CD62E0095FE71 /* SensorDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F5EFDD249CD62E0095FE71 /* SensorDetailsVM.swift */; };
 		59FAD1D22490C27200AC36A5 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FAD1D12490C27200AC36A5 /* NetworkManager.swift */; };
@@ -100,6 +101,7 @@
 		59A4F6AC247FD2160089D523 /* PulseEcoSwiftUIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PulseEcoSwiftUIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		59A4F6B0247FD2160089D523 /* PulseEcoSwiftUIUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseEcoSwiftUIUITests.swift; sourceTree = "<group>"; };
 		59A4F6B2247FD2160089D523 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		59F01AD624AC7B1300AD2802 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		59F5EFDB249CC5A40095FE71 /* SensorVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorVM.swift; sourceTree = "<group>"; };
 		59F5EFDD249CD62E0095FE71 /* SensorDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorDetailsVM.swift; sourceTree = "<group>"; };
 		59FAD1D12490C27200AC36A5 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 				59A4F69C247FD2160089D523 /* Info.plist */,
 				59A4F696247FD2160089D523 /* Preview Content */,
 				59A35AD92499057C00C07786 /* Constants.swift */,
+				59F01AD624AC7B1300AD2802 /* DataSource.swift */,
 			);
 			path = PulseEcoSwiftUI;
 			sourceTree = "<group>";
@@ -435,6 +438,7 @@
 				59A35AC72498ECFF00C07786 /* MeasuresScrollView.swift in Sources */,
 				59A35ADA2499057C00C07786 /* Constants.swift in Sources */,
 				5924C5DA249A4792007E0D78 /* MeasureListVM.swift in Sources */,
+				59F01AD724AC7B1300AD2802 /* DataSource.swift in Sources */,
 				59103AA024A4B64C00ED9617 /* Disclaimer.swift in Sources */,
 				59FAD1D82490F08E00AC36A5 /* NetworkManagerDelegate.swift in Sources */,
 				59A35AD62498F6AD00C07786 /* MapView.swift in Sources */,

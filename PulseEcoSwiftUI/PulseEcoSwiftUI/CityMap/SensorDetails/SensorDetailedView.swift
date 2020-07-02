@@ -25,8 +25,10 @@ struct SensorDetailedView: View {
                     .onEnded { value in
                         if value.translation.height < 0 {
                             self.isExpanded = true
+                            self.appVM.blurBackground = true
                         } else {
                             self.isExpanded = false
+                            self.appVM.blurBackground = false
                         }
                 }
         )

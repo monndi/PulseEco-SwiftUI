@@ -76,11 +76,13 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
     
     @objc func imageTapped(tapGestureRecognizer: MyTapGesture)
     {
-        mapViewController.appVM.showSensorDetails.toggle()
+        mapViewController.appVM.showSensorDetails = true
         mapViewController.appVM.sensorSelected = tapGestureRecognizer.sensor
         mapViewController.appVM.updateMap = false
     }
-    
+    @objc func triggerTouchAction(tapGestureRecognizer: UITapGestureRecognizer) {
+        mapViewController.appVM.showSensorDetails = false
+    }
 }
 
 struct MapView: UIViewRepresentable {
@@ -124,13 +126,11 @@ struct MapView: UIViewRepresentable {
         uiView.mapType = MKMapType.standard
                 uiView.setCameraBoundary(MKMapView.CameraBoundary(coordinateRegion: region), animated: true)
         
-                let zoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: Double(mapVM.intialZoomLevel*10000)) //100000))
-                uiView.setCameraZoomRange(zoomRange, animated: true)
-        
+        let zoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: Double(mapVM.intialZoomLevel*10000)) //100000))
+        uiView.setCameraZoomRange(zoomRange, animated: true)
+        let tapGestureRecognizer = UITapGestureRecognizer(target: context.coordinator, action:#selector(Coordinator.triggerTouchAction(tapGestureRecognizer:)))
+        uiView.addGestureRecognizer(tapGestureRecognizer)
     }
-    
-    
-    
-    
 }
+
 
