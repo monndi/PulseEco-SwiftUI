@@ -21,7 +21,7 @@ struct ExpandableView: View {
                     HStack(alignment: .top) {
                         VStack {
                             HStack {
-                                Text(self.averageVM.value!).font(.system(size: 35)).foregroundColor(Color.white)
+                                Text("\(Int(self.averageVM.value))").font(.system(size: 35)).foregroundColor(Color.white)
                                 Text(self.averageVM.unit).foregroundColor(Color.white).padding(.top, 15)
                             }.padding(.leading, 10)
                             Spacer().frame(height: 10) }
@@ -37,9 +37,9 @@ struct ExpandableView: View {
                             if self.averageVM.bands.count != 0 {
                                 ForEach(0...self.averageVM.bands.count - 1, id: \.self) { indx in
                                     ZStack {
-                                        RoundedCorners(tl: 0, tr: 0, bl: indx == 0 ? 8 : 0, br: indx == self.averageVM.bands.count - 1 ? 8 : 0).fill(Color(self.averageVM.bands[indx].legendColor)).frame(width: CGFloat((self.averageVM.bands[indx].width) * Double(self.width) / 100), height: 6)
+                                        RoundedCorners(tl: 0, tr: 0, bl: indx == 0 ? 8 : 0, br: indx == self.averageVM.bands.count - 1 ? 8 : 0).fill(Color(self.averageVM.bands[indx].legendColor)).frame(width: CGFloat((self.averageVM.bands[indx].width) * Double(self.width) / 100), height: 6, alignment: .bottom)
                                         if self.averageVM.currBand === self.averageVM.bands[indx] {
-                                            Slider(value: self.$value, in: self.averageVM.sliderRange()).frame(height:4).accentColor(Color.clear)
+                                            Slider(value: self.$value).frame(height:4).accentColor(Color.clear)
                                         }
                                     }
                                 }
@@ -53,10 +53,17 @@ struct ExpandableView: View {
                         self.isExpanded.toggle()
                         self.width = self.isExpanded ? self.geometry.frame(in: .local).midX * 1.8 : 140
                 }.padding(.top, 20)
-                    .animation(.default)
+                    .animation(.easeIn)
                 Spacer()
             }
             Spacer()
         }.padding(.leading, 20)
+    }
+}
+
+struct SliderCircle: View {
+    @State var color: Color
+    var body: some View {
+        Circle().fill(color).frame(width: 15, height: 15)
     }
 }

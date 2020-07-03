@@ -13,6 +13,7 @@ struct CityList: View {
     
     var cityList: CityListVM
     @EnvironmentObject var appVM: AppVM
+     @EnvironmentObject var dataSource: DataSource
     let countries = [
         "Macedonia",
         "Switzerland"
@@ -25,7 +26,10 @@ struct CityList: View {
                         CityRow(city: city).onTapGesture {
                             self.appVM.citySelectorClicked = false
                             self.appVM.cityName = city.cityName
-                            self.appVM.updateMap = true
+                            self.dataSource.loading = true
+                            self.dataSource.getValuesForCity(cityName: city.cityName)
+                            self.appVM.updateMapRegion = true
+                            self.appVM.updateMapAnnotations = true
                         }.opacity(1.0)
                     }
                 }

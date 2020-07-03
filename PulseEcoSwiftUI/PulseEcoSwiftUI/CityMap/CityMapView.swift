@@ -16,7 +16,7 @@ struct CityMapView: View {
     @EnvironmentObject var dataSource: DataSource
     var body: some View {
         ZStack {
-            MapView(mapVM: MapVM(measure: self.appVM.selectedMeasure, cityName: self.appVM.cityName))
+            MapView(mapVM: MapVM(measure: self.appVM.selectedMeasure, cityName: self.appVM.cityName, sensors: self.dataSource.citySensors, sensorsData: self.dataSource.sensorsData, measures: dataSource.measures))
                 .overlay(
                     Rectangle()
                         .stroke(Color(red: 236/255, green: 234/255, blue: 235/255), lineWidth: 3)
@@ -48,7 +48,7 @@ struct CityMapView: View {
                     
                 }.padding(.trailing, 15)
             }
-            AverageView(averageVM: AverageVM(measure: self.appVM.selectedMeasure, cityName: self.appVM.cityName, measuresList: self.dataSource.measures))
+            AverageView(averageVM: AverageVM(measure: self.appVM.selectedMeasure, cityName: self.appVM.cityName, measuresList: self.dataSource.measures, cityValues: self.dataSource.cityOverall))
             if self.appVM.showSensorDetails {
                 SensorDetailedView().edgesIgnoringSafeArea(.bottom)
             }

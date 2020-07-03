@@ -16,7 +16,7 @@ struct MainView: View {
         LoadingView(isShowing: .constant(self.dataSource.loading)) {
             NavigationView {
                 VStack(alignment: .center, spacing: 0) {
-                    MeasuresScrollView(measureListVM: MeasureListVM(selectedMeasure: self.appVM.selectedMeasure, cityName: self.appVM.cityName, measuresList: self.dataSource.measures))
+                    MeasuresScrollView(measureListVM: MeasureListVM(selectedMeasure: self.appVM.selectedMeasure, cityName: self.appVM.cityName, measuresList: self.dataSource.measures, cityValues: self.dataSource.cityOverall))
                     CityMapView().edgesIgnoringSafeArea([.horizontal,.bottom
                     ])
                 }.navigationBarTitle("", displayMode: .inline)
@@ -89,7 +89,7 @@ struct LoadingDialog: View {
             VStack {
                 Image(uiImage: UIImage(named: "launchScreenLogo")!)
                 Image(uiImage: UIImage(named: "launchScreenName")!)
-        }, alignment: .center)
+        }, alignment: .center).edgesIgnoringSafeArea(.all)
     }
 }
 
@@ -108,31 +108,29 @@ struct ActivityIndicator: UIViewRepresentable {
 }
 
 struct LoadingView<Content>: View where Content: View {
-
+    
     @Binding var isShowing: Bool
     var content: () -> Content
-
+    
     var body: some View {
-        GeometryReader { geometry in
-            ZStack(alignment: .center) {
-
+        ZStack(alignment: .center) {
+            if self.isShowing {
                 self.content()
-                    .disabled(self.isShowing)
-                    .blur(radius: self.isShowing ? 3 : 0)
-
+                    .disabled(true)
+                    .blur(radius: 3)
                 VStack {
-//                    Text("Loading...")
-//                    ActivityIndicator(isAnimating: .constant(true), style: .large)
-                    LoadingDialog()                }
-                .frame(width: geometry.size.width / 2, 
-                       height: geometry.size.height / 5)
+                    //                    Text("Loading...")
+                    //                    ActivityIndicator(isAnimating: .constant(true), style: .large)
+                    LoadingDialog()
+                }
                 .background(Color.secondary.colorInvert())
                 .foregroundColor(Color.primary)
-                .cornerRadius(20)
-                .opacity(self.isShowing ? 1 : 0)
-
+            }
+            else {
+                self.content()
+                    .disabled(false)
+                    .blur(radius: 0)
             }
         }
     }
-
 }

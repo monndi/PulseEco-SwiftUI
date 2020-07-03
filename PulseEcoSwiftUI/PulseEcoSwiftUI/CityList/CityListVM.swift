@@ -26,7 +26,14 @@ class CityListVM: ObservableObject {
                               countryName: "Macedonia",
                               message: "Good air quality",
                               value: "3",
-                              unit: "µq/m3")]
+                              unit: "µq/m3"),
+                    CityRowVM(cityName: "Cork",
+                                     countryCode: "MK",
+                                     countryName: "Macedonia",
+                                     message: "Good air quality",
+                                     value: "3",
+                                     unit: "µq/m3")
+        ]
     }
 }
 

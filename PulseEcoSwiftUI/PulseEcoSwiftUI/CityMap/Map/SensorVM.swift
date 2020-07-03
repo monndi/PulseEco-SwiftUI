@@ -15,12 +15,16 @@ class SensorVM: NSObject, MKAnnotation {
     var sensorID: String
     var value: String
     var coordinate: CLLocationCoordinate2D
+    var type: SensorType
+    var color: UIColor
     
-    init(title: String?, sensorID: String, value: String, coordinate: CLLocationCoordinate2D) {
+    init(title: String?, sensorID: String, value: String, coordinate: CLLocationCoordinate2D, type: String, color: UIColor) {
         self.title = title ?? "Sensor"
         self.sensorID = sensorID
         self.value = value
         self.coordinate = coordinate
+        self.type = SensorType(rawValue: type)!
+        self.color = color
     }
     
 }

@@ -11,7 +11,7 @@ import SwiftUI
 
 class SensorDetailsVM {
     var sensorID: String
-    var sensorType: String
+    var sensorType: SensorType
     var title: String
     var value: String
     var unit: String
@@ -19,10 +19,10 @@ class SensorDetailsVM {
     var date: String
     var image: String
     
-    init(sensorID: String) {
-        self.sensorID = sensorID
-        self.sensorType = "wifi"
-        self.title = "Karposh3"
+    init(sensor: SensorVM) {
+        self.sensorID = sensor.sensorID
+        self.sensorType = sensor.type
+        self.title = sensor.title!
         self.value = "10"
         self.unit = "µq/m3"
         self.date = "08.06.2020"

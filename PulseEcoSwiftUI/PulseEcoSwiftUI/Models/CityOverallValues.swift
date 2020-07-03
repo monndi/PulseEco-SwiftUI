@@ -18,7 +18,7 @@ import Foundation
 //}
 
 // MARK: - CityOverallValues
-struct CityOverallValues: Codable {
+struct CityOverallValues1: Codable {
     let cityName: String
     let values: Values
     init(cityName: String, values: Values) {
@@ -61,4 +61,9 @@ struct Values: Codable {
                 self.pressure = ""
                 self.noiseDBA = ""
     }
+}
+
+struct CityOverallValues: Codable {
+    let cityName: String
+    var values: [String: String]
 }

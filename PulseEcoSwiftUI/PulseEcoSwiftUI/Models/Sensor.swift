@@ -26,4 +26,15 @@ struct SensorModel: Codable  {
 
 typealias SensorsResult = [SensorModel]
 
+// MARK: - Welcome
+struct Sensor: Codable {
+    let sensorID: String
+    let stamp: String
+    let type, position, value: String
+
+    enum CodingKeys: String, CodingKey {
+        case sensorID = "sensorId"
+        case stamp, type, position, value
+    }
+}
 

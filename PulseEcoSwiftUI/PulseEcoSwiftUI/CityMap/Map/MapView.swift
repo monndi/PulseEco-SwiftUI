@@ -29,13 +29,13 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
         annotatonView.addGestureRecognizer(tapGestureRecognizer)
         
         annotatonView.canShowCallout = true
-        let pinImage = UIImage(named: "marker")!.withTintColor(UIColor.init(red: 0.00, green: 0.58, blue: 0.20, alpha: 1))
+        let pinImage = UIImage(named: "marker")!.withTintColor(annotation.color)
         let size = CGSize(width: 35, height: 48)
         UIGraphicsBeginImageContext(size)
         pinImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
         let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
 
-        let uiImage = self.textToImage(drawText: String(annotation.value), inImage: resizedImage!, atPoint: CGPoint(x: 14, y: 13))
+        let uiImage = self.textToImage(drawText: String(annotation.value), inImage: resizedImage!, atPoint: CGPoint(x: 12, y: 13))
         
         annotatonView.image = uiImage
        // annotatonView.calloutOffset = CGPoint(x: -5, y: 5)
@@ -78,10 +78,13 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
     {
         mapViewController.appVM.showSensorDetails = true
         mapViewController.appVM.sensorSelected = tapGestureRecognizer.sensor
-        mapViewController.appVM.updateMap = false
+        mapViewController.appVM.updateMapRegion = false
+        mapViewController.appVM.updateMapAnnotations = false
     }
     @objc func triggerTouchAction(tapGestureRecognizer: UITapGestureRecognizer) {
         mapViewController.appVM.showSensorDetails = false
+        mapViewController.appVM.updateMapRegion = false
+        mapViewController.appVM.updateMapAnnotations = false
     }
 }
 
@@ -107,26 +110,20 @@ struct MapView: UIViewRepresentable {
         let span = MKCoordinateSpan(latitudeDelta: 2.0, longitudeDelta: 2.0)
         let region = MKCoordinateRegion(center: coordinate, span: span)
         
-        if appVM.updateMap {
+        if appVM.updateMapRegion {
             uiView.setRegion(region, animated: true)
         }
-        
-        let pins:[SensorVM] = mapVM.sensors.map{
-            sensor in
-            let coordinates = sensor.position.split(separator: ",")
-            return SensorVM(title: sensor.description,
-                            sensorID: sensor.sensorID,
-                            value: "2",
-                            coordinate: CLLocationCoordinate2D(latitude: Double(coordinates[0])!, longitude: Double(coordinates[1])!))
-        }
-        for pin in pins {
-            uiView.addAnnotation(pin)
+        if appVM.updateMapAnnotations {
+            uiView.removeAnnotations(uiView.annotations)
+            for pin in mapVM.sensors {
+                uiView.addAnnotation(pin)
+            }
         }
         
         uiView.mapType = MKMapType.standard
-                uiView.setCameraBoundary(MKMapView.CameraBoundary(coordinateRegion: region), animated: true)
+        uiView.setCameraBoundary(MKMapView.CameraBoundary(coordinateRegion: region), animated: true)
         
-        let zoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: Double(mapVM.intialZoomLevel*10000)) //100000))
+        let zoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: Double(mapVM.intialZoomLevel*5000)) //100000))
         uiView.setCameraZoomRange(zoomRange, animated: true)
         let tapGestureRecognizer = UITapGestureRecognizer(target: context.coordinator, action:#selector(Coordinator.triggerTouchAction(tapGestureRecognizer:)))
         uiView.addGestureRecognizer(tapGestureRecognizer)

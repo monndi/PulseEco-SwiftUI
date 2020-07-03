@@ -12,7 +12,7 @@ struct CollapsedView: View {
                 VStack(alignment: .leading, spacing: 5) {
                     HStack {
                         Image(uiImage: UIImage(named: self.sensorDetailsVM.image)!)
-                        Text("\(self.sensorDetailsVM.title) \(self.sensorDetailsVM.sensorID)").foregroundColor(Color.gray)
+                        Text("\(self.sensorDetailsVM.title)").foregroundColor(Color.gray)
                     }
                     HStack {
                         Text(self.sensorDetailsVM.value).font(.system(size: 40))

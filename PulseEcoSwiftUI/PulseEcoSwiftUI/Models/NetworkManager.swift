@@ -10,10 +10,11 @@ import Foundation
 import Combine
 
 class NetworkManager: ObservableObject {
+   
+    // MARK: - Old
     
-    
-    @Published var sensors = [SensorModel]()
-    @Published var cityOverallValues = CityOverallValues()
+    @Published var sensors = [Sensor]()
+    @Published var cityOverallValues = CityOverallValues1()
     
     var delegate: NetworkManagerDelegate?
     
@@ -83,7 +84,7 @@ class NetworkManager: ObservableObject {
                     let decoder = JSONDecoder()
                     if let safeData = data {
                         do {
-                            let results = try decoder.decode(CityOverallValues.self, from: safeData)
+                            let results = try decoder.decode(CityOverallValues1.self, from: safeData)
                             
                             DispatchQueue.main.async {
                                 
@@ -105,7 +106,7 @@ class NetworkManager: ObservableObject {
         }
     }
     
-    func fetchCityOverallValues1(cityName: String, completion: @escaping (CityOverallValues) -> ()) {
+    func fetchCityOverallValues1(cityName: String, completion: @escaping (CityOverallValues1) -> ()) {
         if let url = URL(string: "https://\(cityName).pulse.eco/rest/overall") {
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: url) { (data, response, error) in
@@ -114,7 +115,7 @@ class NetworkManager: ObservableObject {
                     let decoder = JSONDecoder()
                     if let safeData = data {
                         do {
-                            let results = try decoder.decode(CityOverallValues.self, from: safeData)
+                            let results = try decoder.decode(CityOverallValues1.self, from: safeData)
                             
                             DispatchQueue.main.async {
                                 
@@ -188,15 +189,12 @@ class NetworkManager: ObservableObject {
                 
             }
             task.resume()
-            
-            
         }
     }
     func getMeasures(completion: @escaping ([Measure]) -> ()) {
         if let url = URL(string: "https://pulse.eco/rest/measures") {
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: url) { (data, response, error) in
-                
                 if error == nil {
                     let decoder = JSONDecoder()
                     if let safeData = data {
@@ -214,11 +212,8 @@ class NetworkManager: ObservableObject {
                 } else {
                     print(error ?? "")
                 }
-                
             }
             task.resume()
-            
-            
         }
     }
     func getCities1() -> AnyPublisher<[CityModel], Error> {
@@ -234,6 +229,8 @@ class NetworkManager: ObservableObject {
         
     }
     
+     // MARK: - New
+    
     func downloadMeasures() -> AnyPublisher<[Measure], Error> {
             guard let url = URL(string: "https://pulse.eco/rest/measures") else {
                 fatalError("Invalid URL")
@@ -245,6 +242,39 @@ class NetworkManager: ObservableObject {
             .receive(on: RunLoop.main)
             .eraseToAnyPublisher()
         
+    }
+    func downloadSensors(cityName: String) -> AnyPublisher<[SensorModel], Error> {
+            guard let url = URL(string: "https://\(cityName).pulse.eco/rest/sensor") else {
+                fatalError("Invalid URL")
+            }
+            
+            return URLSession.shared.dataTaskPublisher(for: url)
+            .map(\.data)
+            .decode(type: [SensorModel].self, decoder: JSONDecoder())
+            .receive(on: RunLoop.main)
+            .eraseToAnyPublisher()
+    }
+    func downloadOverallValuesForCity(cityName: String) -> AnyPublisher<CityOverallValues, Error> {
+            guard let url = URL(string: "https://\(cityName).pulse.eco/rest/overall") else {
+                fatalError("Invalid URL")
+            }
+            
+            return URLSession.shared.dataTaskPublisher(for: url)
+            .map(\.data)
+            .decode(type: CityOverallValues.self, decoder: JSONDecoder())
+            .receive(on: RunLoop.main)
+            .eraseToAnyPublisher()
+    }
+    func downloadDataForSensors(cityName: String) -> AnyPublisher<[Sensor], Error> {
+            guard let url = URL(string: "https://\(cityName).pulse.eco/rest/current") else {
+                fatalError("Invalid URL")
+            }
+            
+            return URLSession.shared.dataTaskPublisher(for: url)
+            .map(\.data)
+            .decode(type: [Sensor].self, decoder: JSONDecoder())
+            .receive(on: RunLoop.main)
+            .eraseToAnyPublisher()
     }
     
 }

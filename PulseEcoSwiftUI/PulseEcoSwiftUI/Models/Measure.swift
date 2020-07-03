@@ -25,6 +25,22 @@ struct Measure: Codable, Identifiable {
         case description
         case showMin, showMax, legendMin, legendMax, unit, showMessages, bands
     }
+    
+    
+    static func empty() -> Measure {
+        return Measure(id: "--",
+                       buttonTitle: "--",
+                       title: "--",
+                       icon: "wifi",
+                       description: "--",
+                       showMin: 0,
+                       showMax: NSIntegerMax,
+                       legendMin: 0,
+                       legendMax: 100,
+                       unit: "--",
+                       showMessages: false,
+                       bands: [Band.empty()])
+    }
 }
 
 // MARK: - Band
@@ -36,6 +52,16 @@ struct Band: Codable {
     static func == (lhs: Band, rhs: Band) -> Bool {
           return lhs.legendPoint == rhs.legendPoint
       }
+    static func empty() -> Band {
+        return Band(from: 0,
+                       to: NSIntegerMax,
+                       legendPoint: 0,
+                       legendColor: "gray",
+                       markerColor: "gray",
+                       shortGrade: "--",
+                       grade: "--",
+                       suggestion: "--")
+    }
 }
 
 typealias Measures = [Measure]

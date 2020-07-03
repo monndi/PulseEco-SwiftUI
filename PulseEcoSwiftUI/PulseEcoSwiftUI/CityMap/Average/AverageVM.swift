@@ -11,40 +11,33 @@ import SwiftUI
 import Combine
 
 class AverageVM: ObservableObject {
-    var value: String?
+    var value: Float
     var unit: String
     var message: String
     var measure: String
     var cityName: String
-    var clickDisabled: Bool { return value == nil }
+    var clickDisabled: Bool
     var bands: [BandVM] = []
     var min: Int
     var max: Int
     var currBand: BandVM?
-    
-    init(measure: String, cityName: String, measuresList: [Measure]) {
-        switch measure {
-        case "PM10":
-            self.value = "5"
-        case "PM25":
-            self.value = "30"
-        case "Temperature":
-            self.value = "-20"
-        case "Noise":
-            self.value = "40"
-        case "NO2":
-            self.value = "-3"
-        default:
-            self.value = nil
+    init(measure: String, cityName: String, measuresList: [Measure], cityValues: CityOverallValues?) {
+        if let averageValue = cityValues?.values[measure.lowercased()] {
+            if let floatValue = Float(averageValue) {
+                self.value = floatValue
+                self.clickDisabled = false
+            } else {
+                self.clickDisabled = true
+                self.value = 0
+            }
+        } else {
+            self.clickDisabled = true
+            self.value = 0
         }
-       // self.value = measure == "PM10" ? "5" : nil
         self.message = "No message!"
         self.measure = measure
-        self.unit = measure == "PM10" ? "µq/m3" : "C"
+        self.unit = "µq/m3"
         self.cityName = cityName
-        if self.cityName == "Bitola" {
-            self.value = "250"
-        }
         self.min = 0
         self.max = 200
         if measuresList.count != 0 {
@@ -67,7 +60,7 @@ class AverageVM: ObservableObject {
     }
     
     func appendBands(measuresList: [Measure]) {
-        let selectedMeasure = measuresList.filter{ $0.buttonTitle.lowercased() == measure.lowercased()}.first!
+        let selectedMeasure = measuresList.filter{ $0.id.lowercased() == measure.lowercased()}.first!
         self.min = selectedMeasure.legendMin
         self.max = selectedMeasure.legendMax
         self.setBandsRange(bands: selectedMeasure.bands)
@@ -75,7 +68,7 @@ class AverageVM: ObservableObject {
         self.unit = selectedMeasure.unit
     }
     func selectedMeasureRange(bands: [Band]) -> Double {
-        var sum = 0.0
+        var rangeWidth = 0.0
         for indx in 0...bands.count-1 {
             let band = bands[indx]
             var nextValue = indx >= bands.count - 1 ? abs(Double(abs(self.max) - band.from)) : Double(abs(band.to) - band.from)
@@ -83,18 +76,16 @@ class AverageVM: ObservableObject {
                 nextValue = Double(abs(band.to) - self.min)
             }
             var bandRangeWidth = nextValue
-            if self.valueInBand(from: band.from, to: band.to > self.max ? self.max : band.to) {
-                bandRangeWidth *= 2
-            }
+            
             if isHugeValue() && indx == bands.count-1 {
-                bandRangeWidth = nextValue * (Double(self.value ?? "1")! - Double(self.max))
+                bandRangeWidth = nextValue * (Double(self.value) / Double(self.max))
             }
             if isLowValue() && indx == 0 {
-                bandRangeWidth = nextValue * abs(Double(self.value ?? "1")! + Double(self.min))
+                bandRangeWidth = nextValue * abs(Double(self.value) + Double(self.min))
             }
-            sum += bandRangeWidth
+            rangeWidth += bandRangeWidth
         }
-        return sum
+        return rangeWidth
     }
     
     func setBandsRange(bands: [Band]) {
@@ -105,14 +96,12 @@ class AverageVM: ObservableObject {
                 nextValue = Double(abs(band.to) - self.min)
             }
             var bandRangeWidth = nextValue
-            if self.valueInBand(from: band.from, to: band.to > self.max ? self.max : band.to) {
-                bandRangeWidth = 2 * nextValue
-            }
+        
             if isHugeValue() && indx == bands.count-1 {
-                              bandRangeWidth = nextValue * (Double(self.value ?? "1")! - Double(self.max))
+                bandRangeWidth = nextValue * (Double(self.value) / Double(self.max))
             }
             if isLowValue() && indx == 0 {
-                              bandRangeWidth = nextValue * abs(Double(self.value ?? "1")! + Double(self.min))
+                              bandRangeWidth = nextValue * abs(Double(self.value) + Double(self.min))
             }
             let width = (bandRangeWidth * 100 ) / selectedMeasureRange(bands: bands)
             let bandVM = BandVM(from: band.from, to: band.to, legendPoint: band.legendPoint, legendColor: AppColors.colorFrom(string: band.legendColor), markerColor: AppColors.colorFrom(string: band.markerColor), shortGrade: band.shortGrade, grade: band.grade, suggestion: band.suggestion, width: width)
@@ -130,18 +119,15 @@ class AverageVM: ObservableObject {
     }
     
     func isHugeValue() -> Bool {
-        return Int(self.value ?? "1")! > self.max
+        return Int(self.value) > self.max
     }
     
     func isLowValue() -> Bool {
-        return Int(self.value ?? "1")! < self.min
+        return Int(self.value) < self.min
     }
     
     func valueInBand(from: Int, to: Int) -> Bool {
-        guard let value = Int(self.value ?? "1")  else {
-            return false
-        }
-        return value >= from && value <= to
+        return Int(value) >= from && Int(value) <= to
     }
     func sliderValue() -> Float {
         if isHugeValue() {
@@ -149,7 +135,7 @@ class AverageVM: ObservableObject {
         } else if isLowValue() {
             return Float(self.min)
         } else {
-            return Float(self.value ?? "1")!
+            return self.value
         }
     }
     func sliderRange() -> ClosedRange<Float> {
