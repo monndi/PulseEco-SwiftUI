@@ -35,6 +35,5 @@ struct CityCoordinates: Codable {
     let latitude, longitute: String
 }
 
-typealias Results = [CityModel]
 
 

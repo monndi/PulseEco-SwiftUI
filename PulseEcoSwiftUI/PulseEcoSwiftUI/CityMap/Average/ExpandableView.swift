@@ -3,9 +3,8 @@ import Combine
 
 struct ExpandableView: View {
     @State var isExpanded = false
-    @State var width: CGFloat = 140
-    var averageVM: AverageVM
-    @State var value: Float
+    @State var width: CGFloat = 130
+    var viewModel: AverageVM
     @State var geometry: GeometryProxy
     var body: some View {
         HStack {
@@ -17,53 +16,63 @@ struct ExpandableView: View {
                         .overlay( Text("Average")
                             .foregroundColor(Color.white)
                             .padding(.leading, 10), alignment: .leading
-                    )
+                        )
                     HStack(alignment: .top) {
                         VStack {
                             HStack {
-                                Text("\(Int(self.averageVM.value))").font(.system(size: 35)).foregroundColor(Color.white)
-                                Text(self.averageVM.unit).foregroundColor(Color.white).padding(.top, 15)
-                            }.padding(.leading, 10)
-                            Spacer().frame(height: 10) }
+                                Text("\(Int(self.viewModel.value))")
+                                    .font(.system(size: 30))
+                                    .foregroundColor(Color.white)
+                                    .fixedSize(horizontal: true, vertical: false)
+                                    .padding(.top, 5)
+                                    .animation(.none)
+                                Text(self.viewModel.unit)
+                                    .foregroundColor(Color.white).padding(.top, 15)
+                                    .animation(.none)
+                            }
+                            .padding(.leading, 10)
+                            Spacer()
+                                .frame(height: 10)
+                        }
                         if self.isExpanded {
                             VStack {
-                                Text(self.averageVM.message).font(.system(size: 17)).foregroundColor(Color.white).padding(.leading, 10)
-                                Spacer().frame(height: 10)
+                                Text(self.viewModel.message)
+                                    .font(.system(size: 17))
+                                    .foregroundColor(Color.white)
+                                    .padding(.leading, 10)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                Spacer()
+                                    .frame(height: 10)
                             }
                         }
                     }
                     if self.isExpanded {
-                        HStack(alignment: .bottom, spacing: 0) {
-                            if self.averageVM.bands.count != 0 {
-                                ForEach(0...self.averageVM.bands.count - 1, id: \.self) { indx in
-                                    ZStack {
-                                        RoundedCorners(tl: 0, tr: 0, bl: indx == 0 ? 8 : 0, br: indx == self.averageVM.bands.count - 1 ? 8 : 0).fill(Color(self.averageVM.bands[indx].legendColor)).frame(width: CGFloat((self.averageVM.bands[indx].width) * Double(self.width) / 100), height: 6, alignment: .bottom)
-                                        if self.averageVM.currBand === self.averageVM.bands[indx] {
-                                            Slider(value: self.$value).frame(height:4).accentColor(Color.clear)
+                        ZStack(alignment: .leading) {
+                            HStack(alignment: .bottom, spacing: 0) {
+                                if self.viewModel.bands.count != 0 {
+                                        ForEach(0...self.viewModel.bands.count - 1, id: \.self) { indx in
+                                                RoundedCorners(tl: 0, tr: 0, bl: indx == 0 ? 8 : 0, br: indx == self.viewModel.bands.count - 1 ? 8 : 0)
+                                                    .fill(Color(self.viewModel.bands[indx].legendColor))
+                                                    .frame(width: CGFloat((self.viewModel.bands[indx].width) * Double(self.width) / 100), height: 6, alignment: .bottom)
                                         }
-                                    }
                                 }
-                            }
-                        }.frame(height: 6)
+                            }.frame(height: 6)
+                            SliderCircle()
+                                .offset(x: CGFloat(self.viewModel.sliderValue()) * self.width / 100)
+                                .frame(height: 6)
+                        }.animation(.default)
                     }
                 }.frame(width: self.width)
                     .background(RoundedCorners(tl: 8, tr: 8, bl: 8, br: 8)
-                        .fill(Color(self.averageVM.colorForValue())))
+                        .fill(Color(self.viewModel.colorForValue())))
                     .onTapGesture {
                         self.isExpanded.toggle()
-                        self.width = self.isExpanded ? self.geometry.frame(in: .local).midX * 1.8 : 140
+                        self.width = self.isExpanded ? self.geometry.frame(in: .local).midX * 1.8 : 130
                 }.padding(.top, 20)
-                    .animation(.easeIn)
+                    .animation(.linear)
                 Spacer()
             }
             Spacer()
         }.padding(.leading, 20)
-    }
-}
-
-struct SliderCircle: View {
-    @State var color: Color
-    var body: some View {
-        Circle().fill(color).frame(width: 15, height: 15)
     }
 }

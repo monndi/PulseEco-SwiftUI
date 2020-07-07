@@ -2,7 +2,7 @@ import SwiftUI
 
 
 struct CollapsedView: View {
-    var sensorDetailsVM: SensorDetailsVM
+    var viewModel: SensorDetailsVM
     var body: some View {
         VStack {
             Rectangle()
@@ -11,18 +11,18 @@ struct CollapsedView: View {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 5) {
                     HStack {
-                        Image(uiImage: UIImage(named: self.sensorDetailsVM.image)!)
-                        Text("\(self.sensorDetailsVM.title)").foregroundColor(Color.gray)
+                        Image(uiImage: UIImage(named: self.viewModel.image)!)
+                        Text("\(self.viewModel.title)").foregroundColor(Color.gray)
                     }
                     HStack {
-                        Text(self.sensorDetailsVM.value).font(.system(size: 40))
-                        Text(self.sensorDetailsVM.unit).padding(.top, 10)
+                        Text(self.viewModel.value).font(.system(size: 40))
+                        Text(self.viewModel.unit).padding(.top, 10)
                         Spacer()
                         VStack (alignment: .leading) {
-                            Text(self.sensorDetailsVM.time)
-                            Text(self.sensorDetailsVM.date).foregroundColor(Color.gray)
+                            Text(self.viewModel.time)
+                            Text(self.viewModel.date).foregroundColor(Color.gray)
                         }
-                        Image(uiImage: UIImage(named: self.sensorDetailsVM.image)!)
+                        Image(uiImage: UIImage(named: self.viewModel.image)!)
                     }
                     Spacer().frame(height: 10)
                 }

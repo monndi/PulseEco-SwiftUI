@@ -10,7 +10,7 @@ class AppVM: ObservableObject {
     }
     @Published var cityName: String = "Skopje"
     @Published var showSensorDetails: Bool = false
-    @Published var sensorSelected: SensorVM?
+    @Published var selectedSensor: SensorVM?
     @Published var updateMapRegion: Bool = true
     @Published var updateMapAnnotations: Bool = true
     @Published var blurBackground: Bool = false

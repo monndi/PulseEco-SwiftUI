@@ -12,15 +12,18 @@ import SwiftUI
 class CityListVM: ObservableObject {
     var cityList: [CityRowVM]
     var selectedMeasure: String
-    
+    let countries = [
+           "Macedonia",
+           "Switzerland"
+    ]
     init(selectedMeasure: String) {
         self.selectedMeasure = selectedMeasure
         cityList = [CityRowVM(cityName: "Skopje",
                               countryCode: "MK",
                               countryName: "Macedonia",
                               message: "Good air quality",
-                              value: selectedMeasure == "PM10" ? "3" : nil,
-                              unit: selectedMeasure == "PM10" ? "µq/m3" : "C"),
+                              value: selectedMeasure == "pm10" ? "3" : nil,
+                              unit: selectedMeasure == "pm10" ? "µq/m3" : "C"),
                     CityRowVM(cityName: "Bitola",
                               countryCode: "MK",
                               countryName: "Macedonia",
@@ -37,25 +40,3 @@ class CityListVM: ObservableObject {
     }
 }
 
-class CityRowVM: ObservableObject, Identifiable {
-    var id: String { return cityName }
-    var cityName: String
-    var countryCode: String
-    var countryName: String
-    var message: String
-    var value: String?
-    var color: Color { return value == nil ? Color(AppColors.gray) : Color(AppColors.green)}
-    var unit: String
-    var noReadings: Bool {
-        return value == nil
-    }
-
-    init(cityName: String, countryCode: String, countryName: String, message: String, value: String?, unit: String) {
-        self.cityName = cityName
-        self.countryCode = countryCode
-        self.countryName = countryName
-        self.message = message
-        self.value = value
-        self.unit = unit
-    }
-}

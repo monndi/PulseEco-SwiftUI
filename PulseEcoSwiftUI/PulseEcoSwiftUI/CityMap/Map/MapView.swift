@@ -29,14 +29,14 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
         annotatonView.addGestureRecognizer(tapGestureRecognizer)
         
         annotatonView.canShowCallout = true
-        let pinImage = UIImage(named: "marker")!.withTintColor(annotation.color)
+        let pinImage = UIImage(named: "marker")?.withTintColor(annotation.color) ?? UIImage()
         let size = CGSize(width: 35, height: 48)
         UIGraphicsBeginImageContext(size)
         pinImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
-
-        let uiImage = self.textToImage(drawText: String(annotation.value), inImage: resizedImage!, atPoint: CGPoint(x: 12, y: 13))
-        
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext() ?? UIImage()
+        let uiImageShadowed = resizedImage.addShadow()
+        let uiImage = self.textToImage(drawText: String(annotation.value), inImage: uiImageShadowed, atPoint: CGPoint(x: 11, y: 13))
+       
         annotatonView.image = uiImage
        // annotatonView.calloutOffset = CGPoint(x: -5, y: 5)
         
@@ -50,7 +50,7 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
     
     func textToImage(drawText text: String, inImage image: UIImage, atPoint point: CGPoint) -> UIImage {
         let textColor = UIColor.white
-        let textFont = UIFont(name: "Helvetica Bold", size: 12)!
+        let textFont = UIFont(name: "Helvetica Bold", size: 12) ?? UIFont()
         
         let scale = UIScreen.main.scale
         UIGraphicsBeginImageContextWithOptions(image.size, false, scale)
@@ -77,7 +77,7 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
     @objc func imageTapped(tapGestureRecognizer: MyTapGesture)
     {
         mapViewController.appVM.showSensorDetails = true
-        mapViewController.appVM.sensorSelected = tapGestureRecognizer.sensor
+        mapViewController.appVM.selectedSensor = tapGestureRecognizer.sensor
         mapViewController.appVM.updateMapRegion = false
         mapViewController.appVM.updateMapAnnotations = false
     }
@@ -90,7 +90,7 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
 
 struct MapView: UIViewRepresentable {
     
-    @ObservedObject var mapVM: MapVM
+    @ObservedObject var viewModel: MapVM
     @EnvironmentObject var appVM: AppVM
    
     func makeCoordinator() -> MapViewCoordinator {
@@ -104,18 +104,18 @@ struct MapView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        let coordinate = mapVM.coordinates
+        let coordinate = self.viewModel.coordinates
         
         
         let span = MKCoordinateSpan(latitudeDelta: 2.0, longitudeDelta: 2.0)
         let region = MKCoordinateRegion(center: coordinate, span: span)
         
-        if appVM.updateMapRegion {
+        if self.appVM.updateMapRegion {
             uiView.setRegion(region, animated: true)
         }
-        if appVM.updateMapAnnotations {
+        if self.appVM.updateMapAnnotations {
             uiView.removeAnnotations(uiView.annotations)
-            for pin in mapVM.sensors {
+            for pin in self.viewModel.sensors {
                 uiView.addAnnotation(pin)
             }
         }
@@ -123,7 +123,7 @@ struct MapView: UIViewRepresentable {
         uiView.mapType = MKMapType.standard
         uiView.setCameraBoundary(MKMapView.CameraBoundary(coordinateRegion: region), animated: true)
         
-        let zoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: Double(mapVM.intialZoomLevel*5000)) //100000))
+        let zoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: Double(self.viewModel.intialZoomLevel*5000)) //100000))
         uiView.setCameraZoomRange(zoomRange, animated: true)
         let tapGestureRecognizer = UITapGestureRecognizer(target: context.coordinator, action:#selector(Coordinator.triggerTouchAction(tapGestureRecognizer:)))
         uiView.addGestureRecognizer(tapGestureRecognizer)
@@ -131,3 +131,27 @@ struct MapView: UIViewRepresentable {
 }
 
 
+extension UIImage {
+
+    func addShadow(blurSize: CGFloat = 6.0) -> UIImage {
+
+        let shadowColor = UIColor(white:0.0, alpha:0.5).cgColor
+
+        let context = CGContext(data: nil,
+                                width: Int(self.size.width + blurSize),
+                                height: Int(self.size.height + blurSize),
+                                bitsPerComponent: self.cgImage!.bitsPerComponent,
+                                bytesPerRow: 0,
+                                space: CGColorSpaceCreateDeviceRGB(),
+                                bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
+
+        context.setShadow(offset: CGSize(width: blurSize/2,height: -blurSize/2),
+                          blur: blurSize,
+                          color: shadowColor)
+        context.draw(self.cgImage!,
+                     in: CGRect(x: 0, y: blurSize, width: self.size.width, height: self.size.height),
+                     byTiling:false)
+
+        return UIImage(cgImage: context.makeImage()!)
+    }
+}

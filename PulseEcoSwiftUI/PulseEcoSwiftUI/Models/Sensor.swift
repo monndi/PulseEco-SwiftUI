@@ -24,7 +24,6 @@ struct SensorModel: Codable  {
     }
 }
 
-typealias SensorsResult = [SensorModel]
 
 // MARK: - Welcome
 struct Sensor: Codable {

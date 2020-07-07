@@ -9,8 +9,7 @@ struct SensorDetailsView: View {
     var body: some View {
         VStack {
             ChildSizeReader(size: self.$collapsedViewSize) {
-                CollapsedView(viewModel: SensorDetailsVM(sensor: self.appVM.selectedSensor ?? SensorVM()))
-                    .padding(.top, 5)
+                CollapsedView(viewModel: SensorDetailsVM(sensor: self.appVM.selectedSensor ?? SensorVM())).padding(.top, 5)
             }
             if self.isExpanded {
                 ChildSizeReader(size: self.$expandedViewSize) {
@@ -35,4 +34,3 @@ struct SensorDetailsView: View {
         )
     }
 }
-

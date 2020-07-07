@@ -1,6 +1,7 @@
 import SwiftUI
 
-struct DisabledView: View {
+struct NoReadingsView: View {
+    private var viewModel = NoReadingsVM()
     var body: some View {
         HStack {
             VStack {
@@ -8,18 +9,18 @@ struct DisabledView: View {
                     ZStack {
                         VStack {
                             RoundedCorners(tl: 8, tr: 8, bl: 0, br: 0)
-                                .fill(Color(#colorLiteral(red: 0.4441046119, green: 0.4441156983, blue: 0.4441097379, alpha: 1)))
+                                .fill(self.viewModel.backgroundColor)
                                 .frame(height:  23)
                             Spacer()
                         }
                         VStack(alignment: .center, spacing: 3) {
-                            Image(uiImage: UIImage(named: "exclamation")!)
-                            Text("No readings").foregroundColor(Color.white).padding(.bottom, 3)
+                            Image(uiImage: self.viewModel.image)
+                            Text(self.viewModel.text).foregroundColor(self.viewModel.textColor).padding(.bottom, 3)
                         }.padding(.top, 3)
                     }
                 }.frame(width: 125, height: 75)
                     .background(RoundedCorners(tl: 8, tr: 8, bl: 8, br: 8)
-                        .fill(Color(#colorLiteral(red: 0.4441046119, green: 0.4441156983, blue: 0.4441097379, alpha: 1)))) //#colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
+                    .fill(self.viewModel.backgroundColor))
                     .padding(.top, 20)
                 Spacer()
             }

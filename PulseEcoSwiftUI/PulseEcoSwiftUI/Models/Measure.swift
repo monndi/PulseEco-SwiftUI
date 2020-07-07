@@ -64,5 +64,4 @@ struct Band: Codable {
     }
 }
 
-typealias Measures = [Measure]
 

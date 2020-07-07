@@ -9,33 +9,39 @@
 import SwiftUI
 import CoreLocation
 
-struct CityRow: View {
-    var city: CityRowVM
+struct CityRowView: View {
+    var viewModel: CityRowVM
     
     var body: some View {
         VStack {
             HStack {
                 VStack(alignment: .leading) {
-                    Text(city.cityName).font(.headline)
-                    Text(city.countryName).padding(.top, 2)
-                    Text(city.message).padding(.top, 2)
+                    Text(self.viewModel.cityName)
+                        .font(.headline)
+                    Text(self.viewModel.countryName)
+                        .padding(.top, 2)
+                    Text(self.viewModel.message)
+                        .padding(.top, 2)
                 }
                 Spacer()
                 RoundedRectangle(cornerRadius: 10, style: .continuous)
-                    .fill(city.color)
+                    .fill(self.viewModel.color)
                     .frame(width: 80, height: 80)
                     .overlay(VStack {
-                        if city.noReadings == false {
-                            Text(city.value!).font(.system(size: 25))
-                            Text(city.unit)
+                        if self.viewModel.noReadings == false {
+                            Text("\(Int(self.viewModel.value))")
+                                .font(.system(size: 25))
+                            Text(self.viewModel.unit)
                         } else {
-                            Image(uiImage: UIImage(named: "exclamation")!) .resizable().scaledToFit().padding(20)
+                            Image(uiImage: self.viewModel.noReadingsImage)
+                                .resizable()
+                                .scaledToFit()
+                                .padding(20)
                         }
                     })
                     .foregroundColor(Color.white)
                     .padding(10)
-            }
-            .padding([.leading, .top, .trailing], 10)
+            }.padding([.leading, .top, .trailing], 10)
             .frame(height: 90)
             Divider()
         }
