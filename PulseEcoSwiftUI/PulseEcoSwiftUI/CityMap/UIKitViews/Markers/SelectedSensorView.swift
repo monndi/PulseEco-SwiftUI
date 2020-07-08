@@ -3,7 +3,7 @@ import UIKit
 class SelectedSensorView: UIView {
     @IBOutlet weak var titleLabel: UILabel!
 
-    class func instanceFromNib() throws -> SelectedSensorView {
+    class func instanceFromNib() -> SelectedSensorView {
         let nib = Bundle.main.loadNibNamed("SelectedSensorView", owner: nil, options: nil)![0] as? SelectedSensorView
         return nib!
     }

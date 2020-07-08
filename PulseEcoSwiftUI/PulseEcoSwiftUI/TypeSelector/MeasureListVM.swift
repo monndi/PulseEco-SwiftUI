@@ -14,7 +14,7 @@ class MeasureListVM: ObservableObject {
     @Published var measures: [MeasureButtonVM] = []
     @Published var selectedMeasure: String
     var backgroundColor: Color = Color.white
-    var shadow: Color = Color(UIColor(red: 0.87, green: 0.89, blue: 0.92, alpha: 1.00))
+    var shadow: Color = Color(red: 0.87, green: 0.89, blue: 0.92)
     
     init(selectedMeasure: String, cityName: String, measuresList: [Measure], cityValues: CityOverallValues?) {
         self.selectedMeasure = selectedMeasure

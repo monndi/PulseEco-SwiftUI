@@ -34,20 +34,3 @@ struct CityListView: View {
         }.onAppear(perform: { UITableView.appearance().separatorColor = .clear })
     }
 }
-
-
-
-
-
-
-
-//        List(cityList.cityList, id: \.id) { city in
-//             Section(header: Text("Macedonia")) {
-//                CityRow(city: city).onTapGesture {
-//                    self.appVM.locationClicked = false
-//                    self.appVM.cityName = city.cityName
-//                }.opacity(1.0)
-//            }
-//        }.listStyle(.grouped)
-//.onAppear(perform: { UITableView.appearance().separatorColor = .clear })
-

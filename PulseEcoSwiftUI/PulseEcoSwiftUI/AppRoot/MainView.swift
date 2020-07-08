@@ -24,7 +24,7 @@ struct MainView: View {
                     .navigationBarItems(leading: Button(action: {
                         self.appVM.citySelectorClicked = true
                     }) {
-                        Text(self.appVM.cityName)
+                        Text(self.appVM.cityName.uppercased())
                             .bold()
                     }.accentColor(Color.black), trailing: Image(uiImage: UIImage(named: "logo-pulse") ?? UIImage())
                         .imageScale(.large)

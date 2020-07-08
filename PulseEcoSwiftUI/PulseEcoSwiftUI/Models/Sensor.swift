@@ -12,8 +12,12 @@ import MapKit
 
 struct SensorModel: Codable  {
     var id: String { return sensorID }
-    let sensorID, position, comments, type: String
-    let description, status: String
+    let sensorID: String
+    let position: String
+    let comments: String
+    let type: String
+    let description: String
+    let status: String
   
     
     enum CodingKeys: String, CodingKey {
@@ -29,11 +33,14 @@ struct SensorModel: Codable  {
 struct Sensor: Codable {
     let sensorID: String
     let stamp: String
-    let type, position, value: String
+    let type: String
+    let position: String
+    let value: String
 
     enum CodingKeys: String, CodingKey {
         case sensorID = "sensorId"
         case stamp, type, position, value
     }
 }
+
 

@@ -57,6 +57,7 @@
 		59A4F69B247FD2160089D523 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59A4F699247FD2160089D523 /* LaunchScreen.storyboard */; };
 		59A4F6A6247FD2160089D523 /* PulseEcoSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A4F6A5247FD2160089D523 /* PulseEcoSwiftUITests.swift */; };
 		59A4F6B1247FD2160089D523 /* PulseEcoSwiftUIUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A4F6B0247FD2160089D523 /* PulseEcoSwiftUIUITests.swift */; };
+		59D5951C24B5D1C3004A1823 /* ExpandedVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D5951B24B5D1C3004A1823 /* ExpandedVM.swift */; };
 		59F01AD724AC7B1300AD2802 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F01AD624AC7B1300AD2802 /* DataSource.swift */; };
 		59F5EFDC249CC5A40095FE71 /* SensorVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F5EFDB249CC5A40095FE71 /* SensorVM.swift */; };
 		59F5EFDE249CD62E0095FE71 /* SensorDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F5EFDD249CD62E0095FE71 /* SensorDetailsVM.swift */; };
@@ -140,6 +141,7 @@
 		59A4F6AC247FD2160089D523 /* PulseEcoSwiftUIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PulseEcoSwiftUIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		59A4F6B0247FD2160089D523 /* PulseEcoSwiftUIUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseEcoSwiftUIUITests.swift; sourceTree = "<group>"; };
 		59A4F6B2247FD2160089D523 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		59D5951B24B5D1C3004A1823 /* ExpandedVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedVM.swift; sourceTree = "<group>"; };
 		59F01AD624AC7B1300AD2802 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		59F5EFDB249CC5A40095FE71 /* SensorVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorVM.swift; sourceTree = "<group>"; };
 		59F5EFDD249CD62E0095FE71 /* SensorDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorDetailsVM.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				592201A624AA3ED300025F1F /* CollapsedView.swift */,
 				592201A824AA3F7600025F1F /* ExpandedView.swift */,
 				596434A024B49AF400943978 /* SensorDetailsView.swift */,
+				59D5951B24B5D1C3004A1823 /* ExpandedVM.swift */,
 			);
 			path = SensorDetails;
 			sourceTree = "<group>";
@@ -538,6 +541,7 @@
 				59504C1324B46C2D00EA4AFF /* LoadingView.swift in Sources */,
 				59F5EFDC249CC5A40095FE71 /* SensorVM.swift in Sources */,
 				5999C7FE24ADFAC40038EED7 /* SensorTypes.swift in Sources */,
+				59D5951C24B5D1C3004A1823 /* ExpandedVM.swift in Sources */,
 				5964349F24B4853300943978 /* NoReadingsVM.swift in Sources */,
 				59FAD1DA2490FD8400AC36A5 /* CityOverallValues.swift in Sources */,
 				59A35AC22498EBB600C07786 /* MainView.swift in Sources */,

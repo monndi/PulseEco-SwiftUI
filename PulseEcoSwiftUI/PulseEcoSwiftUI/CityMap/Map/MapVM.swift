@@ -34,11 +34,12 @@ class MapVM: ObservableObject {
             return SensorVM(title: sensor.sensorModel.description,
                             sensorID: sensor.sensorData.sensorID,
                             value: sensor.sensorData.value,
-                            coordinate: CLLocationCoordinate2D(latitude: Double(coordinates[0])!, longitude: Double(coordinates[1])!),
+                            coordinate: CLLocationCoordinate2D(latitude: Double(coordinates[0]) ?? 0, longitude: Double(coordinates[1]) ?? 0),
                             type: sensor.sensorModel.type,
                             color:  AppColors.colorFrom(string: selectedMeasure.bands.first{ band in
-                                Int(sensor.sensorData.value)! >= band.from && Int(sensor.sensorData.value)! <= band.to
-                                }?.legendColor ?? "gray")
+                                Int(sensor.sensorData.value) ?? 0 >= band.from && Int(sensor.sensorData.value) ?? 0 <= band.to
+                                }?.legendColor ?? "gray"),
+                            stamp: sensor.sensorData.stamp
             )
         }
         self.measure = measure

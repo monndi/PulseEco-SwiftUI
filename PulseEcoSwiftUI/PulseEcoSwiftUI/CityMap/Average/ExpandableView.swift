@@ -51,8 +51,7 @@ struct ExpandableView: View {
                             HStack(alignment: .bottom, spacing: 0) {
                                 if self.viewModel.bands.count != 0 {
                                         ForEach(0...self.viewModel.bands.count - 1, id: \.self) { indx in
-                                                RoundedCorners(tl: 0, tr: 0, bl: indx == 0 ? 8 : 0, br: indx == self.viewModel.bands.count - 1 ? 8 : 0)
-                                                    .fill(Color(self.viewModel.bands[indx].legendColor))
+                                                RoundedCorners(tl: 0, tr: 0, bl: indx == 0 ? 8 : 0, br: indx == self.viewModel.bands.count - 1 ? 8 : 0) .fill(Color(self.viewModel.bands[indx].legendColor))
                                                     .frame(width: CGFloat((self.viewModel.bands[indx].width) * Double(self.width) / 100), height: 6, alignment: .bottom)
                                         }
                                 }
@@ -69,7 +68,7 @@ struct ExpandableView: View {
                         self.isExpanded.toggle()
                         self.width = self.isExpanded ? self.geometry.frame(in: .local).midX * 1.8 : 130
                 }.padding(.top, 20)
-                    .animation(.linear)
+                    .animation(.easeOut(duration: 0.3))
                 Spacer()
             }
             Spacer()

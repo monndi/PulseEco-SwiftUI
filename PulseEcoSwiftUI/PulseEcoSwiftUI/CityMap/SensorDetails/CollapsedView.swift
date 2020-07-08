@@ -7,11 +7,11 @@ struct CollapsedView: View {
         VStack {
             Rectangle()
                 .frame(width: 50, height: 3.0, alignment: .bottom)
-                .foregroundColor(Color.black).padding(.top, 10)
+                .foregroundColor(Color.gray).padding(.top, 10)
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 5) {
                     HStack {
-                        Image(uiImage: UIImage(named: self.viewModel.image)!)
+                        Image(uiImage: self.viewModel.image)
                         Text("\(self.viewModel.title)").foregroundColor(Color.gray)
                     }
                     HStack {
@@ -19,10 +19,10 @@ struct CollapsedView: View {
                         Text(self.viewModel.unit).padding(.top, 10)
                         Spacer()
                         VStack (alignment: .leading) {
-                            Text(self.viewModel.time)
-                            Text(self.viewModel.date).foregroundColor(Color.gray)
+                            Text("\(self.viewModel.time)")
+                            Text("\(self.viewModel.date)").foregroundColor(Color.gray)
                         }
-                        Image(uiImage: UIImage(named: self.viewModel.image)!)
+                        Image(uiImage: UIImage(named: "unselectedFavorites") ?? UIImage())
                     }
                     Spacer().frame(height: 10)
                 }

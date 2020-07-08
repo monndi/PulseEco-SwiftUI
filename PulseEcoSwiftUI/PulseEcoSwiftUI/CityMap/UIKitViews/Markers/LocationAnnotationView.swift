@@ -14,18 +14,19 @@ import SwiftUI
 class LocationAnnotationView: MKAnnotationView {
 
     var pin: SensorVM?
-
+    var markerView: MarkerView?
+    var selectedSensor: SelectedSensorView?
 
     // MARK: Initialization
 
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-        self.pin = annotation as? SensorVM
-
-        
+        guard let pin = annotation as? SensorVM else {
+            return
+        }
+        self.pin = pin
         frame = CGRect(x: 0, y: 0, width: 35, height: 48)
-
-        setupUI()
+        self.markerView = setupUI()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -34,11 +35,33 @@ class LocationAnnotationView: MKAnnotationView {
 
     // MARK: Setup
 
-    private func setupUI() {
+    private func setupUI() -> MarkerView {
         let markerIconView = UINib(nibName: "MarkerView", bundle: nil).instantiate(withOwner: nil, options: nil).first as! MarkerView
         markerIconView.setup(withValue: Double(pin!.value)!, color: pin!.color)
         addSubview(markerIconView)
         markerIconView.frame = bounds
-        
+        return markerIconView
     }
+    
+    func showCallout() {
+        guard let markerView = self.markerView else {
+            return
+        }
+        let selectedSensorView = SelectedSensorView.instanceFromNib()
+        selectedSensorView.setTitle(title: self.pin?.title ?? "Sensor")
+
+        let calloutViewFrame = markerView.frame;
+
+        selectedSensorView.frame = CGRect(x: -(selectedSensorView.frame.width - calloutViewFrame.size.width)/2, y: -calloutViewFrame.size.height + 5, width: selectedSensorView.frame.width, height: selectedSensorView.frame.height)
+        
+        markerView.addSubview(selectedSensorView)
+        self.selectedSensor = selectedSensorView
+    }
+    func hideCallout() {
+        guard let selectedSensorView = self.selectedSensor else {
+            return
+        }
+        selectedSensorView.removeFromSuperview()
+    }
+    
 }
