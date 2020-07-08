@@ -25,22 +25,23 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
         let tapGestureRecognizer = MyTapGesture(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         tapGestureRecognizer.sensor = annotation
         
-        let annotatonView = MKAnnotationView(annotation: annotation, reuseIdentifier: "customView")
-        annotatonView.addGestureRecognizer(tapGestureRecognizer)
-        
-        annotatonView.canShowCallout = true
-        let pinImage = UIImage(named: "marker")?.withTintColor(annotation.color) ?? UIImage()
-        let size = CGSize(width: 35, height: 48)
-        UIGraphicsBeginImageContext(size)
-        pinImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-        let resizedImage = UIGraphicsGetImageFromCurrentImageContext() ?? UIImage()
-        let uiImageShadowed = resizedImage.addShadow()
-        let uiImage = self.textToImage(drawText: String(annotation.value), inImage: uiImageShadowed, atPoint: CGPoint(x: 11, y: 13))
+//        let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "customView")
+        let annotationView = LocationAnnotationView(annotation: annotation, reuseIdentifier: "customView")
+//        let annotationView = AnnotationViewUI()
+        annotationView.addGestureRecognizer(tapGestureRecognizer)
+        annotationView.canShowCallout = true
+//        let pinImage = UIImage(named: "marker")?.withTintColor(annotation.color) ?? UIImage()
+//        let size = CGSize(width: 35, height: 48)
+//        UIGraphicsBeginImageContext(size)
+//        pinImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+//        let resizedImage = UIGraphicsGetImageFromCurrentImageContext() ?? UIImage()
+//        let uiImageShadowed = resizedImage.addShadow()
+//        let uiImage = self.textToImage(drawText: String(annotation.value), inImage: uiImageShadowed, atPoint: CGPoint(x: 11, y: 13))
        
-        annotatonView.image = uiImage
+//        annotationView.image = uiImage
        // annotatonView.calloutOffset = CGPoint(x: -5, y: 5)
         
-        return annotatonView
+        return annotationView
         
     }
     
