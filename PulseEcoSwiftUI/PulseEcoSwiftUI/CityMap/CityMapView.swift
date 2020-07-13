@@ -12,15 +12,16 @@ struct CityMapView: View {
     @Environment(\.managedObjectContext) var moc
     @ObservedObject var viewModel: CityMapVM
     @EnvironmentObject var appVM: AppVM
-    @State private var showDisclaimerView = false
     @EnvironmentObject var dataSource: DataSource
+    @ObservedObject var userSettings = UserSettings()
     var body: some View {
         ZStack {
             MapView(viewModel: MapVM(measure: self.appVM.selectedMeasure,
                     cityName: self.appVM.cityName,
                     sensors: self.dataSource.citySensors,
                     sensorsData: self.dataSource.sensorsData,
-                    measures: dataSource.measures))
+                    measures: self.dataSource.measures,
+                    city: self.dataSource.cities.first{ $0.cityName == self.appVM.cityName} ?? CityModel.defaultCity()))
                 .edgesIgnoringSafeArea(.all)
 //                .overlay(
 //                    Rectangle()
@@ -48,7 +49,8 @@ struct CityMapView: View {
                     )
                         .padding(.bottom, 35)
                         .onTapGesture {
-                            self.showDisclaimerView = true
+                            self.appVM.showSheet = true
+                            self.appVM.activeSheet = .disclaimerView
                     }
                     
                 }.padding(.trailing, 15)
@@ -59,13 +61,20 @@ struct CityMapView: View {
                     .edgesIgnoringSafeArea(.bottom)
             }
             if self.appVM.citySelectorClicked {
-                CityListView(viewModel: CityListVM(selectedMeasure: self.appVM.selectedMeasure))
+                FavouriteCitiesView(viewModel: FavouriteCitiesVM(selectedMeasure: self.appVM.selectedMeasure, favouriteCities: self.userSettings.favouriteCities ))
             }
-        }.sheet(isPresented: self.$showDisclaimerView) {
-            DisclaimerView()
-                .environment(\.managedObjectContext, self.moc)
+        }.sheet(isPresented: self.$appVM.showSheet) {
+            if self.appVM.activeSheet == .disclaimerView {
+                DisclaimerView()
+                    .environment(\.managedObjectContext, self.moc)
+            } else {
+                CityListView(viewModel: CityListVM(cities: self.dataSource.cities), userSettings: self.userSettings).environment(\.managedObjectContext, self.moc)
+            }
         }
     }
 }
 
-
+enum ActiveSheet {
+    case disclaimerView
+    case cityListView
+}

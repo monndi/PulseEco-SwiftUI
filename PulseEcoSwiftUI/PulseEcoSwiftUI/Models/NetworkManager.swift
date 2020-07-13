@@ -54,5 +54,13 @@ class NetworkManager: ObservableObject {
             .receive(on: RunLoop.main)
             .eraseToAnyPublisher()
     }
+    func downloadCities() -> AnyPublisher<[CityModel], Error> {
+        let url = URL(string: "https://skopje.pulse.eco/rest/city")!
+                   return URLSession.shared.dataTaskPublisher(for: url)
+                   .map(\.data)
+                   .decode(type: [CityModel].self, decoder: JSONDecoder())
+                   .receive(on: RunLoop.main)
+                   .eraseToAnyPublisher()
+    }
 }
 

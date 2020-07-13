@@ -14,4 +14,6 @@ class AppVM: ObservableObject {
     @Published var updateMapRegion: Bool = true
     @Published var updateMapAnnotations: Bool = true
     @Published var blurBackground: Bool = false
+    @Published var showSheet: Bool = false
+    @Published var activeSheet: ActiveSheet = .disclaimerView
 }

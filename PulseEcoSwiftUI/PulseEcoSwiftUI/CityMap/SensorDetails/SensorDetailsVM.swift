@@ -24,8 +24,9 @@ class SensorDetailsVM {
         self.title = sensor.title ?? "Sensor"
         self.value = sensor.value
         self.unit = selectedMeasure.unit
-        self.date = "20-02-2020"
-        self.time = "16:41"
+        let date = DateFormatter.iso8601Full.date(from: sensor.stamp) ?? Date()
+        self.date = DateFormatter.getDate.string(from: date)
+        self.time = DateFormatter.getTime.string(from: date)
         self.image = sensorType.imageForType ?? UIImage()
     }
 }

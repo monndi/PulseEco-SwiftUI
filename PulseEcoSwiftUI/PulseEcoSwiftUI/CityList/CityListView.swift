@@ -1,36 +1,36 @@
-//
-//  CityListView.swift
-//  PulseEcoSwiftUI
-//
-//  Created by Monika Dimitrova on 6/17/20.
-//  Copyright © 2020 Monika Dimitrova. All rights reserved.
-//
 
 import SwiftUI
-import MapKit
 
 struct CityListView: View {
     
-    var viewModel: CityListVM
-    @EnvironmentObject var appVM: AppVM
+    @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var dataSource: DataSource
-    
+    @State private var searchText : String = ""
+    @ObservedObject var viewModel: CityListVM
+    @ObservedObject var userSettings: UserSettings
     var body: some View {
-        List {
-            ForEach(self.viewModel.countries, id: \.self) { gr in
-                Section(header: Text(gr)) {
-                    ForEach(self.viewModel.cityList, id: \.id) { city in
-                        CityRowView(viewModel: city).onTapGesture {
-                            self.appVM.citySelectorClicked = false
-                            self.appVM.cityName = city.cityName
-                            self.dataSource.loading = true
-                            self.dataSource.getValuesForCity(cityName: city.cityName)
-                            self.appVM.updateMapRegion = true
-                            self.appVM.updateMapAnnotations = true
-                        }.opacity(1.0)
+        VStack() {
+            HStack {
+                SearchBar(text: $searchText)
+                Button(action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                }) {
+                    Text("Cancel")
+                }
+            }.padding(.horizontal, 10)
+            List {
+                ForEach(self.viewModel.cities.filter {
+                    self.searchText.isEmpty ? true : $0.cityName.lowercased().contains(self.searchText.lowercased()) || $0.countryName.lowercased().contains(self.searchText.lowercased())
+                }, id: \.id) { city in
+                    CityRowView(viewModel: city).onTapGesture {
+                        if let city = self.viewModel.cityModel.first(where: { $0.cityName == city.cityName }) {
+                            self.userSettings.favouriteCities.insert(city)
+                            self.presentationMode.wrappedValue.dismiss()
+                        }
+                      //  self.userSettings.favouriteCities.removeAll()
                     }
                 }
             }
-        }.onAppear(perform: { UITableView.appearance().separatorColor = .clear })
+        }
     }
 }
