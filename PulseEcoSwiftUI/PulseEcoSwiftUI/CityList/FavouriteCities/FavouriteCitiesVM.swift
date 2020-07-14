@@ -12,11 +12,7 @@ import SwiftUI
 class FavouriteCitiesVM: ObservableObject {
     @Published var cityList: [FavouriteCityRowVM] = []
     var selectedMeasure: String
-    let countries = [
-           "Macedonia",
-           "Switzerland"
-    ]
-    
+
     init(selectedMeasure: String, favouriteCities: Set<CityModel>) {
         self.selectedMeasure = selectedMeasure
         for city in favouriteCities {
@@ -41,6 +37,10 @@ class FavouriteCitiesVM: ObservableObject {
 //                                     value: "3",
 //                                     unit: "µq/m3")
 //        ]
+    }
+    
+    func getCities() -> [FavouriteCityRowVM] {
+        return self.cityList.sorted { $0.siteName < $1.siteName}
     }
 }
 

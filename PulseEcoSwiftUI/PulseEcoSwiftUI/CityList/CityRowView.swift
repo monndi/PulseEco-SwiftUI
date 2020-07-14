@@ -8,9 +8,16 @@ struct CityRowView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("\(self.viewModel.siteName), \(self.viewModel.countryName)").foregroundColor(Color.gray)
-            }.frame(height: 40)
-            .padding(.horizontal, 10)
-            
+            HStack {
+                Image(systemName: "star.fill").foregroundColor(Color.white).scaledToFit()
+                VStack(alignment: .leading) {
+                    Text("\(self.viewModel.siteName)").foregroundColor(Color.white)
+                    Text("\(self.viewModel.countryName)").font(.system(size: 12)).foregroundColor(Color.blue)
+                }
+                Spacer()
+            }
+            Divider().background(Color.gray)
+        }.frame(height: 60)
+        .padding(.horizontal, 10)
     }
 }

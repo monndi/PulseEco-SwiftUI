@@ -22,54 +22,11 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
             return nil
         }
         let annotationView = LocationAnnotationView(annotation: annotation, reuseIdentifier: "customView")
-//        let tapGestureRecognizer = MyTapGesture(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
-//        tapGestureRecognizer.sensor = annotation
-        
-//        let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "customView")
-        
-//        let annotationView = AnnotationViewUI()
-       // annotationView.addGestureRecognizer(tapGestureRecognizer)
-        //annotationView.canShowCallout = true
-//        let pinImage = UIImage(named: "marker")?.withTintColor(annotation.color) ?? UIImage()
-//        let size = CGSize(width: 35, height: 48)
-//        UIGraphicsBeginImageContext(size)
-//        pinImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-//        let resizedImage = UIGraphicsGetImageFromCurrentImageContext() ?? UIImage()
-//        let uiImageShadowed = resizedImage.addShadow()
-//        let uiImage = self.textToImage(drawText: String(annotation.value), inImage: uiImageShadowed, atPoint: CGPoint(x: 11, y: 13))
-       
-//        annotationView.image = uiImage
-       // annotatonView.calloutOffset = CGPoint(x: -5, y: 5)
+
         return annotationView
         
     }
 
-//    class MyTapGesture: UITapGestureRecognizer {
-//        var sensor: SensorVM?
-//    }
-    
-//    func textToImage(drawText text: String, inImage image: UIImage, atPoint point: CGPoint) -> UIImage {
-//        let textColor = UIColor.white
-//        let textFont = UIFont(name: "Helvetica Bold", size: 12) ?? UIFont()
-//
-//        let scale = UIScreen.main.scale
-//        UIGraphicsBeginImageContextWithOptions(image.size, false, scale)
-//
-//        let textFontAttributes = [
-//            NSAttributedString.Key.font: textFont,
-//            NSAttributedString.Key.foregroundColor: textColor,
-//            ] as [NSAttributedString.Key : Any]
-//        image.draw(in: CGRect(origin: CGPoint.zero, size: image.size))
-//
-//        let rect = CGRect(origin: point, size: image.size)
-//        text.draw(in: rect, withAttributes: textFontAttributes)
-//
-//        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-//        UIGraphicsEndImageContext()
-//
-//        return newImage ?? UIImage()
-//    }
-    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView)
     {
         guard let annotationView = view as? LocationAnnotationView else {
@@ -91,19 +48,6 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
         mapViewController.appVM.updateMapRegion = false
         mapViewController.appVM.updateMapAnnotations = false
     }
-    
-//    @objc func imageTapped(tapGestureRecognizer: MyTapGesture)
-//    {
-//        mapViewController.appVM.showSensorDetails = true
-//        mapViewController.appVM.selectedSensor = tapGestureRecognizer.sensor
-//        mapViewController.appVM.updateMapRegion = false
-//        mapViewController.appVM.updateMapAnnotations = false
-//    }
-//    @objc func triggerTouchAction(tapGestureRecognizer: UITapGestureRecognizer) {
-//       // mapViewController.appVM.showSensorDetails = false
-//        mapViewController.appVM.updateMapRegion = false
-//        mapViewController.appVM.updateMapAnnotations = false
-//    }
 }
 
 struct MapView: UIViewRepresentable {
@@ -146,29 +90,3 @@ struct MapView: UIViewRepresentable {
         //uiView.addGestureRecognizer(tapGestureRecognizer)
     }
 }
-
-
-//extension UIImage {
-//
-//    func addShadow(blurSize: CGFloat = 6.0) -> UIImage {
-//
-//        let shadowColor = UIColor(white:0.0, alpha:0.5).cgColor
-//
-//        let context = CGContext(data: nil,
-//                                width: Int(self.size.width + blurSize),
-//                                height: Int(self.size.height + blurSize),
-//                                bitsPerComponent: self.cgImage!.bitsPerComponent,
-//                                bytesPerRow: 0,
-//                                space: CGColorSpaceCreateDeviceRGB(),
-//                                bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
-//
-//        context.setShadow(offset: CGSize(width: blurSize/2,height: -blurSize/2),
-//                          blur: blurSize,
-//                          color: shadowColor)
-//        context.draw(self.cgImage!,
-//                     in: CGRect(x: 0, y: blurSize, width: self.size.width, height: self.size.height),
-//                     byTiling:false)
-//
-//        return UIImage(cgImage: context.makeImage()!)
-//    }
-//}

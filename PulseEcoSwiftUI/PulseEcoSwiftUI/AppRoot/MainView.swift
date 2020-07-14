@@ -16,16 +16,19 @@ struct MainView: View {
         LoadingView(isShowing: .constant(self.dataSource.loading)) {
             NavigationView {
                 VStack(alignment: .center, spacing: 0) {
-                    MeasureListView(viewModel: MeasureListVM(selectedMeasure: self.appVM.selectedMeasure, cityName: self.appVM.cityName, measuresList: self.dataSource.measures, cityValues: self.dataSource.cityOverall))
+                    MeasureListView(viewModel: MeasureListVM(selectedMeasure: self.appVM.selectedMeasure, cityName: self.appVM.cityName, measuresList: self.dataSource.measures, cityValues: self.dataSource.cityOverall, citySelectorClicked: self.appVM.citySelectorClicked))
                     CityMapView(viewModel: CityMapVM(blurBackground: self.appVM.blurBackground))
                         .edgesIgnoringSafeArea([.horizontal,.bottom
                     ])
                 }.navigationBarTitle("", displayMode: .inline)
                     .navigationBarItems(leading: Button(action: {
-                        self.appVM.citySelectorClicked = true
+                        self.appVM.citySelectorClicked.toggle()
                     }) {
-                        Text(self.appVM.cityName.uppercased())
-                            .bold()
+                        HStack {
+                            Text(self.appVM.cityName.uppercased())
+                                .bold()
+                            self.appVM.cityIcon
+                        }
                     }.accentColor(Color.black), trailing: Image(uiImage: UIImage(named: "logo-pulse") ?? UIImage())
                         .imageScale(.large)
                         .padding(.trailing, (UIWidth)/2.6)

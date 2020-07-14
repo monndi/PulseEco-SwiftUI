@@ -43,7 +43,7 @@ struct FavouriteCityRowView: View {
                     .padding(10)
             }.padding([.leading, .top, .trailing], 10)
             .frame(height: 90)
-            //Divider()
+            Divider()
         }
     }
 }

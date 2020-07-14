@@ -13,7 +13,7 @@ struct FavouriteCitiesView: View {
     @ObservedObject var viewModel: FavouriteCitiesVM
     @EnvironmentObject var appVM: AppVM
     @EnvironmentObject var dataSource: DataSource
-    
+    @ObservedObject var userSettings = UserSettings()
     var body: some View {
         VStack() {
             if self.viewModel.cityList.count == 0 {
@@ -25,29 +25,31 @@ struct FavouriteCitiesView: View {
                 }
             } else {
                 VStack {
-                    List {
-                        ForEach(self.viewModel.countries, id: \.self) { gr in
-                        
-                            Section(header: Text(gr)) {
-                                ForEach(self.viewModel.cityList, id: \.id) { city in
-                                    FavouriteCityRowView(viewModel: city).onTapGesture {
-                                        self.appVM.citySelectorClicked = false
-                                        self.appVM.cityName = city.cityName
-                                        self.dataSource.loading = true
-                                        self.dataSource.getValuesForCity(cityName: city.cityName)
-                                        self.appVM.updateMapRegion = true
-                                        self.appVM.updateMapAnnotations = true
-                                    }
+                    //List {
+                    ScrollView {
+                        VStack {
+                            ForEach(self.viewModel.getCities(), id: \.id) { city in
+                                FavouriteCityRowView(viewModel: city).onTapGesture {
+                                    self.appVM.citySelectorClicked = false
+                                    self.appVM.cityName = city.cityName
+                                    self.dataSource.loading = true
+                                    self.dataSource.getValuesForCity(cityName: city.cityName)
+                                    self.appVM.updateMapRegion = true
+                                    self.appVM.updateMapAnnotations = true
                                 }
-                            }
-                        }.onDelete(perform: delete)
+                            }//.onDelete(perform: self.delete)
+                        }
                     }
-                    Image(systemName: "plus").onTapGesture {
+                    //}
+                    HStack {
+                        Spacer()
+                        Image(systemName: "plus.circle").foregroundColor(Color(AppColors.purple)).onTapGesture {
                         self.appVM.showSheet = true
                         self.appVM.activeSheet = .cityListView
                     }
-                    .padding(.bottom, 20)
+                    .padding([.bottom, .trailing], 20)
                     }
+                }.background(Color.white)
             }
         }
         .background(Color.white)
