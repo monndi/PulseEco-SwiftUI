@@ -14,23 +14,21 @@ class FavouriteCityRowVM: ObservableObject, Identifiable {
     var noReadings: Bool
     var noReadingsImage: UIImage = UIImage(named: "exclamation") ?? UIImage()
 
-    init(cityName: String = "skopje",
-         siteName: String = "Skopje",
-         countryCode: String = "MK",
-         countryName: String = "Macedonia",
-         message: String = "No message",
+    init(city: CityModel = CityModel(),
+         message: String = "No data available. Try again later.",
          value: String? = "3",
-         unit: String = "µq/m3") {
-        self.cityName = cityName
-        self.siteName = siteName
-        self.countryCode = countryCode
-        self.countryName = countryName
+         unit: String = "µq/m3",
+         color: Color = Color.gray) {
+        self.cityName = city.cityName
+        self.siteName = city.siteName
+        self.countryCode = city.countryCode
+        self.countryName = city.countryName
         self.message = message
         if let val = value {
             if let floatValue = Float(val) {
                 self.value = floatValue
                 self.noReadings = false
-                self.color = Color(AppColors.green)
+                self.color = color
             } else {
                 self.noReadings = true
                 self.value = 0

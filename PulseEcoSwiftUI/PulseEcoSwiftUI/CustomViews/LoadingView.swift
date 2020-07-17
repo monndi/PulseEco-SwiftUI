@@ -12,8 +12,6 @@ struct LoadingView<Content>: View where Content: View {
                     .disabled(true)
                     .blur(radius: 3)
                 VStack {
-                    //                    Text("Loading...")
-                    //                    ActivityIndicator(isAnimating: .constant(true), style: .large)
                     LoadingDialog()
                 }
                 .background(Color.secondary.colorInvert())
@@ -30,12 +28,14 @@ struct LoadingView<Content>: View where Content: View {
 
 struct LoadingDialog: View {
     var body: some View {
-      
-        Image(uiImage: UIImage(named: "launchScreenBackground") ?? UIImage()).resizable().scaledToFill().overlay(
+        ZStack(alignment: .center) {
+        Image(uiImage: UIImage(named: "launchScreenBackground") ?? UIImage()).resizable().scaledToFill()//.overlay(
             VStack {
                 Image(uiImage: UIImage(named: "launchScreenLogo") ?? UIImage())
                 Image(uiImage: UIImage(named: "launchScreenName") ?? UIImage())
-        }, alignment: .center).edgesIgnoringSafeArea(.all)
+            }.scaledToFit()
+            //, alignment: .center)
+        }.edgesIgnoringSafeArea(.all)
     }
 }
 

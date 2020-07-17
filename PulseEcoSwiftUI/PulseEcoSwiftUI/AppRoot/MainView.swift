@@ -11,6 +11,7 @@ import SwiftUI
 struct MainView: View {
     @EnvironmentObject var appVM: AppVM
     @EnvironmentObject var dataSource: DataSource
+    @ObservedObject var userSettings = UserSettings()
     
     var body: some View {
         LoadingView(isShowing: .constant(self.dataSource.loading)) {
@@ -26,6 +27,7 @@ struct MainView: View {
                     }) {
                         HStack {
                             Text(self.appVM.cityName.uppercased())
+                                .foregroundColor(Color(AppColors.darkblue))
                                 .bold()
                             self.appVM.cityIcon
                         }
@@ -34,6 +36,10 @@ struct MainView: View {
                         .padding(.trailing, (UIWidth)/2.6)
                         .onTapGesture {
                             //action
+                            self.dataSource.emptyCityOverallValueList()
+                            self.dataSource.getCities()
+                            self.dataSource.loading = true
+                            self.dataSource.getValuesForCity(cityName: self.appVM.cityName)
                         }
                     )
                 }.navigationBarColor(UIColor.white)

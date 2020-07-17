@@ -70,17 +70,17 @@ struct MapView: UIViewRepresentable {
         
         let span = MKCoordinateSpan(latitudeDelta: 2.0, longitudeDelta: 2.0)
         let region = MKCoordinateRegion(center: coordinate, span: span)
-        
-        if self.appVM.updateMapRegion {
-            uiView.setRegion(region, animated: true)
-        }
         if self.appVM.updateMapAnnotations {
             uiView.removeAnnotations(uiView.annotations)
             for pin in self.viewModel.sensors {
                 uiView.addAnnotation(pin)
             }
         }
-        
+               
+        if self.appVM.updateMapRegion {
+            uiView.setRegion(region, animated: true)
+        }
+       
         uiView.mapType = MKMapType.standard
         uiView.setCameraBoundary(MKMapView.CameraBoundary(coordinateRegion: region), animated: true)
         

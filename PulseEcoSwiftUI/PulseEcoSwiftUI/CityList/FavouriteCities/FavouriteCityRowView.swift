@@ -19,8 +19,11 @@ struct FavouriteCityRowView: View {
                     Text(self.viewModel.siteName)
                         .font(.headline)
                     Text(self.viewModel.countryName)
+                        .font(.system(size: 13))
+                        .foregroundColor(Color.gray)
                         .padding(.top, 2)
                     Text(self.viewModel.message)
+                        .font(.system(size: 15))
                         .padding(.top, 2)
                 }
                 Spacer()
@@ -43,7 +46,7 @@ struct FavouriteCityRowView: View {
                     .padding(10)
             }.padding([.leading, .top, .trailing], 10)
             .frame(height: 90)
-            Divider()
+           // Divider()
         }
     }
 }

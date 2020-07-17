@@ -11,8 +11,8 @@ struct CollapsedView: View {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 5) {
                     HStack {
-                        Image(uiImage: self.viewModel.image)
-                        Text("\(self.viewModel.title)").foregroundColor(Color.gray)
+                        Image(uiImage: self.viewModel.image)//.animation(.none)
+                        Text("\(self.viewModel.title)").foregroundColor(Color.gray)//.animation(.none)
                     }
                     HStack {
                         Text(self.viewModel.value).font(.system(size: 40))

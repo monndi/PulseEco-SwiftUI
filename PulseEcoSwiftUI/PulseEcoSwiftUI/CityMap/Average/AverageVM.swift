@@ -38,7 +38,7 @@ class AverageVM: ObservableObject {
             self.value = 0
         }
         self.measureBandsWidth = 100
-        self.message = "No message!"
+        self.message = "No data available. Try again later."
         self.measure = measure
         self.unit = "µq/m3"
         self.cityName = cityName
@@ -159,7 +159,7 @@ class BandVM: Identifiable {
          legendColor: UIColor = AppColors.gray,
          markerColor: UIColor = AppColors.gray,
          shortGrade: String = "--",
-         grade: String = "No message!",
+         grade: String = "No data available. Try again later.",
          suggestion: String = "--",
          width: Double = 0.0) {
         self.from = from

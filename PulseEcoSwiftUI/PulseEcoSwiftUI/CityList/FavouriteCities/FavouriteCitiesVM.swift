@@ -13,30 +13,47 @@ class FavouriteCitiesVM: ObservableObject {
     @Published var cityList: [FavouriteCityRowVM] = []
     var selectedMeasure: String
 
-    init(selectedMeasure: String, favouriteCities: Set<CityModel>) {
+    init(selectedMeasure: String, favouriteCities: Set<CityModel>, cityValues: [CityOverallValues], measureList: [Measure]) {
         self.selectedMeasure = selectedMeasure
+        var value: String? = nil
         for city in favouriteCities {
-            self.cityList.append(FavouriteCityRowVM(cityName: city.cityName, siteName: city.siteName, countryCode: city.countryCode, countryName: city.countryName, message: "No message!", value: selectedMeasure == "pm10" ? "3" : nil, unit: selectedMeasure == "pm10" ? "µq/m3" : "C"))
+            value = nil
+            if let cityValue = cityValues.last(where: { $0.cityName == city.cityName
+            }) {
+                if let averageValue = cityValue.values[selectedMeasure.lowercased()] {
+                    if let floatValue = Float(averageValue) {
+                        value = String(floatValue)
+                    }
+                }
+            }
+            let selMeasure = measureList.filter{ $0.id.lowercased() == selectedMeasure.lowercased()}.first ?? Measure.empty()
+            var message = "No data available. Try again later."
+            var color = Color.gray
+            
+            if let val = Float(value ?? "") {
+                if Int(val) < selMeasure.legendMin {
+                    message = selMeasure.bands[0].shortGrade
+                    color = Color(AppColors.colorFrom(string: selMeasure.bands[0].legendColor))
+                } else if Int(val) > selMeasure.legendMax {
+                    message = selMeasure.bands[selMeasure.bands.count - 1].shortGrade
+                    color = Color(AppColors.colorFrom(string: selMeasure.bands[selMeasure.bands.count - 1].legendColor))
+                } else {
+                    selMeasure.bands.forEach{ band in
+                        if valueInBand(from: band.from, to: band.to, value: val) {
+                            message = band.shortGrade
+                            color = Color(AppColors.colorFrom(string: band.legendColor))
+                            return
+                        }
+                    }
+                }
+            }
+            
+            self.cityList.append(FavouriteCityRowVM(city: city, message: message, value: value, unit: selMeasure.unit, color: color))
         }
-//        cityList = [FavouriteCityRowVM(cityName: "Skopje",
-//                              countryCode: "MK",
-//                              countryName: "Macedonia",
-//                              message: "Good air quality",
-//                              value: selectedMeasure == "pm10" ? "3" : nil,
-//                              unit: selectedMeasure == "pm10" ? "µq/m3" : "C"),
-//                    FavouriteCityRowVM(cityName: "Bitola",
-//                              countryCode: "MK",
-//                              countryName: "Macedonia",
-//                              message: "Good air quality",
-//                              value: "3",
-//                              unit: "µq/m3"),
-//                    FavouriteCityRowVM(cityName: "Cork",
-//                                     countryCode: "MK",
-//                                     countryName: "Macedonia",
-//                                     message: "Good air quality",
-//                                     value: "3",
-//                                     unit: "µq/m3")
-//        ]
+    }
+    
+    func valueInBand(from: Int, to: Int, value: Float) -> Bool {
+        return Int(value) >= from && Int(value) <= to
     }
     
     func getCities() -> [FavouriteCityRowVM] {

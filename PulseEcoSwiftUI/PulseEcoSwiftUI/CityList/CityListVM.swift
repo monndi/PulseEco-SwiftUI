@@ -17,4 +17,14 @@ class CityListVM: ObservableObject {
             self.countries.insert(city.countryName)
             }
     }
+    func getCountries() -> [String]{
+        return self.countries.sorted {
+            $0 < $1
+        }
+    }
+    func getCities() -> [CityRowVM]{
+        return self.cities.sorted {
+            $0.siteName < $1.siteName
+        }
+    }
 }

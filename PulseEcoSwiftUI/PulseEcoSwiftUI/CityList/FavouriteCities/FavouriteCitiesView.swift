@@ -13,41 +13,41 @@ struct FavouriteCitiesView: View {
     @ObservedObject var viewModel: FavouriteCitiesVM
     @EnvironmentObject var appVM: AppVM
     @EnvironmentObject var dataSource: DataSource
-    @ObservedObject var userSettings = UserSettings()
+    @ObservedObject var userSettings: UserSettings
     var body: some View {
         VStack() {
             if self.viewModel.cityList.count == 0 {
                 VStack {
-                    Text("").onAppear{
-                    self.appVM.showSheet = true
-                    self.appVM.activeSheet = .cityListView
+                    Text("").onAppear {
+                        self.appVM.showSheet = true
+                        self.appVM.activeSheet = .cityListView
                     }
                 }
             } else {
                 VStack {
-                    //List {
-                    ScrollView {
-                        VStack {
-                            ForEach(self.viewModel.getCities(), id: \.id) { city in
-                                FavouriteCityRowView(viewModel: city).onTapGesture {
-                                    self.appVM.citySelectorClicked = false
-                                    self.appVM.cityName = city.cityName
-                                    self.dataSource.loading = true
-                                    self.dataSource.getValuesForCity(cityName: city.cityName)
-                                    self.appVM.updateMapRegion = true
-                                    self.appVM.updateMapAnnotations = true
-                                }
-                            }//.onDelete(perform: self.delete)
-                        }
+                    List {
+                        ForEach(self.viewModel.getCities(), id: \.id) { city in
+                            FavouriteCityRowView(viewModel: city).onTapGesture {
+                                self.appVM.citySelectorClicked = false
+                                self.appVM.cityName = city.cityName
+                                self.dataSource.loading = true
+                                self.dataSource.getValuesForCity(cityName: city.cityName)
+                                self.appVM.updateMapRegion = true
+                                self.appVM.updateMapAnnotations = true
+                            }
+                        }.onDelete(perform: self.delete)
                     }
-                    //}
                     HStack {
                         Spacer()
-                        Image(systemName: "plus.circle").foregroundColor(Color(AppColors.purple)).onTapGesture {
-                        self.appVM.showSheet = true
-                        self.appVM.activeSheet = .cityListView
-                    }
-                    .padding([.bottom, .trailing], 20)
+                        Image(systemName: "plus.circle")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                            .foregroundColor(Color(AppColors.purple))
+                            .onTapGesture {
+                                self.appVM.showSheet = true
+                                self.appVM.activeSheet = .cityListView
+                        }
+                        .padding([.bottom, .trailing], 20)
                     }
                 }.background(Color.white)
             }
@@ -56,23 +56,11 @@ struct FavouriteCitiesView: View {
     }
     
     func delete(at offsets: IndexSet) {
-        self.viewModel.cityList.remove(atOffsets: offsets)
+        offsets.forEach {
+            let delRow = self.viewModel.getCities()[$0]
+            if let city = self.userSettings.favouriteCities.first(where: { $0.cityName == delRow.cityName }) {
+                self.userSettings.favouriteCities.remove(city)
+            }
+        }
     }
 }
-
-//List {
-//            ForEach(self.viewModel.countries, id: \.self) { gr in
-//                Section(header: Text(gr)) {
-//                    ForEach(self.viewModel.cityList, id: \.id) { city in
-//                        CityRowView(viewModel: city).onTapGesture {
-//                            self.appVM.citySelectorClicked = false
-//                            self.appVM.cityName = city.cityName
-//                            self.dataSource.loading = true
-//                            self.dataSource.getValuesForCity(cityName: city.cityName)
-//                            self.appVM.updateMapRegion = true
-//                            self.appVM.updateMapAnnotations = true
-//                        }.opacity(1.0)
-//                    }
-//                }
-//            }
-//        }.onAppear(perform: { UITableView.appearance().separatorColor = .clear })
