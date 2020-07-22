@@ -21,6 +21,6 @@ class CityMapVM: ObservableObject {
     init(citySelectorClicked: Bool = false, showSensorDetails: Bool = false, blurBackground: Bool = false) {
         self.citySelectorClicked = citySelectorClicked
         self.showSensorDetails = showSensorDetails
-        self.backgroundColor =  blurBackground == true ? Color(UIColor(red: 0.34, green: 0.38, blue: 0.44, alpha: 0.8)) : Color.clear
+        self.backgroundColor =  blurBackground == true ? Color(UIColor(red: 0.29, green: 0.29, blue: 0.29, alpha: 0.6)) : Color.clear
     }
 }

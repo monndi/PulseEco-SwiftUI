@@ -9,10 +9,11 @@ struct CollapsedView: View {
                 .frame(width: 50, height: 3.0, alignment: .bottom)
                 .foregroundColor(Color.gray).padding(.top, 10)
             HStack(alignment: .top) {
-                VStack(alignment: .leading, spacing: 5) {
+                VStack(alignment: .leading, spacing: 1) {
                     HStack {
                         Image(uiImage: self.viewModel.image)//.animation(.none)
-                        Text("\(self.viewModel.title)").foregroundColor(Color.gray)//.animation(.none)
+                        Text("\(self.viewModel.title)").foregroundColor(Color.gray)
+                            .font(.system(size: 13))//.animation(.none)
                     }
                     HStack {
                         Text(self.viewModel.value).font(.system(size: 40))
@@ -24,7 +25,7 @@ struct CollapsedView: View {
                         }
                         Image(uiImage: UIImage(named: "unselectedFavorites") ?? UIImage())
                     }
-                    Spacer().frame(height: 10)
+                   // Spacer().frame(height: 10)
                 }
             }.padding([.horizontal], 20)
         }

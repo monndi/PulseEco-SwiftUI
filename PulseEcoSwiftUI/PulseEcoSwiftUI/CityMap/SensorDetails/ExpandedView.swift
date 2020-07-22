@@ -4,14 +4,9 @@ struct ExpandedView: View {
     @ObservedObject var viewModel: ExpandedVM
     var body: some View {
         VStack {
-            LineGraph(dataPoints: [0, 1, 2, 3])
-                .trim(to: 0)
-                .stroke(Color.red, lineWidth: 2)
-                .aspectRatio(16/9, contentMode: .fit)
-                .border(Color.gray, width: 1)
-                .padding()
+            Rectangle().frame(width: 400,height: 200)
             Text(self.viewModel.disclaimerMessage)
-                .font(.system(size: 13, weight: .light))
+                .font(.system(size: 11, weight: .light))
                 .foregroundColor(self.viewModel.color)
                 .lineLimit(nil)
                 .multilineTextAlignment(.center)
@@ -21,7 +16,7 @@ struct ExpandedView: View {
                 Text("|").font(.system(size: 13, weight: .medium))
                 Text("Privacy Policy").font(.system(size: 13, weight: .medium))
             }.foregroundColor(self.viewModel.color).padding(.top, 10)
-            Spacer().frame(height: 30)
+           // Spacer().frame(height: 30)
         }
     }
 }

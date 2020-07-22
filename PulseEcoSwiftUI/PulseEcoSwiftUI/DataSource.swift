@@ -2,7 +2,7 @@ import Foundation
 import Combine
 
 class DataSource: ObservableObject {
-    @Published var measures: [Measure] = []
+    @Published var measures: [Measure] = [Measure.empty("PM10"),Measure.empty("PM25"),Measure.empty("Noise"),Measure.empty("Temperature"),Measure.empty("Humidity"),Measure.empty("Pressure"), Measure.empty("NO2"), Measure.empty("O3")]
     @Published var citySensors: [SensorModel] = []
     @Published var cityOverall: CityOverallValues?
     @Published var userSettings: UserSettings = UserSettings()
@@ -10,7 +10,8 @@ class DataSource: ObservableObject {
     @Published var sensorsData24h: [Sensor] = []
     @Published var cities: [CityModel] = []
     @Published var cancellationTokens: [AnyCancellable] = []
-    @Published var loading: Bool = true
+    @Published var loadingCityData: Bool = true
+    @Published var loadingMeasures: Bool = true
     private var cancellableMeasures: AnyCancellable?
     private var cancellableOverallValues: AnyCancellable?
     private var cancellableOverallValuesList: AnyCancellable?
@@ -20,17 +21,20 @@ class DataSource: ObservableObject {
     private var cancellableCities: AnyCancellable?
     var subscripiton: AnyCancellable?
     init() {
-        getCities()
+       // getCities()
         getMeasures()
         getValuesForCity()
-        subscripiton = RunLoop.main.schedule(after: RunLoop.main.now, interval: .seconds(900)) {
+        subscripiton = RunLoop.main.schedule(after: RunLoop.main.now, interval: .seconds(600)) {
+            self.emptyCityOverallValueList()
             self.getCities()
         } as? AnyCancellable
         //getOverallValuesForFavoriteCities()
     }
     
     func getMeasures() {
-        self.cancellableMeasures = NetworkManager().downloadMeasures().sink(receiveCompletion: { _ in }, receiveValue: { measures in
+        self.cancellableMeasures = NetworkManager().downloadMeasures().sink(receiveCompletion: { _ in
+            self.loadingMeasures = false
+        }, receiveValue: { measures in
             self.measures = measures
         })
     }
@@ -42,17 +46,15 @@ class DataSource: ObservableObject {
         get24hDataForSensors(city: cityName) 
     }
     func getOverallValues(city: String) {
-        self.cancellableOverallValues = NetworkManager().downloadOverallValuesForCity(cityName: city).sink(receiveCompletion: { _ in
-            self.loading = false
-        }, receiveValue: { values in
+        self.cancellableOverallValues = NetworkManager().downloadOverallValuesForCity(cityName: city).sink(receiveCompletion: { _ in  }, receiveValue: { values in
             self.cityOverall = values
         })
     }
     
     func getOverallValuesForFavoriteCities(city: String = "Skopje") {
+        
         self.cities.forEach { city in
-        self.cancellableOverallValuesList = NetworkManager().downloadOverallValuesForCity(cityName: city.cityName).sink(receiveCompletion: { _ in
-            }, receiveValue: { values in
+        self.cancellableOverallValuesList = NetworkManager().downloadOverallValuesForCity(cityName: city.cityName).sink(receiveCompletion: { _ in  }, receiveValue: { values in
                 self.userSettings.cityValues.append(values)
             })
         }
@@ -62,7 +64,7 @@ class DataSource: ObservableObject {
         self.userSettings.cityValues.removeAll()
     }
     func getSensors(city: String) {
-        self.cancellableSensors = NetworkManager().downloadSensors(cityName: city).sink(receiveCompletion: { _ in }, receiveValue: { sensors in
+        self.cancellableSensors = NetworkManager().downloadSensors(cityName: city).sink(receiveCompletion: { _ in  self.loadingCityData = false }, receiveValue: { sensors in
             self.citySensors = sensors
         })
     }
@@ -79,13 +81,10 @@ class DataSource: ObservableObject {
     func getCities() {
         self.cancellableCities = NetworkManager().downloadCities().sink(receiveCompletion: { _ in
             self.cities.forEach { city in
-                self.cancellationTokens.append(NetworkManager().downloadOverallValuesForCity(cityName: city.cityName).sink(receiveCompletion: { _ in
-                }, receiveValue: { values in
+                self.cancellationTokens.append(NetworkManager().downloadOverallValuesForCity(cityName: city.cityName).sink(receiveCompletion: { _ in }, receiveValue: { values in
                     self.userSettings.cityValues.append(values)
                 }))
-                self.loading = false
             }
-          //  self.getOverallValuesForFavoriteCities()
         }, receiveValue: { cities in
             self.cities = cities
         })

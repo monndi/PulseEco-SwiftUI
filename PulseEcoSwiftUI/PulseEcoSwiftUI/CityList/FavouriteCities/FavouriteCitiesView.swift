@@ -30,7 +30,7 @@ struct FavouriteCitiesView: View {
                             FavouriteCityRowView(viewModel: city).onTapGesture {
                                 self.appVM.citySelectorClicked = false
                                 self.appVM.cityName = city.cityName
-                                self.dataSource.loading = true
+                                self.dataSource.loadingCityData = true
                                 self.dataSource.getValuesForCity(cityName: city.cityName)
                                 self.appVM.updateMapRegion = true
                                 self.appVM.updateMapAnnotations = true

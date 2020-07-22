@@ -9,7 +9,7 @@ struct CityRowView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Image(systemName: "star.fill").foregroundColor(Color.white).scaledToFit()
+                Image(systemName: "pin").foregroundColor(Color.white).scaledToFit()
                 VStack(alignment: .leading) {
                     Text("\(self.viewModel.siteName)").foregroundColor(Color.white)
                     Text("\(self.viewModel.countryName)").font(.system(size: 12)).foregroundColor(Color.blue)

@@ -18,7 +18,7 @@ struct NoReadingsView: View {
                             Text(self.viewModel.text).foregroundColor(self.viewModel.textColor).padding(.bottom, 3)
                         }.padding(.top, 3)
                     }
-                }.frame(width: 125, height: 75)
+                }.frame(width: 120, height: 75)
                     .background(RoundedCorners(tl: 8, tr: 8, bl: 8, br: 8)
                     .fill(self.viewModel.backgroundColor))
                     .padding(.top, 20)

@@ -11,7 +11,7 @@ struct CityListView: View {
         VStack {
             VStack(spacing: 5) {
                 Text("Search city, or choose suggested").foregroundColor(Color.white)
-                SearchBar(text: self.$viewModel.searchText, placeholder: "Search city or country")
+                SearchBar(text: self.$viewModel.searchText, placeholder: "Search City or Country")
                     .padding(.horizontal, 10)
                 Text(self.viewModel.text).font(.headline).foregroundColor(Color.white)
             }.padding(.top, 10)

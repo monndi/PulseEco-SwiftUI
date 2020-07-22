@@ -3,11 +3,13 @@ import SwiftUI
 struct LoadingView<Content>: View where Content: View {
     
     @Binding var isShowing: Bool
+    @Binding var loadingMeasures: Bool
+    
     var content: () -> Content
     
     var body: some View {
         ZStack(alignment: .center) {
-            if self.isShowing {
+            if (self.isShowing || self.loadingMeasures) {
                 self.content()
                     .disabled(true)
                     .blur(radius: 3)

@@ -33,9 +33,9 @@ struct Measure: Codable, Identifiable {
     }
     
     
-    static func empty() -> Measure {
+    static func empty(_ title: String = "--") -> Measure {
         return Measure(id: "--",
-                       buttonTitle: "--",
+                       buttonTitle: title,
                        title: "--",
                        icon: "wifi",
                        description: "--",

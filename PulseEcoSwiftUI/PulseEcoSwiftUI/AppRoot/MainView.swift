@@ -14,11 +14,11 @@ struct MainView: View {
     @ObservedObject var userSettings = UserSettings()
     
     var body: some View {
-        LoadingView(isShowing: .constant(self.dataSource.loading)) {
+        LoadingView(isShowing: .constant(self.dataSource.loadingCityData), loadingMeasures: .constant(self.dataSource.loadingMeasures)) {
             NavigationView {
                 VStack(alignment: .center, spacing: 0) {
                     MeasureListView(viewModel: MeasureListVM(selectedMeasure: self.appVM.selectedMeasure, cityName: self.appVM.cityName, measuresList: self.dataSource.measures, cityValues: self.dataSource.cityOverall, citySelectorClicked: self.appVM.citySelectorClicked))
-                    CityMapView(viewModel: CityMapVM(blurBackground: self.appVM.blurBackground))
+                    CityMapView(viewModel: CityMapVM(blurBackground: self.appVM.blurBackground), userSettings: self.dataSource.userSettings)
                         .edgesIgnoringSafeArea([.horizontal,.bottom
                     ])
                 }.navigationBarTitle("", displayMode: .inline)
@@ -27,8 +27,9 @@ struct MainView: View {
                     }) {
                         HStack {
                             Text(self.appVM.cityName.uppercased())
+                                .font(Font.custom("TitilliumWeb-SemiBold", size: 14))
                                 .foregroundColor(Color(AppColors.darkblue))
-                                .bold()
+                                
                             self.appVM.cityIcon
                         }
                     }.accentColor(Color.black), trailing: Image(uiImage: UIImage(named: "logo-pulse") ?? UIImage())
@@ -36,10 +37,16 @@ struct MainView: View {
                         .padding(.trailing, (UIWidth)/2.6)
                         .onTapGesture {
                             //action
-                            self.dataSource.emptyCityOverallValueList()
-                            self.dataSource.getCities()
-                            self.dataSource.loading = true
-                            self.dataSource.getValuesForCity(cityName: self.appVM.cityName)
+                            if self.appVM.citySelectorClicked == false {
+                                self.appVM.showSensorDetails = false
+                                self.appVM.selectedSensor = nil
+                                self.appVM.updateMapAnnotations = true
+                                self.appVM.updateMapRegion = true
+                                self.dataSource.loadingMeasures = true
+                                self.dataSource.getMeasures()
+                                self.dataSource.loadingCityData = true
+                                self.dataSource.getValuesForCity(cityName: self.appVM.cityName)
+                            }
                         }
                     )
                 }.navigationBarColor(UIColor.white)

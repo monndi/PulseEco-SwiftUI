@@ -17,24 +17,25 @@ struct FavouriteCityRowView: View {
             HStack {
                 VStack(alignment: .leading) {
                     Text(self.viewModel.siteName)
-                        .font(.headline)
+                        .font(Font.custom("TitilliumWeb-Bold", size: 14))
                     Text(self.viewModel.countryName)
-                        .font(.system(size: 13))
+                        .font(Font.custom("TitilliumWeb-SemiBold", size: 11))
                         .foregroundColor(Color.gray)
                         .padding(.top, 2)
                     Text(self.viewModel.message)
-                        .font(.system(size: 15))
+                        .font(Font.custom("TitilliumWeb-SemiBold", size: 11))
                         .padding(.top, 2)
                 }
                 Spacer()
                 RoundedRectangle(cornerRadius: 10, style: .continuous)
                     .fill(self.viewModel.color)
-                    .frame(width: 80, height: 80)
+                    .frame(width: 65, height: 65)
                     .overlay(VStack {
                         if self.viewModel.noReadings == false {
                             Text("\(Int(self.viewModel.value))")
-                                .font(.system(size: 25))
+                                .font(.system(size: 20))
                             Text(self.viewModel.unit)
+                             .font(.system(size: 14))
                         } else {
                             Image(uiImage: self.viewModel.noReadingsImage)
                                 .resizable()
@@ -44,8 +45,8 @@ struct FavouriteCityRowView: View {
                     })
                     .foregroundColor(Color.white)
                     .padding(10)
-            }.padding([.leading, .top, .trailing], 10)
-            .frame(height: 90)
+            }.padding([.leading, .trailing], 10)
+            .frame(height: 80)
            // Divider()
         }
     }

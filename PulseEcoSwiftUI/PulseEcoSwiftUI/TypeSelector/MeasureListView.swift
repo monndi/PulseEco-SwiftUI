@@ -20,7 +20,7 @@ struct MeasureListView: View {
                     }
                 }
             }
-        }.minimumScaleFactor(0.90)
+        }//.minimumScaleFactor(0.90)
             .background(self.viewModel.backgroundColor)
             .shadow(color: self.viewModel.shadow, radius: 0.8, x: 0, y: 0)
     }

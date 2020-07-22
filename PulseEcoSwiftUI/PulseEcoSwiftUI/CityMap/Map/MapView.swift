@@ -68,8 +68,9 @@ struct MapView: UIViewRepresentable {
     func updateUIView(_ uiView: MKMapView, context: Context) {
         let coordinate = self.viewModel.coordinates
         
-        let span = MKCoordinateSpan(latitudeDelta: 2.0, longitudeDelta: 2.0)
-        let region = MKCoordinateRegion(center: coordinate, span: span)
+//        let span = MKCoordinateSpan(latitudeDelta: 2.0, longitudeDelta: 2.0)
+//        let region = MKCoordinateRegion(center: coordinate, span: span)
+        let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
         if self.appVM.updateMapAnnotations {
             uiView.removeAnnotations(uiView.annotations)
             for pin in self.viewModel.sensors {
@@ -84,7 +85,7 @@ struct MapView: UIViewRepresentable {
         uiView.mapType = MKMapType.standard
         uiView.setCameraBoundary(MKMapView.CameraBoundary(coordinateRegion: region), animated: true)
         
-        let zoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: Double(self.viewModel.intialZoomLevel*5000)) //100000))
+        let zoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: Double(self.viewModel.intialZoomLevel*8000)) //100000))
         uiView.setCameraZoomRange(zoomRange, animated: true)
 //        let tapGestureRecognizer = UITapGestureRecognizer(target: context.coordinator, action:#selector(Coordinator.triggerTouchAction(tapGestureRecognizer:)))
         //uiView.addGestureRecognizer(tapGestureRecognizer)

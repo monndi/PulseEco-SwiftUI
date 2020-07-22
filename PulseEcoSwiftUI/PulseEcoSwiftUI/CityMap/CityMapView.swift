@@ -13,7 +13,7 @@ struct CityMapView: View {
     @ObservedObject var viewModel: CityMapVM
     @EnvironmentObject var appVM: AppVM
     @EnvironmentObject var dataSource: DataSource
-    @ObservedObject var userSettings = UserSettings()
+    @ObservedObject var userSettings: UserSettings
     var body: some View {
         ZStack {
             MapView(viewModel: MapVM(measure: self.appVM.selectedMeasure,
@@ -23,19 +23,19 @@ struct CityMapView: View {
                     measures: self.dataSource.measures,
                     city: self.dataSource.cities.first{ $0.cityName == self.appVM.cityName} ?? CityModel.defaultCity()))
                 .edgesIgnoringSafeArea(.all)
-//                .overlay(
-//                    Rectangle()
-//                        .stroke(Color(red: 236/255, green: 234/255, blue: 235/255), lineWidth: 3)
-//                        .shadow(color: Color(red: 192/255, green: 189/255, blue: 191/255), radius: 3, x: 0, y: 5)
-//                        .clipShape(
-//                            Rectangle()
-//                    )
-//                        .shadow(color: Color.white, radius: 2, x: -2, y: -2)
-//                        .clipShape(
-//                            Rectangle()
-//                    )
-//            )
-                .overlay(self.viewModel.backgroundColor)
+                .overlay(
+                    Rectangle()
+                        .stroke(Color(red: 236/255, green: 234/255, blue: 235/255), lineWidth: 3)
+                        .shadow(color: Color(red: 192/255, green: 189/255, blue: 191/255), radius: 3, x: 0, y: 5)
+                        .clipShape(
+                            Rectangle()
+                    )
+                        .shadow(color: Color.white, radius: 2, x: -2, y: -2)
+                        .clipShape(
+                            Rectangle()
+                    )
+            )
+               // .overlay(self.viewModel.backgroundColor)
                 .animation(.default)
             VStack(alignment: .trailing) {
                 Spacer()
@@ -57,8 +57,9 @@ struct CityMapView: View {
             }
             AverageView(viewModel: AverageVM(measure: self.appVM.selectedMeasure, cityName: self.appVM.cityName, measuresList: self.dataSource.measures, cityValues: self.dataSource.cityOverall))
             if self.appVM.showSensorDetails {
-                SensorDetailsView()
-                    .edgesIgnoringSafeArea(.bottom)
+//                SensorDetailsView()
+//                    .edgesIgnoringSafeArea(.bottom)
+                SDView(viewModel: ExpandedVM(sensorData24h: self.dataSource.sensorsData24h))
             }
             if self.appVM.citySelectorClicked {
                 FavouriteCitiesView(viewModel: FavouriteCitiesVM(selectedMeasure: self.appVM.selectedMeasure, favouriteCities: self.userSettings.favouriteCities, cityValues: self.userSettings.cityValues, measureList: self.dataSource.measures), userSettings: self.userSettings)

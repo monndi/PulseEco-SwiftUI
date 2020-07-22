@@ -3,7 +3,7 @@ import Combine
 
 struct ExpandableView: View {
     @State var isExpanded = false
-    @State var width: CGFloat = 130
+    @State var width: CGFloat = 115
     var viewModel: AverageVM
     @State var geometry: GeometryProxy
     var body: some View {
@@ -12,21 +12,23 @@ struct ExpandableView: View {
                 VStack(alignment: .leading, spacing: 0) {
                     RoundedCorners(tl: 8, tr: 8, bl: 0, br: 0)
                         .fill(Color(UIColor(white: 0, alpha: 0.3)))
-                        .frame(height:  25)
+                        .frame(height:  20)
                         .overlay( Text("Average")
+                            .font(.system(size: 13))
                             .foregroundColor(Color.white)
                             .padding(.leading, 10), alignment: .leading
                         )
                     HStack(alignment: .top) {
                         VStack {
-                            HStack {
+                            HStack(spacing: 3) {
                                 Text("\(Int(self.viewModel.value))")
-                                    .font(.system(size: 30))
+                                    .font(.system(size: 25))
                                     .foregroundColor(Color.white)
                                     .fixedSize(horizontal: true, vertical: false)
                                     .padding(.top, 5)
                                     .animation(.none)
                                 Text(self.viewModel.unit)
+                                    .font(.system(size: 15))
                                     .foregroundColor(Color.white).padding(.top, 15)
                                     .animation(.none)
                             }
@@ -37,7 +39,7 @@ struct ExpandableView: View {
                         if self.isExpanded {
                             VStack {
                                 Text(self.viewModel.message)
-                                    .font(.system(size: 17))
+                                    .font(.system(size: 15))
                                     .foregroundColor(Color.white)
                                     .padding(.leading, 10)
                                     .fixedSize(horizontal: false, vertical: true)
@@ -66,12 +68,12 @@ struct ExpandableView: View {
                         .fill(Color(self.viewModel.colorForValue())))
                     .onTapGesture {
                         self.isExpanded.toggle()
-                        self.width = self.isExpanded ? self.geometry.frame(in: .local).midX * 1.8 : 130
-                }.padding(.top, 20)
+                        self.width = self.isExpanded ? self.geometry.frame(in: .local).midX * 1.8 : 115
+                }.padding(.top, 10)
                     .animation(.easeOut(duration: 0.3))
                 Spacer()
             }
             Spacer()
-        }.padding(.leading, 20)
+        }.padding(.leading, 10)
     }
 }
