@@ -19,6 +19,7 @@
 		591642A72499FE4C000A4F7C /* AverageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591642A62499FE4C000A4F7C /* AverageView.swift */; };
 		591642A92499FE9F000A4F7C /* AverageVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591642A82499FE9F000A4F7C /* AverageVM.swift */; };
 		591642DB249A04F7000A4F7C /* CityMapVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591642DA249A04F7000A4F7C /* CityMapVM.swift */; };
+		591EA1D224C99D5500CA61AE /* BottomShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591EA1D124C99D5500CA61AE /* BottomShadow.swift */; };
 		592201A724AA3ED300025F1F /* CollapsedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592201A624AA3ED300025F1F /* CollapsedView.swift */; };
 		592201A924AA3F7600025F1F /* ExpandedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592201A824AA3F7600025F1F /* ExpandedView.swift */; };
 		592201AB24AA55D900025F1F /* ExpandableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592201AA24AA55D900025F1F /* ExpandableView.swift */; };
@@ -83,6 +84,7 @@
 		59FAD1D42490C82600AC36A5 /* CityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FAD1D32490C82600AC36A5 /* CityModel.swift */; };
 		59FAD1D62490D76200AC36A5 /* Sensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FAD1D52490D76200AC36A5 /* Sensor.swift */; };
 		59FAD1DA2490FD8400AC36A5 /* CityOverallValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FAD1D92490FD8400AC36A5 /* CityOverallValues.swift */; };
+		B273DFB12A0BE2703C2F38D3 /* libPods-PulseEcoSwiftUI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C0A2C720954048EC787E6B6 /* libPods-PulseEcoSwiftUI.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +105,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1C58AE0F686C04609FEE1C79 /* Pods-PulseEcoSwiftUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PulseEcoSwiftUI.release.xcconfig"; path = "Target Support Files/Pods-PulseEcoSwiftUI/Pods-PulseEcoSwiftUI.release.xcconfig"; sourceTree = "<group>"; };
 		3288686C24B513DA009CC56D /* LocationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAnnotationView.swift; sourceTree = "<group>"; };
 		3288687024B51F5E009CC56D /* SelectedSensorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectedSensorView.xib; sourceTree = "<group>"; };
 		3288687124B51F5E009CC56D /* SelectedSensorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedSensorView.swift; sourceTree = "<group>"; };
@@ -115,6 +118,7 @@
 		591642A62499FE4C000A4F7C /* AverageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AverageView.swift; sourceTree = "<group>"; };
 		591642A82499FE9F000A4F7C /* AverageVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AverageVM.swift; sourceTree = "<group>"; };
 		591642DA249A04F7000A4F7C /* CityMapVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityMapVM.swift; sourceTree = "<group>"; };
+		591EA1D124C99D5500CA61AE /* BottomShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomShadow.swift; sourceTree = "<group>"; };
 		592201A624AA3ED300025F1F /* CollapsedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsedView.swift; sourceTree = "<group>"; };
 		592201A824AA3F7600025F1F /* ExpandedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedView.swift; sourceTree = "<group>"; };
 		592201AA24AA55D900025F1F /* ExpandableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableView.swift; sourceTree = "<group>"; };
@@ -185,6 +189,8 @@
 		59FAD1D32490C82600AC36A5 /* CityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityModel.swift; sourceTree = "<group>"; };
 		59FAD1D52490D76200AC36A5 /* Sensor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sensor.swift; sourceTree = "<group>"; };
 		59FAD1D92490FD8400AC36A5 /* CityOverallValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityOverallValues.swift; sourceTree = "<group>"; };
+		9C0A2C720954048EC787E6B6 /* libPods-PulseEcoSwiftUI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PulseEcoSwiftUI.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5D1BBA3F006FE8F999EF2CF /* Pods-PulseEcoSwiftUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PulseEcoSwiftUI.debug.xcconfig"; path = "Target Support Files/Pods-PulseEcoSwiftUI/Pods-PulseEcoSwiftUI.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +198,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B273DFB12A0BE2703C2F38D3 /* libPods-PulseEcoSwiftUI.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,6 +240,23 @@
 			path = Markers;
 			sourceTree = "<group>";
 		};
+		3835A225C2A2B59F6745C35F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9C0A2C720954048EC787E6B6 /* libPods-PulseEcoSwiftUI.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3E1CD7BA7AB820208248E7DA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F5D1BBA3F006FE8F999EF2CF /* Pods-PulseEcoSwiftUI.debug.xcconfig */,
+				1C58AE0F686C04609FEE1C79 /* Pods-PulseEcoSwiftUI.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		59103A9E24A4B62F00ED9617 /* Disclamer */ = {
 			isa = PBXGroup;
 			children = (
@@ -263,6 +287,7 @@
 				59504C1624B46CA700EA4AFF /* LineGraph.swift */,
 				59504C1824B46CC700EA4AFF /* ChildSizeReader.swift */,
 				59504C1A24B46CE500EA4AFF /* SizePreferenceKey.swift */,
+				591EA1D124C99D5500CA61AE /* BottomShadow.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -355,6 +380,8 @@
 				59A4F6A4247FD2160089D523 /* PulseEcoSwiftUITests */,
 				59A4F6AF247FD2160089D523 /* PulseEcoSwiftUIUITests */,
 				59A4F68C247FD2150089D523 /* Products */,
+				3E1CD7BA7AB820208248E7DA /* Pods */,
+				3835A225C2A2B59F6745C35F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -459,6 +486,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 59A4F6B5247FD2160089D523 /* Build configuration list for PBXNativeTarget "PulseEcoSwiftUI" */;
 			buildPhases = (
+				EAE471DDE3169270E1B4E500 /* [CP] Check Pods Manifest.lock */,
 				59A4F687247FD2150089D523 /* Sources */,
 				59A4F688247FD2150089D523 /* Frameworks */,
 				59A4F689247FD2150089D523 /* Resources */,
@@ -592,6 +620,31 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		EAE471DDE3169270E1B4E500 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PulseEcoSwiftUI-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		59A4F687247FD2150089D523 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -641,6 +694,7 @@
 				59504C0824B45E7000EA4AFF /* MeasureButtonView.swift in Sources */,
 				59504C1924B46CC700EA4AFF /* ChildSizeReader.swift in Sources */,
 				59504C0F24B46B9F00EA4AFF /* RoundedCorners.swift in Sources */,
+				591EA1D224C99D5500CA61AE /* BottomShadow.swift in Sources */,
 				59A3954E24A206F400D39D64 /* AppVM.swift in Sources */,
 				59A4F691247FD2150089D523 /* SceneDelegate.swift in Sources */,
 				592201AB24AA55D900025F1F /* ExpandableView.swift in Sources */,
@@ -816,6 +870,7 @@
 		};
 		59A4F6B6247FD2160089D523 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F5D1BBA3F006FE8F999EF2CF /* Pods-PulseEcoSwiftUI.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -836,6 +891,7 @@
 		};
 		59A4F6B7247FD2160089D523 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1C58AE0F686C04609FEE1C79 /* Pods-PulseEcoSwiftUI.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
