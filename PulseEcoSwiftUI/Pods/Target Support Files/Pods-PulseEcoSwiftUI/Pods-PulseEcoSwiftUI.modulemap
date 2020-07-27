@@ -1,0 +1,6 @@
+module Pods_PulseEcoSwiftUI {
+  umbrella header "Pods-PulseEcoSwiftUI-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -11,24 +11,44 @@ import SwiftUI
 struct MainView: View {
     @EnvironmentObject var appVM: AppVM
     @EnvironmentObject var dataSource: DataSource
+    @ObservedObject var userSettings = UserSettings()
     
     var body: some View {
-        LoadingView(isShowing: .constant(self.dataSource.loading)) {
+        LoadingView(isShowing: .constant(self.dataSource.loadingCityData), loadingMeasures: .constant(self.dataSource.loadingMeasures)) {
             NavigationView {
                 VStack(alignment: .center, spacing: 0) {
-                    MeasuresScrollView(measureListVM: MeasureListVM(selectedMeasure: self.appVM.selectedMeasure, cityName: self.appVM.cityName, measuresList: self.dataSource.measures, cityValues: self.dataSource.cityOverall))
-                    CityMapView().edgesIgnoringSafeArea([.horizontal,.bottom
+                    MeasureListView(viewModel: MeasureListVM(selectedMeasure: self.appVM.selectedMeasure, cityName: self.appVM.cityName, measuresList: self.dataSource.measures, cityValues: self.dataSource.cityOverall, citySelectorClicked: self.appVM.citySelectorClicked))
+                    CityMapView(viewModel: CityMapVM(blurBackground: self.appVM.blurBackground), userSettings: self.dataSource.userSettings)
+                        .edgesIgnoringSafeArea([.horizontal,.bottom
                     ])
                 }.navigationBarTitle("", displayMode: .inline)
                     .navigationBarItems(leading: Button(action: {
-                        self.appVM.citySelectorClicked = true
+                        self.appVM.citySelectorClicked.toggle()
                     }) {
-                        Text(self.appVM.cityName)
-                            .bold()
-                    }.accentColor(Color.black), trailing: Image(uiImage: UIImage(named: "logo-pulse")!).imageScale(.large).padding(.trailing, (UIWidth)/2.6).onTapGesture {
-                        //action
+                        HStack {
+                            Text(self.appVM.cityName.uppercased())
+                                .font(Font.custom("TitilliumWeb-SemiBold", size: 14))
+                                .foregroundColor(Color(AppColors.darkblue))
+                                
+                            self.appVM.cityIcon
                         }
-                )
+                    }.accentColor(Color.black), trailing: Image(uiImage: UIImage(named: "logo-pulse") ?? UIImage())
+                        .imageScale(.large)
+                        .padding(.trailing, (UIWidth)/2.6)
+                        .onTapGesture {
+                            //action
+                            if self.appVM.citySelectorClicked == false {
+                                self.appVM.showSensorDetails = false
+                                self.appVM.selectedSensor = nil
+                                self.appVM.updateMapAnnotations = true
+                                self.appVM.updateMapRegion = true
+                                self.dataSource.loadingMeasures = true
+                                self.dataSource.getMeasures()
+                                self.dataSource.loadingCityData = true
+                                self.dataSource.getValuesForCity(cityName: self.appVM.cityName)
+                            }
+                        }
+                    )
                 }.navigationBarColor(UIColor.white)
         }
     }
@@ -40,97 +60,11 @@ struct MainView_Previews: PreviewProvider {
     }
 }
 
-struct NavigationBarModifier: ViewModifier {
-        
-    var backgroundColor: UIColor?
-    
-    init( backgroundColor: UIColor?) {
-        self.backgroundColor = backgroundColor
-        let coloredAppearance = UINavigationBarAppearance()
-        coloredAppearance.configureWithTransparentBackground()
-        coloredAppearance.backgroundColor = .clear
-        coloredAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-        coloredAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-        
-        UINavigationBar.appearance().standardAppearance = coloredAppearance
-        UINavigationBar.appearance().compactAppearance = coloredAppearance
-        UINavigationBar.appearance().scrollEdgeAppearance = coloredAppearance
-        UINavigationBar.appearance().tintColor = .white
-
-    }
-    
-    func body(content: Content) -> some View {
-        ZStack{
-            content
-            VStack {
-                GeometryReader { geometry in
-                    Color(self.backgroundColor ?? .clear)
-                        .frame(height: geometry.safeAreaInsets.top)
-                        .edgesIgnoringSafeArea(.top)
-                    Spacer()
-                }
-            }
-        }
-    }
-}
 
 extension View {
- 
     func navigationBarColor(_ backgroundColor: UIColor?) -> some View {
         self.modifier(NavigationBarModifier(backgroundColor: backgroundColor))
     }
-
 }
 
-struct LoadingDialog: View {
-    var body: some View {
-      
-        Image(uiImage: UIImage(named: "launchScreenBackground")!).resizable().scaledToFill().overlay(
-            VStack {
-                Image(uiImage: UIImage(named: "launchScreenLogo")!)
-                Image(uiImage: UIImage(named: "launchScreenName")!)
-        }, alignment: .center).edgesIgnoringSafeArea(.all)
-    }
-}
 
-struct ActivityIndicator: UIViewRepresentable {
-
-    @Binding var isAnimating: Bool
-    let style: UIActivityIndicatorView.Style
-
-    func makeUIView(context: UIViewRepresentableContext<ActivityIndicator>) -> UIActivityIndicatorView {
-        return UIActivityIndicatorView(style: style)
-    }
-
-    func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityIndicator>) {
-        isAnimating ? uiView.startAnimating() : uiView.stopAnimating()
-    }
-}
-
-struct LoadingView<Content>: View where Content: View {
-    
-    @Binding var isShowing: Bool
-    var content: () -> Content
-    
-    var body: some View {
-        ZStack(alignment: .center) {
-            if self.isShowing {
-                self.content()
-                    .disabled(true)
-                    .blur(radius: 3)
-                VStack {
-                    //                    Text("Loading...")
-                    //                    ActivityIndicator(isAnimating: .constant(true), style: .large)
-                    LoadingDialog()
-                }
-                .background(Color.secondary.colorInvert())
-                .foregroundColor(Color.primary)
-            }
-            else {
-                self.content()
-                    .disabled(false)
-                    .blur(radius: 0)
-            }
-        }
-    }
-}

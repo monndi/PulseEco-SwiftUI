@@ -12,7 +12,7 @@ struct AppColors {
     static let purple = UIColor(red: 54, green: 0, blue: 166)
 	static let indigo = UIColor(red: 55, green: 17, blue: 211)
     static let gray = UIColor(white: 0.5, alpha: 1.0)
-
+    static let lightPurple = UIColor(red: 0.19, green: 0.20, blue: 0.42, alpha: 1.00)
     static var allColors: [UIColor] {
         return [blue, green, orange, purple, red, indigo, darkred, darkgreen]
     }

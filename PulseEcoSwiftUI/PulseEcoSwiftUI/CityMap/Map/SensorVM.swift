@@ -17,15 +17,22 @@ class SensorVM: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
     var type: SensorType
     var color: UIColor
+    var stamp: String
     
-    init(title: String?, sensorID: String, value: String, coordinate: CLLocationCoordinate2D, type: String, color: UIColor) {
-        self.title = title ?? "Sensor"
+    init(title: String = "",
+         sensorID: String = "",
+         value: String = "",
+         coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(),
+         type: String = "",
+         color: UIColor = UIColor.clear,
+         stamp: String = "--") {
+        self.title = title
         self.sensorID = sensorID
         self.value = value
         self.coordinate = coordinate
-        self.type = SensorType(rawValue: type)!
+        self.type = SensorType(rawValue: type) ?? SensorType.undefined
         self.color = color
+        self.stamp = stamp
     }
-    
 }
 

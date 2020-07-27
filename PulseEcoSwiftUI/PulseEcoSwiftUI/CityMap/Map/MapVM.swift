@@ -15,30 +15,30 @@ class MapVM: ObservableObject {
     var cityName: String
     var coordinates: CLLocationCoordinate2D
     var intialZoomLevel: Int
-    var cityBorderPoints: [CLLocationCoordinate2D]
+    var cityBorderPoints: [CLLocationCoordinate2D] = []
     var sensors = [SensorVM]()
     var measure: String
     
-    init(measure: String, cityName: String, sensors: [SensorModel], sensorsData: [Sensor], measures: [Measure]) {
+    init(measure: String, cityName: String, sensors: [SensorModel], sensorsData: [Sensor], measures: [Measure], city: CityModel) {
         let selectedMeasure = measures.filter{ $0.id.lowercased() == measure.lowercased()}.first ?? Measure.empty()
         self.cityName = cityName
-        self.coordinates = cityName == "Skopje" ? CLLocationCoordinate2D(latitude: 42.0016, longitude: 21.6525) : CLLocationCoordinate2D(latitude: 41.031258, longitude: 21.334063)
-        if cityName == "Cork" {
-            self.coordinates = CLLocationCoordinate2D(latitude: 51.90009636861204, longitude: -8.479385375976564)
+        self.coordinates = CLLocationCoordinate2D(latitude: Double(city.cityLocation.latitude) ?? 0.0, longitude: Double(city.cityLocation.longitute) ?? 0.0)
+        for border in city.cityBorderPoints {
+            self.cityBorderPoints.append(CLLocationCoordinate2D(latitude: Double(border.latitude) ?? 0.0, longitude:  Double(border.longitute) ?? 0.0))
         }
-        self.cityBorderPoints = [CLLocationCoordinate2D(latitude: 41.420901, longitude: 22.863232), CLLocationCoordinate2D(latitude: 41.425250, longitude: 21.4302), CLLocationCoordinate2D(latitude: 41.420049, longitude: 22.899684),CLLocationCoordinate2D(latitude: 41.407068, longitude: 22.899287),CLLocationCoordinate2D(latitude: 41.401739, longitude: 22.879608),CLLocationCoordinate2D(latitude: 41.407719, longitude: 22.863515)]
-        self.intialZoomLevel = 15
+        self.intialZoomLevel = city.intialZoomLevel
         self.sensors = combine(sensors: sensors, sensorsData: sensorsData, selectedMeasure: measure).map {
             sensor in
             let coordinates = sensor.sensorModel.position.split(separator: ",")
             return SensorVM(title: sensor.sensorModel.description,
                             sensorID: sensor.sensorData.sensorID,
                             value: sensor.sensorData.value,
-                            coordinate: CLLocationCoordinate2D(latitude: Double(coordinates[0])!, longitude: Double(coordinates[1])!),
+                            coordinate: CLLocationCoordinate2D(latitude: Double(coordinates[0]) ?? 0, longitude: Double(coordinates[1]) ?? 0),
                             type: sensor.sensorModel.type,
                             color:  AppColors.colorFrom(string: selectedMeasure.bands.first{ band in
-                                Int(sensor.sensorData.value)! >= band.from && Int(sensor.sensorData.value)! <= band.to
-                                }?.legendColor ?? "gray")
+                                Int(sensor.sensorData.value) ?? 0 >= band.from && Int(sensor.sensorData.value) ?? 0 <= band.to
+                                }?.legendColor ?? "gray"),
+                            stamp: sensor.sensorData.stamp
             )
         }
         self.measure = measure

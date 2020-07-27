@@ -17,16 +17,16 @@ class SensorDetailsVM {
     var unit: String
     var time: String
     var date: String
-    var image: String
-    
-    init(sensor: SensorVM) {
+    var image: UIImage
+    init(sensor: SensorVM, sensorsData: [Sensor], selectedMeasure: Measure) {
         self.sensorID = sensor.sensorID
         self.sensorType = sensor.type
-        self.title = sensor.title!
-        self.value = "10"
-        self.unit = "µq/m3"
-        self.date = "08.06.2020"
-        self.time = "14:10"
-        self.image = "wifiTypeIcon"
+        self.title = sensor.title ?? "Sensor"
+        self.value = sensor.value
+        self.unit = selectedMeasure.unit
+        let date = DateFormatter.iso8601Full.date(from: sensor.stamp) ?? Date()
+        self.date = DateFormatter.getDate.string(from: date)
+        self.time = DateFormatter.getTime.string(from: date)
+        self.image = sensorType.imageForType ?? UIImage()
     }
 }

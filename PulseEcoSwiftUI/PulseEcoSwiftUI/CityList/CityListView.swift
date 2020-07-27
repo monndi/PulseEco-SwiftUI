@@ -1,57 +1,66 @@
-//
-//  CityListView.swift
-//  PulseEcoSwiftUI
-//
-//  Created by Monika Dimitrova on 6/17/20.
-//  Copyright © 2020 Monika Dimitrova. All rights reserved.
-//
 
 import SwiftUI
-import MapKit
 
-struct CityList: View {
+struct CityListView: View {
     
-    var cityList: CityListVM
-    @EnvironmentObject var appVM: AppVM
-     @EnvironmentObject var dataSource: DataSource
-    let countries = [
-        "Macedonia",
-        "Switzerland"
-    ]
+    @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var dataSource: DataSource
+    @ObservedObject var viewModel: CityListVM
+    @ObservedObject var userSettings: UserSettings
     var body: some View {
-        List {
-            ForEach(countries, id: \.self) { gr in
-                Section(header: Text(gr)) {
-                    ForEach(self.cityList.cityList, id: \.id) { city in
-                        CityRow(city: city).onTapGesture {
-                            self.appVM.citySelectorClicked = false
-                            self.appVM.cityName = city.cityName
-                            self.dataSource.loading = true
-                            self.dataSource.getValuesForCity(cityName: city.cityName)
-                            self.appVM.updateMapRegion = true
-                            self.appVM.updateMapAnnotations = true
-                        }.opacity(1.0)
+        VStack {
+            VStack(spacing: 5) {
+                Text("Search city, or choose suggested").foregroundColor(Color.white)
+                SearchBar(text: self.$viewModel.searchText, placeholder: "Search City or Country")
+                    .padding(.horizontal, 10)
+                Text(self.viewModel.text).font(.headline).foregroundColor(Color.white)
+            }.padding(.top, 10)
+            ScrollView {
+                if self.viewModel.searchText.isEmpty {
+                    ForEach(self.viewModel.getCountries(), id: \.self) { elem in
+                        Section(header: HStack {
+                            Text("\(elem)")
+                                .foregroundColor(.white)
+                                .padding()
+                            Spacer()
+                        }.frame(height: 30)
+                            .background(Color(AppColors.lightPurple))
+                            .listRowInsets(EdgeInsets(
+                                top: 0,
+                                leading: 0,
+                                bottom: 0,
+                                trailing: 0))
+                        ) {
+                            ForEach(self.viewModel.getCities().filter {
+                                elem == $0.countryName
+                            }, id: \.id) { city in
+                                CityRowView(viewModel: city).onTapGesture {
+                                    if let city = self.viewModel.cityModel.first(where: { $0.cityName == city.cityName }) {
+                                        self.userSettings.favouriteCities.insert(city)
+                                        self.presentationMode.wrappedValue.dismiss()
+                                    }
+                                }
+                            }
+                        }
                     }
+                } else {
+                    self.listCities
                 }
             }
-        }.onAppear(perform: { UITableView.appearance().separatorColor = .clear })
+        }.background(Color(AppColors.darkblue))
+            .edgesIgnoringSafeArea(.all)
+    }
+    
+    var listCities: some View {
         
+        return ForEach(self.viewModel.getCities().filter{ $0.cityName.lowercased().contains(self.viewModel.searchText.lowercased()) || $0.countryName.lowercased().contains(self.viewModel.searchText.lowercased())
+        }, id: \.id) { city in
+            CityRowView(viewModel: city).onTapGesture {
+                if let city = self.viewModel.cityModel.first(where: { $0.cityName == city.cityName }) {
+                    self.userSettings.favouriteCities.insert(city)
+                    self.presentationMode.wrappedValue.dismiss()
+                }
+            }
+        }
     }
 }
-
-
-
-
-
-
-
-//        List(cityList.cityList, id: \.id) { city in
-//             Section(header: Text("Macedonia")) {
-//                CityRow(city: city).onTapGesture {
-//                    self.appVM.locationClicked = false
-//                    self.appVM.cityName = city.cityName
-//                }.opacity(1.0)
-//            }
-//        }.listStyle(.grouped)
-//.onAppear(perform: { UITableView.appearance().separatorColor = .clear })
-

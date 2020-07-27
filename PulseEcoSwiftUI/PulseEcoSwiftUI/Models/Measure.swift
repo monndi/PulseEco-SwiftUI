@@ -13,9 +13,15 @@ import SwiftUI
 struct Measure: Codable, Identifiable {
     
     
-    let id, buttonTitle, title, icon: String
+    let id: String
+    let buttonTitle: String
+    let title: String
+    let icon: String
     let description: String
-    let showMin, showMax, legendMin, legendMax: Int
+    let showMin: Int
+    let showMax: Int
+    let legendMin: Int
+    let legendMax: Int
     let unit: String
     let showMessages: Bool
     let bands: [Band]
@@ -27,9 +33,9 @@ struct Measure: Codable, Identifiable {
     }
     
     
-    static func empty() -> Measure {
+    static func empty(_ title: String = "--") -> Measure {
         return Measure(id: "--",
-                       buttonTitle: "--",
+                       buttonTitle: title,
                        title: "--",
                        icon: "wifi",
                        description: "--",
@@ -45,8 +51,13 @@ struct Measure: Codable, Identifiable {
 
 // MARK: - Band
 struct Band: Codable {
-    let from, to, legendPoint: Int
-    let legendColor, markerColor, shortGrade, grade: String
+    let from: Int
+    let to: Int
+    let legendPoint: Int
+    let legendColor: String
+    let markerColor: String
+    let shortGrade: String
+    let grade: String
     let suggestion: String
     
     static func == (lhs: Band, rhs: Band) -> Bool {
@@ -64,5 +75,4 @@ struct Band: Codable {
     }
 }
 
-typealias Measures = [Measure]
 

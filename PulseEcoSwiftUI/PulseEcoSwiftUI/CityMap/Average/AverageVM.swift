@@ -20,7 +20,10 @@ class AverageVM: ObservableObject {
     var bands: [BandVM] = []
     var min: Int
     var max: Int
-    var currBand: BandVM?
+    var currBand: BandVM = BandVM()
+    var measureBandsWidth: Double
+    var selectedMeasure: Measure = Measure.empty()
+    
     init(measure: String, cityName: String, measuresList: [Measure], cityValues: CityOverallValues?) {
         if let averageValue = cityValues?.values[measure.lowercased()] {
             if let floatValue = Float(averageValue) {
@@ -34,25 +37,17 @@ class AverageVM: ObservableObject {
             self.clickDisabled = true
             self.value = 0
         }
-        self.message = "No message!"
+        self.measureBandsWidth = 100
+        self.message = "No data available. Try again later."
         self.measure = measure
         self.unit = "µq/m3"
         self.cityName = cityName
         self.min = 0
         self.max = 200
-        if measuresList.count != 0 {
-            self.appendBands(measuresList: measuresList)
-        }
+        self.appendBands(measuresList: measuresList)
     }
     func colorForValue() -> UIColor {
-        guard let band = currBand else {
-            return UIColor.gray
-        }
-        return band.legendColor
-    }
-    
-    func shortGrade(forValue value: Int?) -> String {
-        return self.band(forValue: value)?.shortGrade ?? "--"
+        return currBand.legendColor
     }
     
     private func band(forValue value: Int?) -> BandVM? {
@@ -60,11 +55,13 @@ class AverageVM: ObservableObject {
     }
     
     func appendBands(measuresList: [Measure]) {
-        let selectedMeasure = measuresList.filter{ $0.id.lowercased() == measure.lowercased()}.first!
+        let selectedMeasure = measuresList.filter{ $0.id.lowercased() == measure.lowercased()}.first ?? Measure.empty()
+        self.selectedMeasure = selectedMeasure
         self.min = selectedMeasure.legendMin
         self.max = selectedMeasure.legendMax
+        self.measureBandsWidth = selectedMeasureRange(bands: selectedMeasure.bands)
         self.setBandsRange(bands: selectedMeasure.bands)
-        self.message = self.currBand?.grade ?? "No message!"
+        self.message = self.currBand.grade
         self.unit = selectedMeasure.unit
     }
     func selectedMeasureRange(bands: [Band]) -> Double {
@@ -77,11 +74,12 @@ class AverageVM: ObservableObject {
             }
             var bandRangeWidth = nextValue
             
-            if isHugeValue() && indx == bands.count-1 {
-                bandRangeWidth = nextValue * (Double(self.value) / Double(self.max))
+            if isHugeValue() && indx == bands.count - 1 {
+               // bandRangeWidth = nextValue * (Double(self.value) / Double(self.max))
+                bandRangeWidth = nextValue + (Double(self.value) - Double(self.max))
             }
             if isLowValue() && indx == 0 {
-                bandRangeWidth = nextValue * abs(Double(self.value) + Double(self.min))
+                bandRangeWidth = nextValue + abs(Double(self.value) + Double(self.min))
             }
             rangeWidth += bandRangeWidth
         }
@@ -98,12 +96,13 @@ class AverageVM: ObservableObject {
             var bandRangeWidth = nextValue
         
             if isHugeValue() && indx == bands.count-1 {
-                bandRangeWidth = nextValue * (Double(self.value) / Double(self.max))
+               // bandRangeWidth = nextValue * (Double(self.value) / Double(self.max))
+                bandRangeWidth = nextValue + (Double(self.value) - Double(self.max))
             }
             if isLowValue() && indx == 0 {
-                              bandRangeWidth = nextValue * abs(Double(self.value) + Double(self.min))
+                bandRangeWidth = nextValue + abs(Double(self.value) + Double(self.min))
             }
-            let width = (bandRangeWidth * 100 ) / selectedMeasureRange(bands: bands)
+            let width = (bandRangeWidth * 100 ) / self.measureBandsWidth
             let bandVM = BandVM(from: band.from, to: band.to, legendPoint: band.legendPoint, legendColor: AppColors.colorFrom(string: band.legendColor), markerColor: AppColors.colorFrom(string: band.markerColor), shortGrade: band.shortGrade, grade: band.grade, suggestion: band.suggestion, width: width)
             self.bands.append(bandVM)
             if self.valueInBand(from: band.from, to: band.to) {
@@ -119,32 +118,27 @@ class AverageVM: ObservableObject {
     }
     
     func isHugeValue() -> Bool {
-        return Int(self.value) > self.max
+        return Int(self.value) >= self.max
     }
     
     func isLowValue() -> Bool {
-        return Int(self.value) < self.min
+        return Int(self.value) <= self.min
     }
     
     func valueInBand(from: Int, to: Int) -> Bool {
         return Int(value) >= from && Int(value) <= to
     }
-    func sliderValue() -> Float {
+    func sliderValue() -> Double {
         if isHugeValue() {
-            return Float(self.max)
+            return 97
         } else if isLowValue() {
-            return Float(self.min)
+            return 0
         } else {
-            return self.value
-        }
-    }
-    func sliderRange() -> ClosedRange<Float> {
-        if isHugeValue() {
-            return Float(self.currBand?.from ?? 1)...Float(self.max + 10)
-        } else if isLowValue() {
-            return Float(self.min)...Float(self.currBand?.to ?? 1)
-        } else {
-            return Float(self.currBand?.from ?? 1)...Float(self.currBand?.to ?? 1)
+            if self.selectedMeasure.id != "temperature" {
+                 return (abs(Double(self.value)) - Double(self.min)) * 100 / self.measureBandsWidth
+            } else {
+                return (abs(Double(self.value)) - Double(self.min - 4)) * 100 / self.measureBandsWidth
+            }
         }
     }
 }
@@ -159,7 +153,15 @@ class BandVM: Identifiable {
     let grade: String
     let suggestion: String
     var width: Double
-    init(from: Int, to: Int, legendPoint: Int, legendColor: UIColor, markerColor: UIColor, shortGrade: String, grade: String, suggestion: String, width: Double) {
+    
+    init(from: Int = 1, to: Int = 1,
+         legendPoint: Int = 1,
+         legendColor: UIColor = AppColors.gray,
+         markerColor: UIColor = AppColors.gray,
+         shortGrade: String = "--",
+         grade: String = "No data available. Try again later.",
+         suggestion: String = "--",
+         width: Double = 0.0) {
         self.from = from
         self.to = to
         self.legendPoint = legendPoint

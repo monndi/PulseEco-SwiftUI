@@ -1,43 +1,28 @@
-//
-//  CityRowView.swift
-//  PulseEcoSwiftUI
-//
-//  Created by Monika Dimitrova on 6/17/20.
-//  Copyright © 2020 Monika Dimitrova. All rights reserved.
-//
 
+import Foundation
 import SwiftUI
-import CoreLocation
 
-struct CityRow: View {
-    var city: CityRowVM
+struct CityRowView: View {
+    
+    var viewModel: CityRowVM
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             HStack {
+//                Image(systemName: "pin")
+                Image(uiImage: UIImage(named: "whitepin") ?? UIImage()).resizable()
+                .frame(width: 20, height: 25)
+                    .foregroundColor(Color.white)
+                    
+                //.scaledToFit()
                 VStack(alignment: .leading) {
-                    Text(city.cityName).font(.headline)
-                    Text(city.countryName).padding(.top, 2)
-                    Text(city.message).padding(.top, 2)
+                    Text("\(self.viewModel.siteName)").foregroundColor(Color.white)
+                    Text("\(self.viewModel.countryName)").font(.system(size: 12)).foregroundColor(Color.blue)
                 }
                 Spacer()
-                RoundedRectangle(cornerRadius: 10, style: .continuous)
-                    .fill(city.color)
-                    .frame(width: 80, height: 80)
-                    .overlay(VStack {
-                        if city.noReadings == false {
-                            Text(city.value!).font(.system(size: 25))
-                            Text(city.unit)
-                        } else {
-                            Image(uiImage: UIImage(named: "exclamation")!) .resizable().scaledToFit().padding(20)
-                        }
-                    })
-                    .foregroundColor(Color.white)
-                    .padding(10)
             }
-            .padding([.leading, .top, .trailing], 10)
-            .frame(height: 90)
-            Divider()
-        }
+            Divider().background(Color.gray)
+        }.frame(height: 60)
+        .padding(.horizontal, 10)
     }
 }
