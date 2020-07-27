@@ -8,8 +8,6 @@ class ExpandedVM: ObservableObject{
     
     init(sensorData24h: [Sensor]) {
         self.sensorData24h = sensorData24h
-        for sens in sensorData24h {
-            print(sens.sensorID)
-        }
+       
     }
 }
